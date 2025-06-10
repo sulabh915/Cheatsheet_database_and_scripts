@@ -296,3 +296,7 @@ Directly run like this:
 add "Invoke-Allchecks" in end the script of PowerUP.ps1 script or any other script  
 powershell -ep bypass .\PowerUp.ps1
 ```
+
+
+![[LinEnum.sh]]![[linpeas.sh]]![[linux-exploit-suggester.sh]]![[linuxprivchecker.py]]
+![[linuxprivchecker.sh]]![[lse 1.sh]]
