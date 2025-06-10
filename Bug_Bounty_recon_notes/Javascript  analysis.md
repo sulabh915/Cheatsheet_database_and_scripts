@@ -90,6 +90,13 @@ cat js_files.txt | while read url; do
 done
 
 
+mkdir js_files
+cat live_js_urls.txt | while read url; do
+  fname=$(echo $url | sed 's|https\?://||; s|[/?=&]|_|g')
+  curl -s "$url" -o js_files/$fname.js
+done
+
+
 
 
 ```
