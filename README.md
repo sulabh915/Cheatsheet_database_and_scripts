@@ -1,1 +1,1 @@
-# Cheatsheet_database_and_scripts-
+# Cheatsheet_database_and_scripts
