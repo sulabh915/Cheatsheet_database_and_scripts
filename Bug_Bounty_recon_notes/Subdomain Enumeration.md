@@ -173,6 +173,7 @@ httpx -l subdomains.txt -hash -o response_hashes.txt
 httpx -l subdomains.txt -mc 200,403,500 -o filtered_hosts.txt
 httpx -l subdomains.txt -mr "admin" -o admin_panels.txt
 cat recon/example/domains.txt | httprobe
+cat subexample.com.txt | httpx-toolkit -ports 80,443,8080,8000,8888 -threads 200 > subexample.coms_alive.txt
 ```
 
 
