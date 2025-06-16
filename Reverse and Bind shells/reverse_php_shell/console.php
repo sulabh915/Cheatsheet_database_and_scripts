@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['cmd'])) {
         <pre><?php echo htmlspecialchars($output); ?></pre>
     <?php endif; ?>
 
-    <div class="author">~ Modified by Rohan</div>
+    
 </main>
 
 <footer>
