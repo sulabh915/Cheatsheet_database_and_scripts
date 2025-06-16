@@ -7,7 +7,7 @@ python3 -c 'import pty;pty.spawn("/bin/bash")'
 export TERM=xterm
 Ctrl + Z
 stty raw -echo; fg
-stty rows 38 columns 116
+	stty rows 38 columns 116
 echo os.system("/bin/bash")
 /bin/bash -i
 ```
