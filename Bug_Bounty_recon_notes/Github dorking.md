@@ -370,3 +370,7 @@ https://github.com/tillson/git-hound
 https://github.com/kootenpv/gittyleaks
 https://github.com/awslabs/git-secrets https://git-secret.io/
 ```
+
+
+find email using commit :
+https://ghintel.secrets.ninja/
