@@ -291,7 +291,7 @@ using nuclei :
 cat domains.txt | nuclei -t gitExposed.yaml
 ```
 
-find .git file :
+find .git file  using GitTools, git-dumper or git-extractor:
 ```bash
 httpx-toolkit -l subs.txt -path /.git/ -mc 200
 
@@ -309,6 +309,15 @@ git checkout .
 ```
 
 
+using github-dork search with username :
+```bash
+github-dork.py -r techgaun/github-dorks                          # search a single repo
+github-dork.py -u techgaun                                       # search all repos of a user
+github-dork.py -u dev-nepal                                      # search all repos of an organization
+GH_USER=techgaun GH_PWD=<mypass> github-dork.py -u dev-nepal     # search as authenticated user
+GH_TOKEN=<github_token> github-dork.py -u dev-nepal              # search using auth token
+GH_URL=https://github.example.com github-dork.py -u dev-nepal    # search a GitHub Enterprise instance
+```
 
 Important keyword :
 ```bah
@@ -350,3 +359,14 @@ key| .git| access key| secret token| oauth_token| oauth_token_secret"
 
 if we found any sensitive information like api keys used this github repo for verify the leaked api keys.
 https://github.com/streaak/keyhacks?tab=readme-ov-file
+
+
+
+```bash
+https://github.com/BishopFox/GitGot
+https://github.com/Talkaboutcybersecurity/GitMonitor
+https://github.com/michenriksen/gitrob
+https://github.com/tillson/git-hound
+https://github.com/kootenpv/gittyleaks
+https://github.com/awslabs/git-secrets https://git-secret.io/
+```
