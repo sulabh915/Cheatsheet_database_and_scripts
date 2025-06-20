@@ -150,6 +150,15 @@ cat resolved.txt | httpx -silent -title -status-code -o live-assets.txt
 generate api token from developer setting from github.
 ```
 
+vhost enumeration :
+```bash
+ffuf -w wordlist.txt -u https://target.com -H "Host: FUZZ.target.com"
+cat subdomains.txt | httpx -title -web-server -ip -status-code -o vhosts.txt
+
+
+https://www.ipneighbour.com/#/lookup/feedingindia.org
+https://www.yougetsignal.com/tools/web-sites-on-web-server/
+```
 
 
 Combine , sort and unique :
