@@ -269,9 +269,6 @@ http://example.com/secret/https://example.com/secret/
 ```
 
 
-
-
-
 ✔️ Check for WAF/CDN filtering that may be bypassed.
 
 
@@ -281,3 +278,23 @@ https://github.com/Dheerajmadhukar/4-ZERO-3
 https://github.com/byt3hx/403-bypass
 https://github.com/offsecdawn/403bypass?source=post_page-----50bc0663daa0---------------------------------------
 https://portswigger.net/bappstore/444407b96d9c4de0adb7aed89e826122
+
+
+
+Find real IP behind WAF :
+
+- search domain name in shodan or censys
+	- https://securitytrails.com/
+	- https://search.censys.io/
+	- https://github.com/m0rtem/CloudFail
+	- https://www.shodan.io/
+	- shodan search query : "ssl.cert.subject.CN=DomainName.com" or "http.title:’Welcome to NGINX’"
+
+
+
+
+
+
+Automated tools :
+https://github.com/Dheerajmadhukar/Lilly
+https://github.com/Dheerajmadhukar/4-ZERO-3
