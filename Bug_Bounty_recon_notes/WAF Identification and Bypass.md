@@ -283,6 +283,7 @@ https://portswigger.net/bappstore/444407b96d9c4de0adb7aed89e826122
 
 Find real IP behind WAF :
 
+Technique 1: Direct search 
 - search domain name in shodan or censys
 	- https://securitytrails.com/
 	- https://search.censys.io/
@@ -291,10 +292,48 @@ Find real IP behind WAF :
 	- shodan search query : "ssl.cert.subject.CN=DomainName.com" or "http.title:’Welcome to NGINX’"
 
 
+Technique 2 : Certificate.
+```bash
+censys search 'parsed.subject_dn: "CN=target.com"' --index-type certificates
+```
+
+Technique 3. Subdomains
+using the identify the subdomain misconfigure route to cdn
+```bash
+# Step 1: Gather subdomains
+subfinder -d target.com -all -o subs.txt
+amass enum -passive -d target.com -o amass_subs.txt
+cat subs.txt amass_subs.txt | sort -u > all_subs.txt
+
+# Step 2: Probe live subdomains
+httpx -l all_subs.txt -ip -sc -title -o live_subs.txt
+
+# Step 3: Extract subdomains pointing to real IPs (non-CDN)
+cat live_subs.txt | grep -vE 'cloudflare|akamai|fastly' > potential_origin_ips.txt
+
+dnsx -l all_subs.txt -a -resp-only | tee subdomain_ips.txt
+
+```
 
 
+Technique 4. DNS History:
+```bash
 
+SecurityTrails (https://securitytrails.com)
+Complete DNS (https://completedns.com/dns-history/)
+https://viewdns.info/iphistory/
+```
+
+
+Technique 5: using favicon hash:
+```bash
+Identifying the favicon URL of the web site under consideration.
+Getting MD5 hash of the favicon.
+To look for this hash in websites that specialize in security, this is either Shodan or Censys .
+Analyzing returned IPs to find out possible origin servers.
+```
 
 Automated tools :
 https://github.com/Dheerajmadhukar/Lilly
 https://github.com/Dheerajmadhukar/4-ZERO-3
+https://github.com/zidansec/CloudPeler
