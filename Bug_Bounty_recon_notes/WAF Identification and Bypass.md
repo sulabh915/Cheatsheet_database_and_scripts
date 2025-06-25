@@ -91,6 +91,9 @@ SELECT%u0020*%u0020FROM%u0020users%u0020WHERE%u0020id=1
  ' OR 1=1 --'
  %27%20OR%201%3D1%20--
 
+curl -X GET "https://target.com/%75%73%65%72" \  
+-H "Accept: */*"  # /user endpoint obfuscated
+
 #Base64 encode payloads
 #Use JSON or XML-based requests instead of URL parameters
 #Use multipart/form-data to deliver payloads hidden in file uploads or fields
