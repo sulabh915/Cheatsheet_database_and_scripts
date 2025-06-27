@@ -312,14 +312,16 @@ Technique 1: Direct search
 	- https://github.com/m0rtem/CloudFail
 	- https://www.shodan.io/
 	- shodan search query : "ssl.cert.subject.CN=DomainName.com" or "http.title:’Welcome to NGINX’"
+	- hostname:target-domain.com.
 
+Technique 2 : perform reverse dns lookup
 
-Technique 2 : Certificate.
+Technique 3 : Certificate.
 ```bash
 censys search 'parsed.subject_dn: "CN=target.com"' --index-type certificates
 ```
 
-Technique 3. Subdomains
+Technique 4. Subdomains
 using the identify the subdomain misconfigure route to cdn
 ```bash
 # Step 1: Gather subdomains
@@ -338,7 +340,7 @@ dnsx -l all_subs.txt -a -resp-only | tee subdomain_ips.txt
 ```
 
 
-Technique 4. DNS History:
+Technique 5. DNS History:
 ```bash
 
 SecurityTrails (https://securitytrails.com)
@@ -347,7 +349,7 @@ https://viewdns.info/iphistory/
 ```
 
 
-Technique 5: using favicon hash:
+Technique 6: using favicon hash:
 ```bash
 Identifying the favicon URL of the web site under consideration.
 Getting MD5 hash of the favicon.
@@ -355,7 +357,16 @@ To look for this hash in websites that specialize in security, this is either Sh
 Analyzing returned IPs to find out possible origin servers.
 ```
 
+
+ Technique 7: SPF Record Investigation
+```bash
+dig TXT domain.com | grep "vspf1"
+```
+
+
+
 Automated tools :
 https://github.com/Dheerajmadhukar/Lilly
 https://github.com/Dheerajmadhukar/4-ZERO-3
 https://github.com/zidansec/CloudPeler
+https://github.com/hakluke/hakoriginfinder
