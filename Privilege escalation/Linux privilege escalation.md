@@ -87,6 +87,13 @@ unshadow passwd_copy.txt shadow_copy.txt > unshadowed.txt
 hashcat -m 1800 unshadowed.txt rockyou.txt --force
 ```
 
+## Checking environment :
+```bash
+env
+set
+```
+
+
 
 ### Exploiting LD_PRELOAD env :
 ```c
