@@ -73,6 +73,8 @@ cat params.txt  | gf interestingEXT > interestingEXT_param.txt
 cat params.txt  | gf interestingsubs > interestingsubs_param.txt
 cat params.tx   | gf ssti > idor_param.txt
 or more ...
+
+https://github.com/thecybertix/GF-Patterns/blob/main/gf.sh
 ```
 
 
