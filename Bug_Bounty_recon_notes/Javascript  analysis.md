@@ -233,6 +233,46 @@ copy and paste in console
 ```
 
 
+```bash
+import requests
+import re
+from bs4 import BeautifulSoup
+
+# Target URL
+target = "https://target.com"
+
+# Fetch page source
+response = requests.get(target)
+soup = BeautifulSoup(response.text, "html.parser")
+
+# Extract JS files
+js_files = set()
+for script in soup.find_all("script"):
+    if script.get("src"):
+        js_url = script.get("src")
+        if not js_url.startswith("http"):
+            js_url = target + js_url
+        js_files.add(js_url)
+
+print("\n[+] Found JavaScript Files:")
+for js in js_files:
+    print(js)
+
+# Extract endpoints from JS files
+print("\n[+] Extracting endpoints from JavaScript:")
+endpoints = set()
+for js in js_files:
+    try:
+        js_response = requests.get(js)
+        found_endpoints = re.findall(r'\/[a-zA-Z0-9_\-/]*', js_response.text)
+        for ep in found_endpoints:
+            endpoints.add(ep)
+    except:
+        pass
+
+for endpoint in endpoints:
+    print(endpoint)
+```
 
 
 
