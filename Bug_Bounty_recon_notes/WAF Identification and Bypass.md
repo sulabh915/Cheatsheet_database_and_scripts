@@ -346,6 +346,7 @@ Technique 1: Direct search
 	- https://www.greynoise.io/community
 	- shodan search query : "ssl.cert.subject.CN=DomainName.com" or "http.title:’Welcome to NGINX’"
 	- hostname:target-domain.com.
+	- https://github.com/nullfuzz-pentest/shodan-dorks
 
 Technique 2 : perform reverse dns lookup
 
@@ -403,3 +404,4 @@ https://github.com/Dheerajmadhukar/Lilly
 https://github.com/Dheerajmadhukar/4-ZERO-3
 https://github.com/zidansec/CloudPeler
 https://github.com/hakluke/hakoriginfinder
+https://github.com/musana/CF-Hero
