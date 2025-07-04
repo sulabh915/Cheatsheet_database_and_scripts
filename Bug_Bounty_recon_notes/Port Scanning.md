@@ -11,6 +11,10 @@ asnmap -a <asn number>
 asnmap -org GOOGLE
 ```
 
+```bash
+echo 17.0.0.0/18 | mapcidr -slient | dnsx -ptr -resp-only 
+```
+
 getting all possible live ip address:
 ```bash
 asnmap -a AS134027 -silent | sort -u | mapcidr -silent > all_ip.txt
@@ -44,6 +48,11 @@ const ips = Array.from(document.querySelectorAll('div.apoUv'))
 console.log("Extracted IPs:", ips);
 console.log("Copy-pasteable list:\n" + ips.join("\n"));
 ```
+
+ssl.cert.subject.cn:"ferrero.com"
+hostname:"*.example.com"
+
+or search other search engine like above .
 
 
 Identify the alive ip address :
@@ -90,3 +99,42 @@ echo hackerone.com | naabu -nmap-cli 'nmap -sV -oX nmap-output'
 ```
 
 
+using search engine for port scan:
+```bash
+shodan:
+hostname:"example.com" port:21,22,23,80,443,8080,8443,3306,6379,27017
+ssl.cert.subject.cn:"example.com"
+
+censys:
+services.service_name:HTTP AND services.tls.certificates.leaf_data.subject.common_name: "example.com"
+services.port:22 AND location.country: "United States"
+
+zoomeye:
+site:"example.com"
+site:"example.com" port:22
+
+Binaryedge:
+domain:example.com
+domain:example.com port:80
+```
+
+
+Scan subdomain ports:
+```bash
+naabu -iL fina_sub.txt -p 80,443,8080,8443,22,21,3306,5432,6379,27017 \
+-rate 1000 -verify -silent -o open_ports.txt
+
+naabu -iL live_sub.txt -p 80,443,8080,8443 -nmap-cli 'nmap -sV -Pn -T4' -o naabu_nmap.txt
+
+naabu -iL live_sub.txt -top-ports 100 -rate 2000 -verify -silent -o open_ports.txt
+cat open_ports.txt | httpx -silent -o alive_ports.txt
+
+dnsx -l live_sub.txt -o resolved_ips.txt -silent
+masscan -p1-65535 -iL resolved_ips.txt --rate 10000 -oG masscan_output.gnmap
+
+nmap -iL live_sub.txt -Pn -p 80,443,8080,8443,22 --open -T4 -oN nmap_ports.txt
+
+#for only http and https server.
+httpx -l live_sub.txt -p 80,443,8000,8080,8443 -silent -o http_alive.txt
+
+```
