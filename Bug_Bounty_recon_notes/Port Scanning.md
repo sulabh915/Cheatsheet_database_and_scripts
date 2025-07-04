@@ -65,6 +65,8 @@ masscan -iL ips.txt -p80 -oG - | grep 'open' | awk '{print $2}' | httpx -silent
 masscan <target> -p 21,22,23,25,53,80,110,111,135,139,143,443,445,993,995,1723,3306,3389,5900,8080
 --http-user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0" --rate 100000 --oL "output.txt"
 
+masscan -p1-65535 --rate 10000 -oL masscan_results. txt target.com'
+
 
 masscan 10.1.1.1/24 -p 0-65535 --rate 1000000 --open-only --http-user-agent \
 "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0"\
@@ -86,3 +88,5 @@ naabu -iL live_hosts.txt -p 80,443,8000,8080,8443 -rate 10000 -o open_ports.txt 
 echo hackerone.com | naabu -nmap-cli 'nmap -sV -oX nmap-output'
 
 ```
+
+
