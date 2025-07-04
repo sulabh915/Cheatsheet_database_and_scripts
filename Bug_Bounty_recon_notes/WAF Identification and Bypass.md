@@ -341,6 +341,9 @@ Technique 1: Direct search
 	- https://search.censys.io/
 	- https://github.com/m0rtem/CloudFail
 	- https://www.shodan.io/
+	- https://www.zoomeye.ai/
+	- https://en.fofa.info/
+	- https://www.greynoise.io/community
 	- shodan search query : "ssl.cert.subject.CN=DomainName.com" or "http.title:’Welcome to NGINX’"
 	- hostname:target-domain.com.
 	- https://github.com/nullfuzz-pentest/shodan-dorks

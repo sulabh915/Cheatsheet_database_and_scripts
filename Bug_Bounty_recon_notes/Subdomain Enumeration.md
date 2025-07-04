@@ -186,6 +186,14 @@ cat subexample.com.txt | httpx-toolkit -ports 80,443,8080,8000,8888 -threads 200
 ```
 
 
+Search using favicon hash:
+
+upload the favicon to this site :
+https://www.zoomeye.ai/?q=aWNvbmhhc2g9IjE1OTNmMTQ2NTBlNGIzOTM0ZDJhNmI0NmQ4NDRlOTA2Ig%3D%3D
+
+
+
+
 Massdns
 ```bash
 massdns -r resolvers.txt -t A -o S -w resolved.txt domains.txt
@@ -208,3 +216,4 @@ gowitness scan cidr -c 10.10.1.0/24 --threads 20 --write-db
 gowitness scan nmap -f ./nmap.xml --port 443 --screenshot-fullpage
 
 ```
+
