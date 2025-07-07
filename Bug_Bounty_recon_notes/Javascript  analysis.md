@@ -178,6 +178,9 @@ cat live_js_urls.txt | while read url; do
   curl -s "$url" | grep -Ei '(api[_-]?key|secret|token|auth|bearer|firebase)'
 done
 
+cat all-urls.txt | grep -Ei "\\.js$" | grep -vE "jquery|bootstrap|analytics" | anew js-files.txt
+cat js-files.txt | httpx -status-code -silent -mc 200 | anew live-js.txt
+cat live-js.txt | while read url; do curl -s "$url" | grep -E "apiKey|auth|token|secret|key" --color=always; done
 
 
 ```
@@ -274,7 +277,7 @@ for endpoint in endpoints:
     print(endpoint)
 ```
 
-
+https://medium.com/@cyphernova1337/how-i-used-the-js-map-file-to-gain-admin-access-e30e6f00adb7
 
 JS Recon Pentest Guide:
 

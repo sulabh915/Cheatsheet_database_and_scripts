@@ -22,6 +22,7 @@ gau example.com | grep '?' | grep '^https://' | sort -u > urls_with_params.txt
 gau example.com | grep '?' | grep 'sub.example.com' | sort -u > urls_with_params.txt
 gau example.com | grep '?' | grep -v '&' | sort -u > urls_with_params.txt
 gau example.com | grep '^https://' | grep '?' | grep -v '&' | grep -vE '\.css|\.js|\.jpg|\.png|\.gif' | sort -u > filtered_urls_with_params.txt
+cat all-urls.txt | grep "\\?" | anew urls-with-params.txt
 ```
 
 using waybackurls:
@@ -72,6 +73,9 @@ cat params.txt  | gf img-traversal > img-traversal_param.txt
 cat params.txt  | gf interestingEXT > interestingEXT_param.txt
 cat params.txt  | gf interestingsubs > interestingsubs_param.txt
 cat params.tx   | gf ssti > idor_param.txt
+gf xss < urls-with-params.txt > xss.txt
+gf ssti < urls-with-params.txt > ssti.txt
+gf redirect < urls-with-params.txt > redirect.txt
 or more ...
 
 https://github.com/thecybertix/GF-Patterns/blob/main/gf.sh

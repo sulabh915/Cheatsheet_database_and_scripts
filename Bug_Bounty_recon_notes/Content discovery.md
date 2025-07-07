@@ -62,6 +62,10 @@ gobuster fuzz -u https://target.com/api/FUZZ -w endpoints.txt -t 40 -k
 gobuster s3 -w bucket-names.txt
 ```
 
+```bash
+cat filtered-files.txt | cut -d '/' -f4- | sort -u > filepaths.txt
+```
+
 Used burpsuite crawler 
 
 - Check robots.txt

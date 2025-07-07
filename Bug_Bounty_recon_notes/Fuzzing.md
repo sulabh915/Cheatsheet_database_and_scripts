@@ -226,3 +226,4 @@ wfuzz -w wordlist/general/common.txt http://testphp.vulnweb.com/FUZZ
 wfuzz -w wordlist/general/common.txt --sc 200,301 http://testphp.vulnweb.com/FUZZ
 
 ```
+
