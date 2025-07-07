@@ -220,6 +220,8 @@ whois 192.30.252.153 | grep "OrgName" #check for ip addresss orgname
 https://github.com/anshumanbh/tko-subs
 https://github.com/mhmdiaa/second-order
 https://github.com/punk-security/dnsReaper
+
+dig a "*.shopify.com"
 ```
 
 
