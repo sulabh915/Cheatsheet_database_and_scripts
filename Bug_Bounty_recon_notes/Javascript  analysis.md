@@ -277,7 +277,7 @@ for endpoint in endpoints:
     print(endpoint)
 ```
 
-
+https://medium.com/@cyphernova1337/how-i-used-the-js-map-file-to-gain-admin-access-e30e6f00adb7
 
 JS Recon Pentest Guide:
 
