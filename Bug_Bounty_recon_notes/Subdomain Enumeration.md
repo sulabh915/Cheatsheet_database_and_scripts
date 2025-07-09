@@ -194,6 +194,7 @@ https://www.zoomeye.ai/?q=aWNvbmhhc2g9IjE1OTNmMTQ2NTBlNGIzOTM0ZDJhNmI0NmQ4NDRlOT
 
 
 
+
 Massdns
 ```bash
 massdns -r resolvers.txt -t A -o S -w resolved.txt domains.txt
@@ -207,6 +208,23 @@ grep -Eo "https?://[a-zA-Z0-9./?=_-]*" js-files.txt | grep target.com
 python3 linkfinder.py -i js-files.txt -o output.html
 
 ```
+
+
+Subdomain Takeover :
+check for subdomain takeover
+```bash
+nuclei -l testlafinal.txt -t /root/subdomain-takeover.yml -vv
+./subzy run --targets list.txt
+whois 192.30.252.153 | grep "OrgName" #check for ip addresss orgname
+./subjack -w subdomains.txt -t 100 -timeout 30 -o results.txt -ssl
+https://github.com/anshumanbh/tko-subs
+https://github.com/mhmdiaa/second-order
+https://github.com/punk-security/dnsReaper
+
+dig a "*.shopify.com"
+```
+
+
 
 ##### Screenshoting :
 ```bash
