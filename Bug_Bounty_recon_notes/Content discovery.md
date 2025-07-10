@@ -66,6 +66,11 @@ gobuster s3 -w bucket-names.txt
 cat filtered-files.txt | cut -d '/' -f4- | sort -u > filepaths.txt
 ```
 
+```bash
+assetfinder --subs-only bugcrowd.com | tee subs.txt | httprobe | anew hosts; med -d 1000 -v /
+```
+
+
 Used burpsuite crawler 
 
 - Check robots.txt
