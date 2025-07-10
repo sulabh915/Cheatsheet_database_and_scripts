@@ -331,29 +331,29 @@ password|jdbc |db|sq1|secret jet| config|admin|pwd|json|gcp|htaccess|.env|ssh
 key| .git| access key| secret token| oauth_token| oauth_token_secret"
 ```
 
-| **Dorking Operator** | **Description** |
-| --- | --- |
-| `site:github.com` | Searches only within GitHub. |
-| `filename:<filename>` | Finds specific files (e.g., `filename:.env`). |
-| `extension:<file-extension>` | Searches for specific file types (e.g., `extension:json`). |
-| `org:<organization-name>` | Finds repositories under a specific GitHub organization. |
-| `repo:<repository-name>` | Searches within a specific repository. |
-| `"keyword"` | Finds exact matches for a keyword. |
-| `api_key` | Searches for exposed API keys. |
-| `password` | Finds occurrences of the word “password” in code. |
-| `secret` | Searches for secrets in public repositories. |
-| `AWS_ACCESS_KEY_ID` | Looks for exposed AWS credentials. |
-| `"BEGIN RSA PRIVATE KEY"` | Finds private SSH keys. 🚨 High risk! |
-| `filename:.env` | Searches for `.env` files (may contain secrets). |
-| `filename:.git-credentials` | Looks for Git authentication credentials. |
-| `filename:id_rsa` | Finds SSH private keys. 🚨 High risk! |
-| `filename:config` | Searches for generic config files. |
-| `filename:credentials extension:ini` | Finds credentials stored in `.ini` files. |
-| `DB_PASSWORD` | Searches for database passwords in code. |
-| `"mongodb://"` | Looks for exposed MongoDB connection strings. |
-| `INSERT INTO users` | Searches for SQL statements with user data. |
-| `filename:*.pem` | Finds private key files with `.pem` extension. |
-| `filename:*.env` | Looks for environment variable files.se |
+| **Dorking Operator**                 | **Description**                                            |
+| ------------------------------------ | ---------------------------------------------------------- |
+| `site:github.com`                    | Searches only within GitHub.                               |
+| `filename:<filename>`                | Finds specific files (e.g., `filename:.env`).              |
+| `extension:<file-extension>`         | Searches for specific file types (e.g., `extension:json`). |
+| `org:<organization-name>`            | Finds repositories under a specific GitHub organization.   |
+| `repo:<repository-name>`             | Searches within a specific repository.                     |
+| `"keyword"`                          | Finds exact matches for a keyword.                         |
+| `api_key`                            | Searches for exposed API keys.                             |
+| `password`                           | Finds occurrences of the word “password” in code.          |
+| `secret`                             | Searches for secrets in public repositories.               |
+| `AWS_ACCESS_KEY_ID`                  | Looks for exposed AWS credentials.                         |
+| `"BEGIN RSA PRIVATE KEY"`            | Finds private SSH keys. High risk!                         |
+| `filename:.env`                      | Searches for `.env` files (may contain secrets).           |
+| `filename:.git-credentials`          | Looks for Git authentication credentials.                  |
+| `filename:id_rsa`                    | Finds SSH private keys. High risk!                         |
+| `filename:config`                    | Searches for generic config files.                         |
+| `filename:credentials extension:ini` | Finds credentials stored in `.ini` files.                  |
+| `DB_PASSWORD`                        | Searches for database passwords in code.                   |
+| `"mongodb://"`                       | Looks for exposed MongoDB connection strings.              |
+| `INSERT INTO users`                  | Searches for SQL statements with user data.                |
+| `filename:*.pem`                     | Finds private key files with `.pem` extension.             |
+| `filename:*.env`                     | Looks for environment variable files.se                    |
 
 
 

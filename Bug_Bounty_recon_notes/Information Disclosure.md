@@ -52,6 +52,10 @@ Backupfinder :
 git clone https://github.com/anmolksachan/WayBackupFinder.git
 cd WayBackupFinder
 python3 wayBackupFinder.py
+
+
+#backup filename generator:
+https://github.com/Nishantbhagat57/backup-gen
 ```
 
 using nuclei tool:
