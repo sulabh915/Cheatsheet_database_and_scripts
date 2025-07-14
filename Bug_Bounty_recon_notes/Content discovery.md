@@ -70,6 +70,9 @@ cat filtered-files.txt | cut -d '/' -f4- | sort -u > filepaths.txt
 assetfinder --subs-only bugcrowd.com | tee subs.txt | httprobe | anew hosts; med -d 1000 -v /
 ```
 
+```bash
+python3 thetimemachine.py example.com --fetch
+```
 
 Used burpsuite crawler 
 
