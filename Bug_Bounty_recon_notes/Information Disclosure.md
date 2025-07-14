@@ -76,4 +76,3 @@ using github recon :
 filename:.env DB_PASSWORD site:github.com
 cat targets.txt | waybackurls | grep -Ei "\.(env|sql|log|bak)$"
 ```
->>>>>>> origin/main
