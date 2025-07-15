@@ -4,6 +4,18 @@ SUBDOMAIN ENUMERATION ALL POSSIBLE COMBINATION:
 dig:
 ```bash
 dig axfr @target.com
+dig AXFR example.com @ns1.example.com
+host -l example.com ns1.example.com
+
+nslookup
+> server ns1.example.com
+> ls -d example.com
+
+dnsrecon -d example.com -t axfr
+
+#Used in CTF:
+#if box running dns server.
+dig axfr @<BOX IP ADDRSSS>  <Domain name of box like "matrix.htb">
 ```
 
 Sublist3r all possible combination :
