@@ -115,6 +115,13 @@ gospider -s https://target.com -d 2 -t 10 --js --quiet | tee gospider_output.txt
 cat gospider_output.txt | grep -Eo 'name="[^"]+"|id="[^"]+"' | sort -u > attribute_params.txt
 ```
 
+using time machine :
+```bash
+python3 thetimemachine.py example.com --parameters
+```
+
+
+
 using javascript recon variable parameter:
 ```bash
 mkdir js_files

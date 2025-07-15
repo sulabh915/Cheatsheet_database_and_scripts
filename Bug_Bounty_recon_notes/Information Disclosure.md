@@ -76,3 +76,10 @@ using github recon :
 filename:.env DB_PASSWORD site:github.com
 cat targets.txt | waybackurls | grep -Ei "\.(env|sql|log|bak)$"
 ```
+
+using time machine :
+```bash 
+python3 thetimemachine.py example.com --backups
+python3 thetimemachine.py example.com --listings
+python3 thetimemachine.py example.com --jwt
+```
