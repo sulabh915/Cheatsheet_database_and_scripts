@@ -15,6 +15,11 @@ asnmap -org GOOGLE
 echo 17.0.0.0/18 | mapcidr -slient | dnsx -ptr -resp-only 
 ```
 
+using nmap :
+```bash
+nmap -p- --min-rate 1000 -T4 -A target.com -oA fullscan
+```
+
 getting all possible live ip address:
 ```bash
 asnmap -a AS134027 -silent | sort -u | mapcidr -silent > all_ip.txt
@@ -80,6 +85,8 @@ masscan -p1-65535 --rate 10000 -oL masscan_results. txt target.com'
 masscan 10.1.1.1/24 -p 0-65535 --rate 1000000 --open-only --http-user-agent \
 "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0"\
  -oL "output.txt"
+
+masscan -p0-65535 target.com --rate 100000 -oG masscan-results.txt
 ```
 
 using naabu:
@@ -95,6 +102,7 @@ naabu -iL targets.txt -o ports.txt
 naabu -list domains.txt -verify -resolvers resolvers.txt
 naabu -iL live_hosts.txt -p 80,443,8000,8080,8443 -rate 10000 -o open_ports.txt -silent
 echo hackerone.com | naabu -nmap-cli 'nmap -sV -oX nmap-output'
+naabu -list ip.txt -c 50 -nmap-cli 'nmap -sV -SC' -o naabu-full.txt
 
 ```
 

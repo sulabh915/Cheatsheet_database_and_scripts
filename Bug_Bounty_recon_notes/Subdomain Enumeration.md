@@ -34,7 +34,8 @@ Subfinder :
 
 subfinder -d target.com -recursive
 subfinder -d target.com -all -r resolvers.txt
-subfinder -dL domains.txt -all -recursive
+subfinder -dL domains.txt -all -recursive\
+subfinder -d example.com -all -recursive -o subfinder.txt
 
 ```
 
@@ -63,6 +64,9 @@ grep -oP '\b(?:[a-zA-Z0-9-]+\.)+nokia\.com\b' amass_nokia.txt | grep -v '^nokia\
 
 amass enum -d target.com -brute -active -min-for-recursive 3 -oA fullscan -r /usr/share/wordlists/seclists/Miscellaneous/dns-resolvers.txt
 
+amass enum -passive -d example.com | cut -d']' -f 2 | awk '{print $1}' | sort -u > amass.txt 
+amass enum -active -d example.com | cut -d']' -f 2 | awk '{print $1}' | sort -u > amass.txt
+
 ```
 
 
@@ -86,13 +90,16 @@ altdns -i all-passive-subdomains.txt -o permutations.txt -w words.txt
 
 Alterx :
 ```bash
-
+subfinder -d domain.com | alterx | dnsx
+echo doamin.com | alterx -enrich | dnsx 
+echo doamin.com | alterx -pp word=/usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt | dnsx
 ```
 
 
 assetfinder:
 ```bash
 assetfinder subs-only target.com
+assetfinder --subs-only example.com > assetfinder.txt
 ```
 
 
@@ -110,7 +117,8 @@ python3 dnscan.py -d dev-%%.example.com -w words.txt
 python3 dnscan.py -d target.com -w words.txt -o raw.txt
 cat raw.txt | cut -d ' ' -f1 | dnsx -silent -r resolvers.txt -o alive.txt
 
-
+(bruforce suing ffuf)
+ffuf -u "https://FUZZ.target.com" -w wordlist.txt -mc 200,301,302
 ```
 
 dnsshuffle:
@@ -147,7 +155,7 @@ github-subdomains -d example.com -t ghp_xxx -e
 github-subdomains -d example.com -t ghp_xxx -q
 github-subdomains -d example.com -t ghp_xxx -raw
 github-subdomains -d example.com -t ghp_xxx -k
-
+github-subdomains -d domain.com -t [github_token]
 
 github-subdomains -d example.com -t ~/.tokens -e -raw -o sub_target.txt
 
@@ -162,6 +170,17 @@ cat resolved.txt | httpx -silent -title -status-code -o live-assets.txt
 generate api token from developer setting from github.
 ```
 
+
+using some public sources :
+```bash
+curl -s https://crt.sh\?q\=\domain.com\&output\=json | jq -r '.[].name_value' | grep -Po '(\w+\.\w+\.\w+)$' >crtsh.txt
+curl -s "http://web.archive.org/cdx/search/cdx?url=*.hackerone.com/*&output=text&fl=original&collapse=urlkey" |sort| sed -e 's_https*://__' -e "s/\/.*//" -e 's/:.*//' -e 's/^www\.//' | sort -u > wayback.txt
+curl -s "https://www.virustotal.com/vtapi/v2/domain/report?apikey=[api-key]&domain=www.nasa.gov" | jq -r '.domain_siblings[]' | >virustotal.txt
+```
+
+
+
+
 vhost enumeration :
 ```bash
 ffuf -w wordlist.txt -u https://target.com -H "Host: FUZZ.target.com"
@@ -173,6 +192,24 @@ https://www.yougetsignal.com/tools/web-sites-on-web-server/
 ```
 
 
+using discover hosts via IP Address and ASN Mapping
+```bash
+asnmap -d domain.com | dnsx -silent -resp-only
+amass intel -org "nasa"
+amass intel -active -cidr 159.69.129.82/32
+amass intel -active -asn [asnno]
+```
+
+Harvesting IP Addresses Linked to Domains:
+```bash
+curl -s "https://www.virustotal.com/vtapi/v2/domain/report?domain=<DOMAIN>&apikey=[api-key]" | jq -r '.. | .ip_address? // empty' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}'
+curl -s "https://otx.alienvault.com/api/v1/indicators/hostname/<DOMAIN>/url_list?limit=500&page=1" | jq -r '.url_list[]?.result?.urlworker?.ip // empty' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}'
+curl -s "https://urlscan.io/api/v1/search/?q=domain:<DOMAIN>&size=10000" | jq -r '.results[]?.page?.ip // empty' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}'
+cat domains.txt | cut -d']' -f2 | awk '{print $2}' | tr ',' '\n' | sort -u > amass.txt
+grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"
+shodan search Ssl.cert.subject.CN:"<DOMAIN>" 200 --fields ip_str | httpx-toolkit -sc -title -server -td
+```
+
 Combine , sort and unique :
 ```bash
 cat file1.txt file2.txt file3.txt > combined.txt 
@@ -180,6 +217,7 @@ sort combined.txt | uniq > sorted_unique.txt
 cat file1.txt file2.txt file3.txt | sort | anew finalnokia.txt 
 cat file1.txt file2.txt file3.txt | sort -u > finalnokia.txt
 cat file1 file2 | sort -u | tee final.txt
+cat *.txt | sort -u > final.txt
 ```
 
 
@@ -195,6 +233,7 @@ httpx -l subdomains.txt -mc 200,403,500 -o filtered_hosts.txt
 httpx -l subdomains.txt -mr "admin" -o admin_panels.txt
 cat recon/example/domains.txt | httprobe
 cat subexample.com.txt | httpx-toolkit -ports 80,443,8080,8000,8888 -threads 200 > subexample.coms_alive.txt
+cat subdomain.txt | httpx-toolkit -ports 80,443,8080,8000,8888 -threads 200 > subdomains_alive.txt
 ```
 
 
@@ -204,7 +243,10 @@ upload the favicon to this site :
 https://www.zoomeye.ai/?q=aWNvbmhhc2g9IjE1OTNmMTQ2NTBlNGIzOTM0ZDJhNmI0NmQ4NDRlOTA2Ig%3D%3D
 
 
-
+using Findomaion:
+```bash
+findomain -t target.com | tee findomain.txt
+```
 
 
 Massdns
@@ -233,6 +275,8 @@ https://github.com/anshumanbh/tko-subs
 https://github.com/mhmdiaa/second-order
 https://github.com/punk-security/dnsReaper
 
+subzy run --targets subdomains.txt --concurrency 100 --hide_fails --verify_ssl
+
 dig a "*.shopify.com"
 ```
 
@@ -244,6 +288,10 @@ gowitness scan file -f live.txt --write-db --write-jsonl --write-csv --screensho
 
 gowitness scan cidr -c 10.10.1.0/24 --threads 20 --write-db
 gowitness scan nmap -f ./nmap.xml --port 443 --screenshot-fullpage
+
+cat hosts.txt | aquatone
+cat hosts.txt | aquatone -ports 80,443,8000,8080,8443
+cat hosts.txt | aquatone -ports 80,81,443,591,2082,2087,2095,2096,3000,8000,8001,8008,8080,8083,8443,8834,8888
 
 ```
 
