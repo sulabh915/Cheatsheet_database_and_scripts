@@ -29,3 +29,7 @@ we can also identify the which web server is running by looking default 404 page
 Sometimes, the default error pages or specific behavior can give away the web server. For example, the default 404 error page from Apache is different from that of Nginx.
 
 [checkout404page](https://0xdf.gitlab.io/cheatsheets/404)
+
+```bash
+wpscan --url https://site.com --disable-tls-checks --api-token <here> -e at -e ap -e u --enumerate ap --plugins-detection aggressive --force
+```

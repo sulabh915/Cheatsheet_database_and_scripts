@@ -121,6 +121,21 @@ python3 thetimemachine.py example.com --parameters
 ```
 
 
+```bash
+cat allurls.txt | grep '=' | urldedupe | tee output.txt
+or:
+cat allurls.txt | grep -E '\?[^=]+=.+$' | tee output.txt
+```
+
+```bash
+Passive parameter discovery:
+arjun -u https://site.com/endpoint.php -oT arjun_output.txt -t 10 --rate-limit 10 --passive -m GET,POST --headers "User-Agent: Mozilla/5.0"
+
+
+Active parameter discovery with wordlist:
+arjun -u https://site.com/endpoint.php -oT arjun_output.txt -m GET,POST -w /usr/share/wordlists/seclists/Discovery/Web-Content/burp-parameter-names.txt -t 10 --rate-limit 10 --headers "User-Agent: Mozilla/5.0"
+```
+
 
 using javascript recon variable parameter:
 ```bash

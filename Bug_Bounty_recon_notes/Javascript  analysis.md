@@ -96,6 +96,9 @@ cat live_js_urls.txt | while read url; do
   curl -s "$url" -o js_files/$fname.js
 done
 
+echo example.com | katana -d 3 | grep -E "\.js$" | nuclei -t /home/coffinxp/nuclei-templates/http/exposures/ -c 30
+cat jsfiles.txt | grep -r -E "aws_access_key|aws_secret_key|api key|passwd|pwd|heroku|slack|firebase|swagger|aws_secret_key|aws key|password|ftp password|jdbc|db|sql|secret jet|config|admin|pwd|json|gcp|htaccess|.env|ssh key|.git|access key|secret token|oauth_token|oauth_token_secret" 
+cat allurls.txt | grep -E "\.js$" | httpx-toolkit -mc 200 -content-type | grep -E "application/javascript|text/javascript" | cut -d' ' -f1 | xargs -I% curl -s % | grep -E "(API_KEY|api_key|apikey|secret|token|password)"
 
 
 
@@ -183,10 +186,21 @@ cat js-files.txt | httpx -status-code -silent -mc 200 | anew live-js.txt
 cat live-js.txt | while read url; do curl -s "$url" | grep -E "apiKey|auth|token|secret|key" --color=always; done
 
 
+echo example.com | katana -d 3 | grep -E "\.js$" | nuclei -t /home/coffinxp/nuclei-templates/http/exposures/ -c 30
+cat jsfiles.txt | grep -r -E "aws_access_key|aws_secret_key|api key|passwd|pwd|heroku|slack|firebase|swagger|aws_secret_key|aws key|password|ftp password|jdbc|db|sql|secret jet|config|admin|pwd|json|gcp|htaccess|.env|ssh key|.git|access key|secret token|oauth_token|oauth_token_secret" 
+cat allurls.txt | grep -E "\.js$" | httpx-toolkit -mc 200 -content-type | grep -E "application/javascript|text/javascript" | cut -d' ' -f1 | xargs -I% curl -s % | grep -E "(API_KEY|api_key|apikey|secret|token|password)"
+
+
+echo domain.com | katana -ps -d 2 | grep -E "\.js$" | nuclei -t /nuclei-templates/http/exposures/ -c 30
+cat alljs.txt | nuclei -t /home/coffinxp/nuclei-templates/http/exposures/
+
 ```
 
 
-
+javascript content type filtering :
+```bash
+echo domain | gau | grep '\.js$' | httpx -status-code -mc 200 -content-type | grep 'application/javascript'
+```
 
 
 
