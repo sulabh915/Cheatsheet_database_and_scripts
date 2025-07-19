@@ -98,7 +98,41 @@ impacket-wmiexec username@<ip address>
 
 Port 389,636 LDAP enumeration :
 ```bash
+#using nmap 
+nmap -p 389,636 <target>
+nmap -p 389 --script ldap-rootdse <target>
+nmap -p 389 --script ldap-search <target>
+
+#using ldapsearch:
 ldapsearch -H ldap://<dc-ip> -x -s base nameingcontext
 ldapsearch -H ldap://<dc-ip> -D "username@domain.name" -w "password" -b "DC=UAP,DC=local"
+
+ldapsearch -x -H ldap://<target> -s base -b "" defaultNamingContext
+ldapsearch -x -H ldap://<target> -b "DC=corp,DC=local"
+ldapsearch -x -H ldap://<target> -b "DC=corp,DC=local" "(objectClass=user)" sAMAccountName
+
+ldapsearch -x -H ldap://<target> -b "DC=corp,DC=local" "(objectClass=user)"
+ldapsearch -x -H ldap://<target> -b "DC=corp,DC=local" "(objectClass=group)" cn
+ldapsearch -x -H ldap://<target> -b "DC=corp,DC=local" "(objectClass=group)" member
+
+ldapsearch -x -H ldap://<target> -b "CN=Default Domain Policy,CN=System,DC=corp,DC=local"
+ldapsearch -x -H ldap://<target> -b "DC=corp,DC=local" "(objectClass=domainPolicy)"
+ldapsearch -x -H ldap://<target> -b "DC=corp,DC=local" "(userAccountControl:1.2.840.113556.1.4.803:=8192)" dNSHostName
+
+ldapsearch -x -H ldap://<target> -D "user@corp.local" -w 'Password123!' -b "DC=corp,DC=local"
+
+ldapsearch -x -H ldap://<target> -b "DC=corp,DC=local" "(objectClass=computer)" dNSHostName
+
+ldapsearch -x -H ldap://<target> -b "DC=corp,DC=local" "(userAccountControl:1.2.840.113556.1.4.803:=4194304)" sAMAccountName
+
+ldapsearch -x -H ldap://<target> -b "DC=corp,DC=local" "servicePrincipalName=*" sAMAccountName servicePrincipalName
+
+#using windows 
+nltest /dclist:corp.local
+dsquery user -limit 0
+dsquery computer -limit 0
+
+#using advance automated tools:
+bloodhound-python -c all -u user -p 'Password123!' -d corp.local -ip <target>
 ldapdomaindump -u UAP.local\\peter -p "password" <domain-ip> #get all information about 
 ```
