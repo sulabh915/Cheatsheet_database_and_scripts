@@ -95,3 +95,10 @@ impacket-psexec username@<ip address>
 impacket-wmiexec username@<ip address>
 
 ```
+
+Port 389,636 LDAP enumeration :
+```bash
+ldapsearch -H ldap://<dc-ip> -x -s base nameingcontext
+ldapsearch -H ldap://<dc-ip> -D "username@domain.name" -w "password" -b "DC=UAP,DC=local"
+ldapdomaindump -u UAP.local\\peter -p "password" <domain-ip> #get all information about 
+```
