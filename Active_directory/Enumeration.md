@@ -214,8 +214,4 @@ crackmapexec winrm <target> -u <user> -H <NTLM_hash>
 Invoke-Command -ComputerName <target> -Credential <domain\user> -ScriptBlock { whoami }
 
 
-
-
-
-
 ```
