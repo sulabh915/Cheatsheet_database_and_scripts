@@ -27,3 +27,6 @@ nuclei -l ~/recon/$domain/$date/alive.txt -o ~/recon/$domain/$date/nuclei.txt
 #This script collects fresh subdomains, filters live ones, and scans them with Nuclei daily.
 #Set it on daily cron. Let your system watch while you sleep.
 ```
+
+
+https://www.zoomeye.ai/bugbounty
