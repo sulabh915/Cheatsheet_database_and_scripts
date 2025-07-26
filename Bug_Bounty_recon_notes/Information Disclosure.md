@@ -95,3 +95,64 @@ HTML content filtering :
 ```bash
 echo domain | gau | grep -Eo '(\/[^\/]+)\.(php|asp|aspx|jsp|jsf|cfm|pl|perl|cgi|htm|html)$' | httpx -status-code -mc 200 -content-type | grep -E 'text/html|application/xhtml+xml'
 ```
+
+
+Headers recon :
+```bash
+#!/usr/bin/env python3
+import requests, sys
+
+# Headers we want to extract
+INTERESTING_HEADERS = [
+    "Content-Security-Policy",
+    "Access-Control-Allow-Origin",
+    "X-Frame-Options",
+    "Strict-Transport-Security",
+    "X-Content-Type-Options",
+    "Referrer-Policy",
+    "Permissions-Policy",
+    "Server"
+]
+
+def fetch_headers(url):
+    """Fetch security headers from a URL"""
+    try:
+        resp = requests.get(url, timeout=5, allow_redirects=True)
+        found = {}
+        for h in INTERESTING_HEADERS:
+            if h in resp.headers:
+                found[h] = resp.headers[h]
+        return found
+    except requests.exceptions.RequestException as e:
+        print(f"[!] Error fetching {url}: {e}")
+        return {}
+
+def main(input_file):
+    with open(input_file, "r") as f:
+        urls = [line.strip() for line in f.readlines()]
+
+    with open("security_headers_report.txt", "w") as report:
+        for url in urls:
+            if not url.startswith("http"):
+                url = "https://" + url  # default https
+            print(f"[+] Checking headers for: {url}")
+            headers = fetch_headers(url)
+
+            report.write(f"\n=== {url} ===\n")
+            if headers:
+                for k, v in headers.items():
+                    print(f"  {k}: {v}")
+                    report.write(f"{k}: {v}\n")
+            else:
+                print("  [!] No interesting headers found!")
+                report.write("[!] No interesting headers found!\n")
+
+    print("\n✅ Done! Results saved in security_headers_report.txt")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print(f"Usage: {sys.argv[0]} <file_with_urls_or_subdomains>")
+        sys.exit(1)
+    main(sys.argv[1])
+
+```
