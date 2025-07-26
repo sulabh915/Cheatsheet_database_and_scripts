@@ -41,3 +41,4 @@ python3 ntlm_theft.py -g modern -s 192.168.1.3 -f ignite
 LLMNR Poisoning mitigation :
 - "Turn OFF Multicast Name Resolution" under Local Computer Policy > Computer Configuration > Administrative Templates > Network > DNS Client in the Group policy editor.
 - DIsable NBT-NS, naviage to Network Connections > Network Adaptor Properties > TCP/IPv4 Properties > Advanced tab > Wins tab and select "Disable NetBIOS over TCP/IP"
+- Require good password policy 
