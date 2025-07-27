@@ -35,3 +35,8 @@ https://www.zoomeye.ai/bugbounty
 https://firebounty.com/
 https://disclose.io/programs/
 https://github.com/sehno/Bug-bounty/tree/master
+https://github.com/arkadiyt/bounty-targets-data
+```bash
+wget https://raw.githubusercontent.com/arkadiyt/bounty-targets-data/refs/heads/main/data/domains.txt
+cat domains.txt | awk -F '.' '{print $(NF-1)"."$NF}' | grep -Eo '([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}' | sort -u > main_domains
+```
