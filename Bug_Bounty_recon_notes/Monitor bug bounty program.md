@@ -29,4 +29,9 @@ nuclei -l ~/recon/$domain/$date/alive.txt -o ~/recon/$domain/$date/nuclei.txt
 ```
 
 
+
+Bug Bounty resources :
 https://www.zoomeye.ai/bugbounty
+https://firebounty.com/
+https://disclose.io/programs/
+https://github.com/sehno/Bug-bounty/tree/master
