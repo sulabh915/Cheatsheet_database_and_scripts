@@ -31,6 +31,12 @@ nuclei -l ~/recon/$domain/$date/alive.txt -o ~/recon/$domain/$date/nuclei.txt
 
 
 Bug Bounty resources :
+
+Government sites.
+private RVDP program
+Open bug bounty
+Bug bounty platform
+
 https://www.zoomeye.ai/bugbounty
 https://firebounty.com/
 https://disclose.io/programs/
