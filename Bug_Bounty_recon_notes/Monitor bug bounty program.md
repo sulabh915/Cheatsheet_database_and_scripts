@@ -29,13 +29,14 @@ nuclei -l ~/recon/$domain/$date/alive.txt -o ~/recon/$domain/$date/nuclei.txt
 ```
 
 
-l
+
 Bug Bounty resources :
 https://www.zoomeye.ai/bugbounty
 https://firebounty.com/
 https://disclose.io/programs/
 https://github.com/sehno/Bug-bounty/tree/master
 https://github.com/arkadiyt/bounty-targets-data
+https://github.com/sushiwushi/bug-bounty-dorks/blob/master/dorks.txt
 ```bash
 wget https://raw.githubusercontent.com/arkadiyt/bounty-targets-data/refs/heads/main/data/domains.txt
 cat domains.txt | awk -F '.' '{print $(NF-1)"."$NF}' | grep -Eo '([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}' | sort -u > main_domains
