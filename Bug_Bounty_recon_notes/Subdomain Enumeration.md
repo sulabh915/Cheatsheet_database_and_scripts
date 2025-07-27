@@ -210,6 +210,66 @@ grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"
 shodan search Ssl.cert.subject.CN:"<DOMAIN>" 200 --fields ip_str | httpx-toolkit -sc -title -server -td
 ```
 
+
+using content security policy headers :
+```bash
+#!/usr/bin/env python3
+import requests, re, sys
+
+def extract_csp_domains(csp):
+    """Extract domains/subdomains from CSP header"""
+    return re.findall(r"(?:https?:\/\/)?([\w\.\-\*]+\.[a-zA-Z]{2,})", csp)
+
+def fetch_csp(url):
+    """Fetch CSP header from a given URL"""
+    try:
+        resp = requests.get(url, timeout=5, allow_redirects=True)
+        csp = resp.headers.get("Content-Security-Policy")
+        if csp:
+            return extract_csp_domains(csp)
+    except Exception as e:
+        print(f"[!] Error fetching {url}: {e}")
+    return []
+
+def main(input_file):
+    all_csp_subdomains = set()
+
+    with open(input_file, 'r') as f:
+        urls = [line.strip() for line in f.readlines()]
+
+    for url in urls:
+        # If it's just a bare domain, add https:// by default
+        if not url.startswith("http"):
+            url = "https://" + url
+
+        print(f"[+] Checking CSP: {url}")
+        subs = fetch_csp(url)
+        for s in subs:
+            all_csp_subdomains.add(s)
+
+    # Save unique CSP subdomains
+    with open("csp_subdomains.txt", "w") as out:
+        for s in sorted(all_csp_subdomains):
+            out.write(s + "\n")
+
+    print(f"\n✅ Found {len(all_csp_subdomains)} unique subdomains inside CSP headers!")
+    print("  -> Saved to csp_subdomains.txt")
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print(f"Usage: {sys.argv[0]} <file_with_live_urls_or_subdomains>")
+        sys.exit(1)
+    main(sys.argv[1])
+
+
+#After run this commands
+dnsx -l csp_subdomains.txt -resp -silent | httpx -silent -o alive_from_csp.txt
+subjack -w csp_subdomains.txt -ssl -a -timeout 10 -o takeover_results.txt
+
+```
+
+
+
 Combine , sort and unique :
 ```bash
 cat file1.txt file2.txt file3.txt > combined.txt 
