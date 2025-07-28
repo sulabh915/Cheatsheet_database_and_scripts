@@ -330,6 +330,7 @@ https://github.com/Dheerajmadhukar/4-ZERO-3
 https://github.com/byt3hx/403-bypass
 https://github.com/offsecdawn/403bypass?source=post_page-----50bc0663daa0---------------------------------------
 https://portswigger.net/bappstore/444407b96d9c4de0adb7aed89e826122
+https://portswigger.net/bappstore/89f689c69d3840e99d73eacaff3e4a8d
 
 
 
