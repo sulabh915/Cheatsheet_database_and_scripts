@@ -52,6 +52,7 @@ Community Monitoring	Reddit, Discords, Telegram (e.g., BBRadar)
 
 
 
+
 github for bug bounty target :
 https://github.com/sehno/Bug-bounty/tree/master
 https://github.com/arkadiyt/bounty-targets-data
@@ -61,6 +62,7 @@ https://github.com/sushiwushi/bug-bounty-dorks/blob/master/dorks.txt
 
 website for find bug bounty target :
 https://bbradar.io/
+https://github.com/Alikhalkhali/programs-watcher
 https://www.zoomeye.ai/bugbounty
 https://firebounty.com/
 https://disclose.io/programs/
@@ -95,3 +97,54 @@ https://su6osec.medium.com/how-to-build-a-bug-bounty-target-list-that-actually-g
 
 Before selecting any target make sure they fulfill this requirement :
 ![[Pasted image 20250728052749.png]]
+
+| Platform                  | Focus                       | Notes                                                 |
+| ------------------------- | --------------------------- | ----------------------------------------------------- |
+| **HackerOne**             | Web, Mobile, APIs, VDPs     | Most popular, public/private programs, top payouts    |
+| **Bugcrowd**              | Web, APIs, IoT              | VRT-based scoring, great private scope and triage     |
+| **Intigriti**             | EU-focused, Web & Mobile    | Strong private invites, responsive triage             |
+| **YesWeHack**             | EU-based, various scopes    | VDPs + bug bounties, public/private programs          |
+| **HackenProof**           | Web3 + TradFi               | Web apps, fintech, crypto-heavy focus                 |
+| **Cobalt.io**             | Invite-only, pen-test style | Paid testers, “Pentest-as-a-service”, more structured |
+| **Synack Red Team (SRT)** | High-end pentesting         | Must pass vetting & testing, very high-paying bugs    |
+| Platform      | Notes                                                     |
+| ------------- | --------------------------------------------------------- |
+| **Immunefi**  | Smart contract & DeFi bounty platform (high rewards)      |
+| **Code4rena** | Competitive auditing model (contest-based bounty hunting) |
+| **Sherlock**  | Audit contests for Web3 projects                          |
+| **0xPOSH**    | Aggregator for open Web3 bug bounty programs              |
+| **ArmorFi**   | Web3-focused bounty system                                |
+
+| Platform           | Purpose                                                         |
+| ------------------ | --------------------------------------------------------------- |
+| **OpenBugBounty**  | Report XSS + similar vulns (recognition only, sometimes bounty) |
+| **Disclose.io**    | Aggregated VDPs, standardized safe harbor policies              |
+| **HackerOne VDPs** | E.g., U.S. DoD, NATO, Gov orgs via HackerOne                    |
+
+| Platform         | Region / Focus                | Notes                                    |
+| ---------------- | ----------------------------- | ---------------------------------------- |
+| **Bugv**         | India-focused                 | Regional bounties + training             |
+| **JSec**         | Japan-specific programs       | JPN-only, legal Japanese bounty programs |
+| **Secarma Labs** | UK-based VDPs                 | Some cash bounties, mostly disclosure    |
+| **FrintLabs**    | Middle East/North Africa      | Regional bug bounty startup              |
+| **SafeHats**     | Indian startups + enterprises | Enterprise + education bounties          |
+
+| Company           | Program Page                                                                        |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| **Google**        | [bughunters.google.com](https://bughunters.google.com)                              |
+| **Facebook/Meta** | [facebook.com/whitehat](https://www.facebook.com/whitehat)                          |
+| **Apple**         | [developer.apple.com/security-bounty](https://developer.apple.com/security-bounty/) |
+| **Tesla**         | [tesla.com/about/legal#security](https://www.tesla.com/about/legal#security)        |
+| **Microsoft**     | [microsoft.com/msrc](https://www.microsoft.com/en-us/msrc/bounty)                   |
+| **GitHub**        | [github.com/security](https://github.com/security)                                  |
+| Nasa              |                                                                                     |
+| Red Bull          |                                                                                     |
+| SAMSUNG           |                                                                                     |
+| TOP tiers         |                                                                                     |
+
+| Tool/Feed                               | What It Does                                     |
+| --------------------------------------- | ------------------------------------------------ |
+| **BugBountyRadar (Discord + Telegram)** | Scope & bounty alerts                            |
+| **bb-monitor**                          | CLI scope monitor for H1/Bugcrowd/Intigriti      |
+| **bounty-targets-data**                 | JSON feed of active scopes across platforms      |
+| **chaos.projectdiscovery.io**           | Subdomain + recon data for public bounty targets |
