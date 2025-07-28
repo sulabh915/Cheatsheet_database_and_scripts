@@ -36,7 +36,6 @@ intext:responsible disclosure program
 site:github.com "bug bounty"
 site:medium.com "bug bounty report"
 "Submit a vulnerability" inurl:security
-
 ```
 https://undercodetesting.com/how-to-find-self-hosted-bug-bounty-programs-using-google-dorking/?form=MG0AV3
 
