@@ -29,4 +29,28 @@ nuclei -l ~/recon/$domain/$date/alive.txt -o ~/recon/$domain/$date/nuclei.txt
 ```
 
 
+
+Bug Bounty resources :
+
+Government sites.
+private RVDP program
+Open bug bounty
+Bug bounty platform
+
 https://www.zoomeye.ai/bugbounty
+https://firebounty.com/
+https://disclose.io/programs/
+https://github.com/sehno/Bug-bounty/tree/master
+https://github.com/arkadiyt/bounty-targets-data
+https://github.com/sushiwushi/bug-bounty-dorks/blob/master/dorks.txt
+```bash
+wget https://raw.githubusercontent.com/arkadiyt/bounty-targets-data/refs/heads/main/data/domains.txt
+cat domains.txt | awk -F '.' '{print $(NF-1)"."$NF}' | grep -Eo '([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}' | sort -u > main_domains
+grep -Eo '\b([0-9]{1,3}\.){3}[0-9]{1,3}\b' domains.txt > ips.txt
+```
+```bash
+chaos-client -d example.com -key $CHAOS_KEY | httpx -silent
+```
+
+
+https://su6osec.medium.com/how-to-build-a-bug-bounty-target-list-that-actually-gets-you-bugs-2025-guide-626fe67497fa
