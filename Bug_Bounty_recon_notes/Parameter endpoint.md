@@ -23,6 +23,9 @@ gau example.com | grep '?' | grep 'sub.example.com' | sort -u > urls_with_params
 gau example.com | grep '?' | grep -v '&' | sort -u > urls_with_params.txt
 gau example.com | grep '^https://' | grep '?' | grep -v '&' | grep -vE '\.css|\.js|\.jpg|\.png|\.gif' | sort -u > filtered_urls_with_params.txt
 cat all-urls.txt | grep "\\?" | anew urls-with-params.txt
+
+gau target.com --subs --threads 50 | uro | tee gau.txt
+
 ```
 
 using waybackurls:
@@ -36,6 +39,9 @@ cat params_from_wayback.txt | gf xss > xss.txt
 cat params_from_wayback.txt | gf sqli > sqli.txt
 cat wayback_output.txt | gf params > params.txt
 cat wayback_output.txt | grep -Ei ‘token=|auth|apikey=|key=|secret’ > juicy.txt
+
+waymore -i target.com -mode U -o waymore_out  
+
 
 ```
 
@@ -55,6 +61,11 @@ cat arjun_results.txt | qsreplace '<script>alert(1)</script>' | while read u; do
 
 ```
 
+using katana:
+```bash
+katana -u https://target.com -jc -d 3 -f qurl | tee endpoints.txt
+
+```
 
 
 using gf patterns for finding interesting parameter used paramspider gf profile or used other gf or create your own : 
@@ -73,6 +84,8 @@ cat params.txt  | gf img-traversal > img-traversal_param.txt
 cat params.txt  | gf interestingEXT > interestingEXT_param.txt
 cat params.txt  | gf interestingsubs > interestingsubs_param.txt
 cat params.tx   | gf ssti > idor_param.txt
+gf ssti endpoints.txt | httpx -silent -status-code -match-string "{" 
+
 gf xss < urls-with-params.txt > xss.txt
 gf ssti < urls-with-params.txt > ssti.txt
 gf redirect < urls-with-params.txt > redirect.txt
