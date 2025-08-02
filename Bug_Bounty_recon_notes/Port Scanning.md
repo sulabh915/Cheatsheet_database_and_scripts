@@ -127,6 +127,8 @@ domain:example.com port:80
 ```
 
 
+
+
 Scan subdomain ports:
 ```bash
 naabu -iL fina_sub.txt -p 80,443,8080,8443,22,21,3306,5432,6379,27017 \
