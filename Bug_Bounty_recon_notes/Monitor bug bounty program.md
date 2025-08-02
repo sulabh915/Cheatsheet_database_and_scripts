@@ -98,22 +98,21 @@ https://su6osec.medium.com/how-to-build-a-bug-bounty-target-list-that-actually-g
 Before selecting any target make sure they fulfill this requirement :
 ![[Pasted image 20250728052749.png]]
 
-| Platform                  | Focus                       | Notes                                                 |
-| ------------------------- | --------------------------- | ----------------------------------------------------- |
-| **HackerOne**             | Web, Mobile, APIs, VDPs     | Most popular, public/private programs, top payouts    |
-| **Bugcrowd**              | Web, APIs, IoT              | VRT-based scoring, great private scope and triage     |
-| **Intigriti**             | EU-focused, Web & Mobile    | Strong private invites, responsive triage             |
-| **YesWeHack**             | EU-based, various scopes    | VDPs + bug bounties, public/private programs          |
-| **HackenProof**           | Web3 + TradFi               | Web apps, fintech, crypto-heavy focus                 |
-| **Cobalt.io**             | Invite-only, pen-test style | Paid testers, “Pentest-as-a-service”, more structured |
-| **Synack Red Team (SRT)** | High-end pentesting         | Must pass vetting & testing, very high-paying bugs    |
-| Platform      | Notes                                                     |
-| ------------- | --------------------------------------------------------- |
-| **Immunefi**  | Smart contract & DeFi bounty platform (high rewards)      |
-| **Code4rena** | Competitive auditing model (contest-based bounty hunting) |
-| **Sherlock**  | Audit contests for Web3 projects                          |
-| **0xPOSH**    | Aggregator for open Web3 bug bounty programs              |
-| **ArmorFi**   | Web3-focused bounty system                                |
+| Platform                  | Focus                                                     | Notes                                                 |
+| ------------------------- | --------------------------------------------------------- | ----------------------------------------------------- |
+| **HackerOne**             | Web, Mobile, APIs, VDPs                                   | Most popular, public/private programs, top payouts    |
+| **Bugcrowd**              | Web, APIs, IoT                                            | VRT-based scoring, great private scope and triage     |
+| **Intigriti**             | EU-focused, Web & Mobile                                  | Strong private invites, responsive triage             |
+| **YesWeHack**             | EU-based, various scopes                                  | VDPs + bug bounties, public/private programs          |
+| **HackenProof**           | Web3 + TradFi                                             | Web apps, fintech, crypto-heavy focus                 |
+| **Cobalt.io**             | Invite-only, pen-test style                               | Paid testers, “Pentest-as-a-service”, more structured |
+| **Synack Red Team (SRT)** | High-end pentesting                                       | Must pass vetting & testing, very high-paying bugs    |
+| Platform                  | Notes                                                     |                                                       |
+| **Immunefi**              | Smart contract & DeFi bounty platform (high rewards)      |                                                       |
+| **Code4rena**             | Competitive auditing model (contest-based bounty hunting) |                                                       |
+| **Sherlock**              | Audit contests for Web3 projects                          |                                                       |
+| **0xPOSH**                | Aggregator for open Web3 bug bounty programs              |                                                       |
+| **ArmorFi**               | Web3-focused bounty system                                |                                                       |
 
 | Platform           | Purpose                                                         |
 | ------------------ | --------------------------------------------------------------- |
