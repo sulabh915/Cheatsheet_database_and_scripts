@@ -90,4 +90,12 @@ impacket-ntlmrelayx -tf targets.txt -smb2support -i #interactive terminal
 #point victum machine to attacker machine somehow ,
 
 #impacket script relay to targets.txt hosts , if the captured credentials have #valid account in relayed hosts with "Administrative privileges" then we dump #sam local hash or perform other action.
+
+
+Mitigation Strategies:
+- Enable SMB Signing on all devcies
+- Disable NTLM authentication on network
+- Account tiering
+- Local admin restriction
 ```
+
