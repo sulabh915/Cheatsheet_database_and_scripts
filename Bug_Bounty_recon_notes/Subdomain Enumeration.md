@@ -339,7 +339,8 @@ subzy run --targets subdomains.txt --concurrency 100 --hide_fails --verify_ssl
 
 dig a "*.shopify.com"
 ```
-
+https://github.com/EdOverflow/can-i-take-over-xyz
+Take any fingerprint from 'can-i-take-over-xyz' and search on shodan or censys for subdomain takeover.
 
 
 ##### Screenshoting :
