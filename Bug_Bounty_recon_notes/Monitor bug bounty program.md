@@ -157,3 +157,9 @@ Before selecting any target make sure they fulfill this requirement :
 | **bb-monitor**                          | CLI scope monitor for H1/Bugcrowd/Intigriti      |
 | **bounty-targets-data**                 | JSON feed of active scopes across platforms      |
 | **chaos.projectdiscovery.io**           | Subdomain + recon data for public bounty targets |
+
+
+
+https://infosecwriteups.com/how-i-got-bounty-and-hall-of-fame-for-finding-easy-bugs-1a72aefe6c3a
+
+https://drexel.edu/it/security/services-processes/bug-bounty/
