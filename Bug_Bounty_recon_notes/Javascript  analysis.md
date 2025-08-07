@@ -366,3 +366,9 @@ JS Recon Pentest Guide:
   - secrets.js
   - debug.js
   - api.js
+
+look for important js file :
+```bash
+admin.js, internal.js, beta.js, staging.bundle.js
+debug.js, test.js, monitor.js, analytics.js
+```
