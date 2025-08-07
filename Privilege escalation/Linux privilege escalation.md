@@ -7,7 +7,7 @@ python3 -c 'import pty;pty.spawn("/bin/bash")'
 export TERM=xterm
 Ctrl + Z
 stty raw -echo; fg
-		 
+
 echo os.system("/bin/bash")
 /bin/bash -i
 ```
