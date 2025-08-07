@@ -36,6 +36,15 @@ intext:responsible disclosure program
 site:github.com "bug bounty"
 site:medium.com "bug bounty report"
 "Submit a vulnerability" inurl:security
+
+#Find VDPs provide HOF:
+inurl:security OR inurl:responsible-disclosure "hall of fame" OR "researcher recognition"
+"vulnerability disclosure program" "hall of fame"
+"security.txt" "hall of fame"
+"bug bounty" "public recognition"
+intitle:"VDP" "acknowledge" OR "thank" OR "credit"
+site:github.com "vulnerability disclosure program" "hall of fame"
+
 ```
 https://undercodetesting.com/how-to-find-self-hosted-bug-bounty-programs-using-google-dorking/?form=MG0AV3
 
@@ -57,6 +66,7 @@ github for bug bounty target :
 https://github.com/sehno/Bug-bounty/tree/master
 https://github.com/arkadiyt/bounty-targets-data
 https://github.com/sushiwushi/bug-bounty-dorks/blob/master/dorks.txt
+
 
 
 
@@ -98,22 +108,21 @@ https://su6osec.medium.com/how-to-build-a-bug-bounty-target-list-that-actually-g
 Before selecting any target make sure they fulfill this requirement :
 ![[Pasted image 20250728052749.png]]
 
-| Platform                  | Focus                       | Notes                                                 |
-| ------------------------- | --------------------------- | ----------------------------------------------------- |
-| **HackerOne**             | Web, Mobile, APIs, VDPs     | Most popular, public/private programs, top payouts    |
-| **Bugcrowd**              | Web, APIs, IoT              | VRT-based scoring, great private scope and triage     |
-| **Intigriti**             | EU-focused, Web & Mobile    | Strong private invites, responsive triage             |
-| **YesWeHack**             | EU-based, various scopes    | VDPs + bug bounties, public/private programs          |
-| **HackenProof**           | Web3 + TradFi               | Web apps, fintech, crypto-heavy focus                 |
-| **Cobalt.io**             | Invite-only, pen-test style | Paid testers, “Pentest-as-a-service”, more structured |
-| **Synack Red Team (SRT)** | High-end pentesting         | Must pass vetting & testing, very high-paying bugs    |
-| Platform      | Notes                                                     |
-| ------------- | --------------------------------------------------------- |
-| **Immunefi**  | Smart contract & DeFi bounty platform (high rewards)      |
-| **Code4rena** | Competitive auditing model (contest-based bounty hunting) |
-| **Sherlock**  | Audit contests for Web3 projects                          |
-| **0xPOSH**    | Aggregator for open Web3 bug bounty programs              |
-| **ArmorFi**   | Web3-focused bounty system                                |
+| Platform                  | Focus                                                     | Notes                                                 |
+| ------------------------- | --------------------------------------------------------- | ----------------------------------------------------- |
+| **HackerOne**             | Web, Mobile, APIs, VDPs                                   | Most popular, public/private programs, top payouts    |
+| **Bugcrowd**              | Web, APIs, IoT                                            | VRT-based scoring, great private scope and triage     |
+| **Intigriti**             | EU-focused, Web & Mobile                                  | Strong private invites, responsive triage             |
+| **YesWeHack**             | EU-based, various scopes                                  | VDPs + bug bounties, public/private programs          |
+| **HackenProof**           | Web3 + TradFi                                             | Web apps, fintech, crypto-heavy focus                 |
+| **Cobalt.io**             | Invite-only, pen-test style                               | Paid testers, “Pentest-as-a-service”, more structured |
+| **Synack Red Team (SRT)** | High-end pentesting                                       | Must pass vetting & testing, very high-paying bugs    |
+| Platform                  | Notes                                                     |                                                       |
+| **Immunefi**              | Smart contract & DeFi bounty platform (high rewards)      |                                                       |
+| **Code4rena**             | Competitive auditing model (contest-based bounty hunting) |                                                       |
+| **Sherlock**              | Audit contests for Web3 projects                          |                                                       |
+| **0xPOSH**                | Aggregator for open Web3 bug bounty programs              |                                                       |
+| **ArmorFi**               | Web3-focused bounty system                                |                                                       |
 
 | Platform           | Purpose                                                         |
 | ------------------ | --------------------------------------------------------------- |

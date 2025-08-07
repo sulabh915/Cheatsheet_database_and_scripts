@@ -5,13 +5,13 @@ dig:
 ```bash
 dig axfr @target.com
 dig AXFR example.com @ns1.example.com
-host -l example.com ns1.example.com
+	host -l example.com ns1.example.com
 
 nslookup
 > server ns1.example.com
 > ls -d example.com
 
-dnsrecon -d example.com -t axfr
+bl
 
 #Used in CTF:
 #if box running dns server.
@@ -339,7 +339,8 @@ subzy run --targets subdomains.txt --concurrency 100 --hide_fails --verify_ssl
 
 dig a "*.shopify.com"
 ```
-
+https://github.com/EdOverflow/can-i-take-over-xyz
+Take any fingerprint from 'can-i-take-over-xyz' and search on shodan or censys for subdomain takeover.
 
 
 ##### Screenshoting :
