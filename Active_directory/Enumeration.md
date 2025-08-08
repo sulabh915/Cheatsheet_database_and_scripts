@@ -253,4 +253,8 @@ Get-NetGPO | select displayname
 Get-NetProcess
 Get-NetProcess | select ProcessName, User
 
+#Get information about share
+Invoke-ShareFinder
+Invoke-FileFinder
+
 ```
