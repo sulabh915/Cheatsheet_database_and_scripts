@@ -257,4 +257,8 @@ Get-NetProcess | select ProcessName, User
 Invoke-ShareFinder
 Invoke-FileFinder
 
+#Get information about hostname,admin access,active session
+Get-NetComputer | select dnshostname
+Find-localAdminAccess
+Get-NetSession
 ```
