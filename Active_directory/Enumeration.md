@@ -222,9 +222,27 @@ Using Powerview script:
 . '.\Powerview.ps1'
 
 #Now you will  have access commands for enum:
+
+#Get information about Domain
 Get-NetDomain
 Get-DomainSID
 Get-DomainPolicy
 (Get-DomainPolicy).SystemAccess
 Get-NetDomainController
+
+Get-NetUser
+Get-NetUser | select cn
+Get-NetUser | select samaccountname
+Get-NetUser | select badpwdcount
+
+Get-NetComputer
+Get-NetComputer | select cn,operatingsystem,operatingsystemversion,lastlogon
+
+
+Get-DomainGroup
+Get-DomainGroup | select samaccountname
+Get-DomainGroupMember "Domain Admins"(Groups name)
+
+
+
 ```
