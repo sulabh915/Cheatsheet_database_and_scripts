@@ -213,5 +213,18 @@ crackmapexec winrm <target> -u <user> -H <NTLM_hash>
 
 Invoke-Command -ComputerName <target> -Credential <domain\user> -ScriptBlock { whoami }
 
+```
 
+
+Using Powerview script:
+```bash
+#run this in target machine
+. '.\Powerview.ps1'
+
+#Now you will  have access commands for enum:
+Get-NetDomain
+Get-DomainSID
+Get-DomainPolicy
+(Get-DomainPolicy).SystemAccess
+Get-NetDomainController
 ```
