@@ -244,6 +244,7 @@ Get-NetComputer | select cn,operatingsystem,operatingsystemversion,lastlogon
 Get-DomainGroup
 Get-DomainGroup | select samaccountname
 Get-DomainGroupMember "Domain Admins"(Groups name)
+Get-DomainGroupMember "Domain Admins" | select MemberName
 
 #Get information about Group policy object
 Get-NetGPO
