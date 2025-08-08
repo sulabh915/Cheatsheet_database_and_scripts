@@ -261,4 +261,12 @@ Invoke-FileFinder
 Get-NetComputer | select dnshostname
 Find-localAdminAccess
 Get-NetSession
+
+#service principle name,ASREPRoast,Kerberoast
+Get-NetUser -SPN
+Get-NetUser -Username <username>
+Get-ASREPRoast
+Get-NetUser -SPN | Get-Kerberoast
+Get-Kerberoast -OutputFormat Hashcat
+
 ```
