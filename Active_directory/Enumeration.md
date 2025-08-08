@@ -230,19 +230,27 @@ Get-DomainPolicy
 (Get-DomainPolicy).SystemAccess
 Get-NetDomainController
 
+#Get information about User
 Get-NetUser
 Get-NetUser | select cn
 Get-NetUser | select samaccountname
 Get-NetUser | select badpwdcount
 
+#Get information about computer
 Get-NetComputer
 Get-NetComputer | select cn,operatingsystem,operatingsystemversion,lastlogon
 
-
+#Get information about Groups
 Get-DomainGroup
 Get-DomainGroup | select samaccountname
 Get-DomainGroupMember "Domain Admins"(Groups name)
 
+#Get information about Group policy object
+Get-NetGPO
+Get-NetGPO | select displayname
 
+#Get information about process
+Get-NetProcess
+Get-NetProcess | select ProcessName, User
 
 ```
