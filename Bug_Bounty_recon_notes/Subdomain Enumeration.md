@@ -142,6 +142,13 @@ puredns bruteforce words.txt example.com --resolvers resolvers.txt > subs.txt
 # Then resolve & clean
 puredns resolve subs.txt --resolvers resolvers.txt > final_subs.txt
 
+subfinder -silent -d hackerone.com | dnsx -silent
+
+cat subdomains.txt | dnsgen - > permutations.txt
+
+puredns resolve permutations.txt -r resolvers.txt --wildcard-tests 10 --threads 50 -o valid.txt
+
+
 ```
 
 
