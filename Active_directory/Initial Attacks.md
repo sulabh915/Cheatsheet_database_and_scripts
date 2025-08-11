@@ -45,6 +45,11 @@ LLMNR Poisoning mitigation :
 - DIsable NBT-NS, naviage to Network Connections > Network Adaptor Properties > TCP/IPv4 Properties > Advanced tab > Wins tab and select "Disable NetBIOS over TCP/IP"
 - Require good password policy 
 
+
+> [!NOTE] Note for real world :
+>Share folder is just the one example , various request fly across the network , if LMNR is enabled , so good time to run tool responder  is going to be early on in the morning. or after lunch when people are logging into their computers, generating a log of traffic. Running any Nessus scans or vulnerability scans at same time , not a bad idea.
+
+
 #### RDP MITM :
 
 ```bash
