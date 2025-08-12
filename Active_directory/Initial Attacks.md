@@ -123,3 +123,28 @@ impacket-ntlmrelayx -6 -t ldaps://192.168.154.134 -wh fakewpad.marvel.local -l l
 
 #wait somebody to login or reboot machine.
 ```
+
+
+
+#### DCSync Attack :
+```bash
+A DCsync attack is a technique where an attacker pretends to be a Domain Controller (DC) and asks the real DC to replicate password data for certain users — including NTLM password hashes, Kerberos keys, and cleartext passwords (if stored)
+
+It abuses the Microsoft Directory Replication Service (DRS) Remote Protocol (`DRSUAPI`) — which is meant for DCs to synchronize Active Directory data.
+
+Domain Admins, Enterprise Admins, and the Domain Controllers group have this.
+Misconfigured permissions can let non-admin users do this.
+
+- The attacker tool sends a DRSUAPI request to the DC.
+- The DC thinks: "Oh, you’re a trusted DC wanting to sync — here’s the password database."
+- It returns password hashes for the requested accounts.
+
+
+
+
+
+
+
+
+
+```
