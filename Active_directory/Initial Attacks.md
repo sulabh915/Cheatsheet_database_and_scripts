@@ -144,13 +144,11 @@ Misconfigured permissions can let non-admin users do this.
 - Enable Advanced Features, in the top menu, go to View and select Advanced Features.
 - Locate the Domain Object, navigate to the root of the domain (e.g., ignite.local).
 
-
-
-
 #if you have any domain admins and administrator credentials make any non admin user misconfigure.
 sudo bloodyAD --host 192.168.154.134 -d MARVEL.local -u Administrator -p 'P@$$w0rd' add dcsync fcastle
 
-
+#remove non admin user from misconfig
+sudo bloodyAD --host 192.168.154.134 -d MARVEL.local -u Administrator -p 'P@$$w0rd' remove dcsync fcastle
 
 
 
