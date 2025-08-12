@@ -233,6 +233,8 @@ Invoke-Command -ComputerName <target> -Credential <domain\user> -ScriptBlock { w
 
 Using Powerview script:
 ```bash
+powershell -ep bypass
+
 #run this in target machine
 . '.\Powerview.ps1'
 
