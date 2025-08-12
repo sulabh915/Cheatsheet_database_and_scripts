@@ -139,9 +139,15 @@ Misconfigured permissions can let non-admin users do this.
 - The DC thinks: "Oh, you’re a trusted DC wanting to sync — here’s the password database."
 - It returns password hashes for the requested accounts.
 
+#settings for attack
+- Open Active Directory Users and Computers Press Win + R, type dsa.msc, and press Enter.
+- Enable Advanced Features, in the top menu, go to View and select Advanced Features.
+- Locate the Domain Object, navigate to the root of the domain (e.g., ignite.local).
 
 
-#if you have any domain admins and administrator credentials.
+
+
+#if you have any domain admins and administrator credentials make any non admin user misconfigure.
 sudo bloodyAD --host 192.168.154.134 -d MARVEL.local -u Administrator -p 'P@$$w0rd' add dcsync fcastle
 
 
