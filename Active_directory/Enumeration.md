@@ -135,6 +135,21 @@ dsquery computer -limit 0
 #using advance automated tools:
 bloodhound-python -c all -u user -p 'Password123!' -d corp.local -ip <target>
 ldapdomaindump -u UAP.local\\peter -p "password" <domain-ip> #get all information about 
+
+
+#using ldap_shell
+# Basic authentication with password
+ldap_shell domain.local/user:password
+
+# Specify domain controller IP address
+ldap_shell domain.local/user:password -dc-ip 192.168.1.2
+
+# Authentication using NTLM hashes
+ldap_shell domain.local/user -hashes aad3b435b51404eeaad3b435b51404ee:aad3b435b51404eeaad3b435b51404e1
+
+# Kerberos authentication using TGT
+export KRB5CCNAME=/home/user/ticket.ccache
+ldap_shell -k -no-pass domain.local/user
 ```
 
 Port RDP 3389 enumeration :
