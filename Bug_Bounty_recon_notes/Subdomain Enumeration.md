@@ -187,7 +187,6 @@ curl -s "https://www.virustotal.com/vtapi/v2/domain/report?apikey=[api-key]&doma
 
 
 
-
 vhost enumeration :
 ```bash
 ffuf -w wordlist.txt -u https://target.com -H "Host: FUZZ.target.com"

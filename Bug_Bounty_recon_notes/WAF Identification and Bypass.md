@@ -4,6 +4,7 @@
 sudo nmap bugcrowd.com -p80,443 --script=http-waf-fingerprint -v
 sudo nmap bugcrowd.com -p80,443 --script=http-waf-detect -v
 wafw00f hackerone.com
+cat live_subdomains.txt | xargs -n1 wafw00f
 ```
 
 Common WAF Detection Methods: 
