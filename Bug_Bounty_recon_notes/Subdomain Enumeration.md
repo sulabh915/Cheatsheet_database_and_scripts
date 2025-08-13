@@ -214,6 +214,8 @@ curl -s "https://urlscan.io/api/v1/search/?q=domain:<DOMAIN>&size=10000" | jq -r
 cat domains.txt | cut -d']' -f2 | awk '{print $2}' | tr ',' '\n' | sort -u > amass.txt
 grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"
 shodan search Ssl.cert.subject.CN:"<DOMAIN>" 200 --fields ip_str | httpx-toolkit -sc -title -server -td
+
+curl -s "https://urlscan.io/api/v1/search/?q=domain:gov.au&size=10000" | jq -r '.results[]?.page?.ip // empty' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | dnsx -ptr -resp-only  | grep "gov.au" | tee urlscan.txt
 ```
 
 
