@@ -1,5 +1,6 @@
 
 
+
 Finding Login Panels
 ```bash
 site:*<*.target.com intext:"login" | intitle:"login" | inurl:"login" | intext:"username" | intitle:"username" | inurl:"username" | intext:"password" | intitle:"password" | inurl:"password"
