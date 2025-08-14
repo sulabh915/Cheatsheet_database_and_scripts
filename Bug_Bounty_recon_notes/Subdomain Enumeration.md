@@ -141,12 +141,12 @@ puredns bruteforce words.txt example.com --resolvers resolvers.txt > subs.txt
 
 # Then resolve & clean
 puredns resolve subs.txt --resolvers resolvers.txt > final_subs.txt
-
-subfinder -silent -d hackerone.com | dnsx -silent
+rj
+su*bfinder -silent -d hackerone.com | dnsx -silent
 
 cat subdomains.txt | dnsgen - > permutations.txt
-
-puredns resolve permutations.txt -r resolvers.txt --wildcard-tests 10 --threads 50 -o valid.txt
+74
+puredns resolve permutations.txt ;-r resolvers.txt --wildcard-tests 10 --threads 50 -o valid.txt
 
 
 ```
@@ -328,7 +328,6 @@ using js file :
 katana -u "https://target.com" -d 2 -o js-files.txt
 grep -Eo "https?://[a-zA-Z0-9./?=_-]*" js-files.txt | grep target.com
 python3 linkfinder.py -i js-files.txt -o output.html
-
 ```
 
 
