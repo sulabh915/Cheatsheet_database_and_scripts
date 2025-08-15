@@ -197,7 +197,22 @@ Technique #10 : Second-Order Attacks
 - Store payloads in one location that gets executed in another (e.g., admin panel)
 - WAFs may miss these since the injection isn’t directly executed
 
+Technique #11: Alternate Syntax for the same payload:
+```bash
+/*!50000UNION*/ SELECT
+' UNION ALL SELECT NULL --
 
+```
+
+Technique #12 :Using JSON Instead of URL Params 📦
+Some WAFs only inspect query strings, not JSON bodies.
+If the API supports JSON, send:
+```bash
+{"id":"1 OR 1=1"}
+
+```
+
+WAFNinja — Payload obfuscation
 
 403 forbidden bypass :
 
@@ -320,6 +335,7 @@ Deleting optional cookies (secureFlag=true → deleted)
 
 Real bug: A company used role=guest in a session cookie. Changing it to role=admin bypassed the entire RBAC system. 💰 Payout: $3,000
 ```
+
 
 
 ✔️ Check for WAF/CDN filtering that may be bypassed.
