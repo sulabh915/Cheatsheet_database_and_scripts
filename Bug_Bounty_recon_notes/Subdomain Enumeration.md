@@ -11,6 +11,29 @@ dig CNAME example.com +short
 dig NS example.com +short
 dig SOA example.com +short
 
+
+#!/bin/bash
+
+# Check if domain is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <domain>"
+  exit 1
+fi
+
+DOMAIN=$1
+
+echo "🔍 Checking DNS records for: $DOMAIN"
+echo
+
+# List of record types
+for TYPE in A AAAA MX TXT CNAME NS SOA; do
+  echo "➡️ $TYPE Record:"
+  dig "$TYPE" "$DOMAIN" +short
+  echo
+done
+
+
+
 dig axfr @target.com
 dig AXFR example.com @ns1.example.com
 	host -l example.com ns1.example.com
@@ -19,7 +42,7 @@ nslookup
 > server ns1.example.com
 > ls -d example.com
 
-bl
+
 
 #Used in CTF:
 #if box running dns server.
