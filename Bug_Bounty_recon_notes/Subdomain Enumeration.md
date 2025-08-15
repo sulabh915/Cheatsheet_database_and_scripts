@@ -3,6 +3,14 @@ SUBDOMAIN ENUMERATION ALL POSSIBLE COMBINATION:
 
 dig:
 ```bash
+dig A example.com +short
+dig AAAA example.com +short
+dig MX example.com +short
+dig TXT example.com +short
+dig CNAME example.com +short
+dig NS example.com +short
+dig SOA example.com +short
+
 dig axfr @target.com
 dig AXFR example.com @ns1.example.com
 	host -l example.com ns1.example.com
