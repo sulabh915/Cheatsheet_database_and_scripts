@@ -331,7 +331,7 @@ Username: admin
 Password: admin (you’ll be prompted to change this)
 
 
-#Get all information about the particular user in domain then upload to bloodhound grapha.
+#Get all information about the particular user in domain then upload to bloodhound graph.
 
 sudo bloodhound-python -d MARVEL.local -u fcastle -p Password@123 -ns 192.168.154.134 -c all
 ```
