@@ -132,10 +132,10 @@ nltest /dclist:corp.local
 dsquery user -limit 0
 dsquery computer -limit 0
 
-#using advance automated tools:
+#using advance automated tools && Get all information about domain using single user credentails:
 bloodhound-python -c all -u user -p 'Password123!' -d corp.local -ip <target>
-ldapdomaindump -u UAP.local\\peter -p "password" <domain-ip> #get all information about 
-
+ldapdomaindump -u UAP.local\\peter -p "password" <domain-ip> 
+sudo ldapdomaindump ldaps://192.168.178.136 -u "MARVEL\username" -p Password1 -o Directory_path
 
 #using ldap_shell
 # Basic authentication with password
