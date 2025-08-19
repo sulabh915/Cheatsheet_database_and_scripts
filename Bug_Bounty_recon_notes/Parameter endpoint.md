@@ -10,6 +10,17 @@ python3 paramspider.py --domain hackerone.com --placeholder FUZZ2
 python3 paramspider.py --domain hackerone.com --quiet
 python3 paramspider.py --domain hackerone.com --subs False 
 python3 paramspider.py --domain hackerone.com -l high -o params.txt -e js,png,jpg,gif,css
+
+#!/bin/bash
+
+while read domain; do
+    clean_domain=$(echo "$domain" | sed 's|https\?://||')  # Remove http/https
+    echo "[+] Running ParamSpider on $clean_domain"
+    python3 paramspider.py --domain "$clean_domain" -l high -o "${clean_domain}_params.txt" -e js,png,jpg,gif,css
+done < live_domain.txt
+
+
+
 ```
 
 using gau:
@@ -148,7 +159,7 @@ using gospider :
 gospider -s https://target.com -d 2 -t 10 --js --quiet | tee gospider_output.txt
 
 #always look for name parameter and id parameter in html page where the mostly hidden input 
-cat gospider_output.txt | grep -Eo 'name="[^"]+"|id="[^"]+"' | sort -u > attribute_params.txt
+	cat gospider_output.txt | grep -Eo 'name="[^"]+"|id="[^"]+"' | sort -u > attribute_params.txt
 ```
 
 using time machine :

@@ -52,8 +52,8 @@ cat final_js.txt | ~/go/bin/httpx -mc 200,301,302,403,401 -silent > live_js_urls
 
 For using subdomain:
 
-cat live_subdomains.txt | while read domain; do   echo "[+] Crawling with Katana: $domain";   katana -u $domain -d 3 -jc -silent -o $(echo $domain | sed 's/https\?:\/\///').txt; done
-cat *.txt | grep '\.js' | sort -u > js_urls/all_from_katana.txt
+																				cat live_subdomains.txt | while read domain; do   echo "[+] Crawling with Katana: $domain";   katana -u $domain -d 3 -jc -silent -o $(echo $domain | sed 's/https\?:\/\///').txt; done
+																				cat *.txt | grep '\.js' | sort -u > js_urls/all_from_katana.txt
 
 
 cat live_subdomains.txt | while read domain; do
