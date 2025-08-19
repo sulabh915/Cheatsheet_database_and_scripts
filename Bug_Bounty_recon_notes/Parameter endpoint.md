@@ -26,6 +26,28 @@ cat all-urls.txt | grep "\\?" | anew urls-with-params.txt
 
 gau target.com --subs --threads 50 | uro | tee gau.txt
 
+gau script for multiple domains 
+#!/bin/bash
+
+input_file="live_domain.txt"
+output_file="filtered_urls_with_params.txt"
+
+> "$output_file"  # clear old results
+
+cat "$input_file" | while read -r domain; do
+    clean_domain=$(echo "$domain" | sed 's#https://##;s#http://##')  # strip protocol
+
+    echo "[+] Running gau for $clean_domain ..."
+    timeout 60 gau "$clean_domain" 2>/dev/null \
+        | grep '?' \
+        | grep -v '&' \
+        | grep -vE '\.css|\.js|\.jpg|\.png|\.gif|\.svg|\.ico|\.woff|\.ttf|\.eot' \
+        | sort -u >> "$output_file"
+done
+
+echo "✅ Done! Results saved to $output_file"
+
+
 ```
 
 using waybackurls:
