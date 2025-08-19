@@ -114,6 +114,7 @@ gf redirect < urls-with-params.txt > redirect.txt
 or more ...
 
 https://github.com/thecybertix/GF-Patterns/blob/main/gf.sh
+git clone https://github.com/1ndianl33t/Gf-Patterns.git
 ```
 
 
