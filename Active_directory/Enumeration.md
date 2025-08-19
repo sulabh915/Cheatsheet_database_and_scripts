@@ -293,6 +293,7 @@ Enumeration using ldapdomaindump :
 ```bash
 #get all information about domain using  users credentials:
 
+sudo ldapdomaindump ldap://192.168.178.136
 sudo ldapdomaindump ldaps://192.168.178.136 -u "MARVEL\username" -p Password1 -o Directory_path
 
 ```
