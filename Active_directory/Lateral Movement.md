@@ -68,6 +68,8 @@ available protocols
 crackmapexec smb --help
 crackmapexec ssh --help
 
+
+
 crackmapexec smb 192.168.138.0/24 -u fcastle -d MARVEL.local -p Password1
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH>
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth
