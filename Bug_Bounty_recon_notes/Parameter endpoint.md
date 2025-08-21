@@ -1,4 +1,4 @@
-
+ 
 
 using paramspider :
 ```bash
@@ -10,6 +10,17 @@ python3 paramspider.py --domain hackerone.com --placeholder FUZZ2
 python3 paramspider.py --domain hackerone.com --quiet
 python3 paramspider.py --domain hackerone.com --subs False 
 python3 paramspider.py --domain hackerone.com -l high -o params.txt -e js,png,jpg,gif,css
+
+#!/bin/bash
+
+while read domain; do
+    clean_domain=$(echo "$domain" | sed 's|https\?://||')  # Remove http/https
+    echo "[+] Running ParamSpider on $clean_domain"
+    python3 paramspider.py --domain "$clean_domain" -l high -o "${clean_domain}_params.txt" -e js,png,jpg,gif,css
+done < live_domain.txt
+
+
+
 ```
 
 using gau:
@@ -25,6 +36,28 @@ gau example.com | grep '^https://' | grep '?' | grep -v '&' | grep -vE '\.css|\.
 cat all-urls.txt | grep "\\?" | anew urls-with-params.txt
 
 gau target.com --subs --threads 50 | uro | tee gau.txt
+
+gau script for multiple domains 
+#!/bin/bash
+
+input_file="live_domain.txt"
+output_file="filtered_urls_with_params.txt"
+
+> "$output_file"  # clear old results
+
+cat "$input_file" | while read -r domain; do
+    clean_domain=$(echo "$domain" | sed 's#https://##;s#http://##')  # strip protocol
+
+    echo "[+] Running gau for $clean_domain ..."
+    timeout 60 gau "$clean_domain" 2>/dev/null \
+        | grep '?' \
+        | grep -v '&' \
+        | grep -vE '\.css|\.js|\.jpg|\.png|\.gif|\.svg|\.ico|\.woff|\.ttf|\.eot' \
+        | sort -u >> "$output_file"
+done
+
+echo "✅ Done! Results saved to $output_file"
+
 
 ```
 
@@ -91,7 +124,55 @@ gf ssti < urls-with-params.txt > ssti.txt
 gf redirect < urls-with-params.txt > redirect.txt
 or more ...
 
+#!/bin/bash
+
+# Input file containing parameterized URLs
+INPUT_FILE="$1"
+
+# Check if input file exists
+if [ ! -f "$INPUT_FILE" ]; then
+    echo "❌ Input file '$INPUT_FILE' not found!"
+    exit 1
+fi
+
+echo "🔍 Starting GF scan on $INPUT_FILE..."
+
+# Define GF patterns and output filenames
+declare -A patterns=(
+    ["sqli"]="sqli_param.txt"
+    ["xss"]="xss_param.txt"
+    ["lfi"]="lfi_param.txt"
+    ["rce"]="rce_param.txt"
+    ["idor"]="idor_param.txt"
+    ["debug_logic"]="debug_logic.txt"
+    ["redirect"]="redirect_param.txt"
+    ["ssrf"]="ssrf_param.txt"
+    ["ssti"]="ssti_param.txt"
+    ["interestingparams"]="interestingparams.txt"
+    ["img-traversal"]="img-traversal_param.txt"
+    ["interestingEXT"]="interestingEXT_param.txt"
+    ["interestingsubs"]="interestingsubs_param.txt"
+)
+
+# Loop through each pattern and run gf
+for pattern in "${!patterns[@]}"; do
+    echo "➡️  Extracting $pattern..."
+    cat "$INPUT_FILE" | gf "$pattern" > "${patterns[$pattern]}"
+done
+
+# Optional: Run httpx on ssti endpoints
+if [ -f "ssti_param.txt" ]; then
+    echo "🌐 Running httpx on SSTI endpoints..."
+    cat ssti_param.txt | httpx -silent -status-code -match-string "{" > ssti_httpx_results.txt
+fi
+
+echo "✅ GF scan complete. Results saved in respective files."
+
+
+
+
 https://github.com/thecybertix/GF-Patterns/blob/main/gf.sh
+git clone https://github.com/1ndianl33t/Gf-Patterns.git
 ```
 
 
@@ -125,7 +206,7 @@ using gospider :
 gospider -s https://target.com -d 2 -t 10 --js --quiet | tee gospider_output.txt
 
 #always look for name parameter and id parameter in html page where the mostly hidden input 
-cat gospider_output.txt | grep -Eo 'name="[^"]+"|id="[^"]+"' | sort -u > attribute_params.txt
+	cat gospider_output.txt | grep -Eo 'name="[^"]+"|id="[^"]+"' | sort -u > attribute_params.txt
 ```
 
 using time machine :

