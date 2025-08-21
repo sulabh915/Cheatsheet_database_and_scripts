@@ -56,6 +56,7 @@ xfreerdp /v:192.168.44.163 /u:Administrator /pth:<NTLM>
 using crackmapexec :
 ```bash
 
+crackmapexec <protocol> <Target_IP> -u ‘<username>‘ -p ‘<passwprd>‘
 available protocols
   {ftp,smb,winrm,ssh,rdp,ldap,mssql}
     ftp                 own stuff using FTP
