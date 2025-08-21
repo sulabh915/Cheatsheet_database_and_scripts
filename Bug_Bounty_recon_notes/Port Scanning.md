@@ -151,4 +151,6 @@ httpx -l live_sub.txt -p 80,443,8000,8080,8443 -silent -o http_alive.txt
 nohup python3 nmap_bomber.py subdomains.txt &
 nuclei -t /root/nuclei_templates -es info,low -l good_ports.txt -o nuclei.out
 
+https://github.com/mchklt/Nmap-Bomber/blob/main/scanner.py
+
 ```
