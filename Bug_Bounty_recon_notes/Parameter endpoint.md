@@ -124,6 +124,53 @@ gf ssti < urls-with-params.txt > ssti.txt
 gf redirect < urls-with-params.txt > redirect.txt
 or more ...
 
+#!/bin/bash
+
+# Input file containing parameterized URLs
+INPUT_FILE="$1"
+
+# Check if input file exists
+if [ ! -f "$INPUT_FILE" ]; then
+    echo "❌ Input file '$INPUT_FILE' not found!"
+    exit 1
+fi
+
+echo "🔍 Starting GF scan on $INPUT_FILE..."
+
+# Define GF patterns and output filenames
+declare -A patterns=(
+    ["sqli"]="sqli_param.txt"
+    ["xss"]="xss_param.txt"
+    ["lfi"]="lfi_param.txt"
+    ["rce"]="rce_param.txt"
+    ["idor"]="idor_param.txt"
+    ["debug_logic"]="debug_logic.txt"
+    ["redirect"]="redirect_param.txt"
+    ["ssrf"]="ssrf_param.txt"
+    ["ssti"]="ssti_param.txt"
+    ["interestingparams"]="interestingparams.txt"
+    ["img-traversal"]="img-traversal_param.txt"
+    ["interestingEXT"]="interestingEXT_param.txt"
+    ["interestingsubs"]="interestingsubs_param.txt"
+)
+
+# Loop through each pattern and run gf
+for pattern in "${!patterns[@]}"; do
+    echo "➡️  Extracting $pattern..."
+    cat "$INPUT_FILE" | gf "$pattern" > "${patterns[$pattern]}"
+done
+
+# Optional: Run httpx on ssti endpoints
+if [ -f "ssti_param.txt" ]; then
+    echo "🌐 Running httpx on SSTI endpoints..."
+    cat ssti_param.txt | httpx -silent -status-code -match-string "{" > ssti_httpx_results.txt
+fi
+
+echo "✅ GF scan complete. Results saved in respective files."
+
+
+
+
 https://github.com/thecybertix/GF-Patterns/blob/main/gf.sh
 git clone https://github.com/1ndianl33t/Gf-Patterns.git
 ```
