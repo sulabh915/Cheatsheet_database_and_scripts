@@ -161,3 +161,9 @@ if __name__ == "__main__":
 ```
 
 https://securityheaders.com/
+
+```bash
+wpscan --url https://site.com -disable-tls-checks -api-token <here> -e at -e ape u enumerate
+ap-plugins-detection aggressive
+-force
+```
