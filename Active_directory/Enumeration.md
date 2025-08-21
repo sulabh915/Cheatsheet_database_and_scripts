@@ -231,6 +231,11 @@ Invoke-Command -ComputerName <target> -Credential <domain\user> -ScriptBlock { w
 
 ```
 
+Identify domain controller script:
+```bash
+crackmapexec smb 192.168.1.0/24
+```
+
 
 Using Powerview script:
 ```bash
