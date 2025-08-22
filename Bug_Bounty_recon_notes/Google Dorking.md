@@ -23,6 +23,108 @@ site:http://ideone.com | site:http://codebeautify.org | site:http://codeshare.io
 ```
 
 
+
+```bash
+
+### 🛠 Step 1: Combining Basic Operators
+
+Example:
+
+inurl:admin intitle:login site:gov
+
+➡️ Finds government websites with "admin" in the URL and "login" in the page title.
+
+Common Basics:
+
+* site: → Limit to domain/TLD
+* intitle: → Search in page titles
+* inurl: → Search in URLs
+* filetype: → Filter by file format
+
+---
+
+### 🌐 Step 2: Using Language Filters
+
+Example:
+
+site:.gov "sensitive data" filetype:pdf lr:lang_es
+
+➡️ Finds Spanish-language PDFs on .gov sites.
+
+---
+
+### 🏳️ Step 3: Region-Specific Searches
+
+Example:
+
+intitle:"index of" "password" site:.gov filetype:xlsx cr:US
+
+➡️ Finds Excel files on U.S. government sites mentioning “password”.
+
+---
+
+### 📂 Step 4: Advanced Filetype Searches
+
+Rare & valuable filetypes:
+
+* sql → Database dumps
+* ini → Configs (with credentials)
+* bak → Backups
+* log → Log files
+* json → API keys & user data
+
+Example:
+
+filetype:sql "create table" inurl:backup
+
+➡️ Finds exposed database backups.
+
+---
+
+### 🔑 Step 5: Exposed Login Portals
+
+Example:
+
+inurl:admin intitle:login site:edu
+
+➡️ Finds exposed admin logins on university sites.
+
+---
+
+### 📊 Step 6: Publicly Exposed Documents
+
+Example:
+
+site:.gov filetype:xlsx "sensitive"
+
+➡️ Finds spreadsheets containing “sensitive” information.
+
+---
+
+### 📹 Step 7: Security Cameras & IoT Devices
+
+Example:
+
+intitle:"webcamXP 5" inurl:8080
+
+➡️ Finds open webcams 🌍.
+
+---
+
+### 📁 Step 8: Hidden Directories & Indexes
+
+Example:
+
+intitle:"index of" "parent directory" inurl:ftp filetype:log
+
+➡️ Finds exposed FTP directories with log files.
+
+```
+
+
+
+
+
 https://pentest-tools.com/information-gathering/google-hacking
 https://www.exploit-db.com/google-hacking-database
 https://taksec.github.io/google-dorks-bug-bounty/
