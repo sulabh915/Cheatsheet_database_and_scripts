@@ -308,6 +308,12 @@ subjack -w csp_subdomains.txt -ssl -a -timeout 10 -o takeover_results.txt
 ```
 
 
+using time machine :
+```bash
+python3 thetimemachine.py --subdomains
+```
+
+
 
 Combine , sort and unique :
 ```bash
