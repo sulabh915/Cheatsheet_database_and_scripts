@@ -70,7 +70,7 @@ https://github.com/Nishantbhagat57/backup-gen
 using nuclei tool:
 ```bash
 nuclei -u https://target.com -t exposures/ -v
-nuclei -l live_subs.txt -t cves/ -o bugs_found.txt  
+	nuclei -l live_subs.txt -t cves/ -o bugs_found.txt  
 
 nuclei -l resolved.txt -t ~/nuclei-templates/ -etags cloud,misconfig -severity critical,high -stats
 
