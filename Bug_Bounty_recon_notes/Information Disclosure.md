@@ -167,3 +167,72 @@ wpscan --url https://site.com -disable-tls-checks -api-token <here> -e at -e ape
 ap-plugins-detection aggressive
 -force
 ```
+
+
+script that's return 4xx and 5xx pages :
+```bash
+#!/usr/bin/env python3
+import requests
+import concurrent.futures
+
+def check_url(url):
+    try:
+        resp = requests.get(url, timeout=5, allow_redirects=False)
+        if 400 <= resp.status_code < 600:
+            return f"{url} [{resp.status_code}]"
+    except requests.RequestException:
+        return f"{url} [ERROR]"
+    return None
+
+def process_file(filename):
+    with open(filename, "r") as f:
+        return [line.strip() for line in f if line.strip()]
+
+def main():
+    print("=== Bad Status Code Finder (4xx & 5xx) ===")
+    choice = input("Do you want to check (1) Subdomains or (2) URLs? [1/2]: ").strip()
+
+    if choice == "1":
+        filename = input("Enter subdomains file: ").strip()
+        items = process_file(filename)
+
+        # Convert subdomains into URLs
+        targets = []
+        for s in items:
+            if not s.startswith("http"):
+                targets.append("http://" + s)
+                targets.append("https://" + s)
+            else:
+                targets.append(s)
+
+    elif choice == "2":
+        filename = input("Enter URLs file: ").strip()
+        targets = process_file(filename)
+
+    else:
+        print("Invalid choice! Exiting.")
+        return
+
+    print(f"[+] Checking {len(targets)} targets...")
+
+    bad_responses = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
+        futures = {executor.submit(check_url, target): target for target in targets}
+        for future in concurrent.futures.as_completed(futures):
+            result = future.result()
+            if result:
+                print(result)
+                bad_responses.append(result)
+
+    # Save results
+    with open("bad_status.txt", "w") as out:
+        for r in bad_responses:
+            out.write(r + "\n")
+
+    print(f"\n✅ Found {len(bad_responses)} targets with 4xx/5xx responses.")
+    print("   -> Saved to bad_status.txt")
+
+if __name__ == "__main__":
+    main()
+
+```

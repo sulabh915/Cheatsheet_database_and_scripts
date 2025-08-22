@@ -250,6 +250,178 @@ copy and paste in console
 ```
 
 
+source file recon using javascript :
+```bash
+(async function () {
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const uniq = (arr) => Array.from(new Set(arr)).sort();
+  const add = (map, k, v) => (map[k] ||= new Set()).add(v);
+
+  // --- patterns ---
+  const RX = {
+    sensitive: [
+      /\bAKIA[0-9A-Z]{16}\b/g,                                 // AWS Access Key
+      /\b(?:ASIA|A3T[A-Z0-9])[A-Z0-9]{16}\b/g,                 // AWS STS-ish
+      /(?:aws)?_?secret(?:_?access)?_?key['"\s:=]+([A-Za-z0-9\/+=]{20,})/gi,
+      /\bAIza[0-9A-Za-z\-_]{35}\b/g,                           // Google API Key
+      /\bya29\.[0-9A-Za-z\-_\.]+/g,                            // Google OAuth token
+      /\bEAACEdEose0cBA[0-9A-Za-z]+/g,                         // old FB token style
+      /\b(?:xox[abpqr]-[0-9A-Za-z\-]{10,})\b/g,                // Slack token
+      /\bghp_[0-9A-Za-z]{36}\b/g,                              // GitHub PAT
+      /\bgho_[0-9A-Za-z]{36}\b/g,
+      /\bghs_[0-9A-Za-z]{36}\b/g,
+      /\bghu_[0-9A-Za-z]{36}\b/g,
+      /\b(?:sk|rk)_(live|test)_[0-9a-zA-Z]{10,}\b/g,           // Stripe-ish
+      /\bsecret(?:_?key|Token|token)?['"\s:=]+([A-Za-z0-9\-_\.]{8,})/gi,
+      /\b(BEARER|Bearer)\s+[A-Za-z0-9\-_\.=:+\/]{10,}\b/g,
+      /\bBasic\s+[A-Za-z0-9+\/=]{8,}\b/g,
+      /\beyJ[A-Za-z0-9_\-]+?\.[A-Za-z0-9_\-]+?\.[A-Za-z0-9_\-]+/g, // JWT
+      /\bpassword\s*[:=]\s*['"][^'"]{4,}['"]/gi,
+      /\bpass(?:wd|word)?\s*=\s*['"][^'"]+['"]/gi,
+      /\bapi(?:_?key|_?token|_?secret)\s*[:=]\s*['"][A-Za-z0-9\-_\.]{8,}['"]/gi,
+      /\bS3_BUCKET\b\s*[:=]\s*['"][^'"]+['"]/g,
+      /\b(?:gcp|google)_project_id\s*[:=]\s*['"][^'"]+['"]/gi,
+      /\bAAD_TENANT_ID\s*[:=]\s*['"][^'"]+['"]/g,
+      /\b(?:mongodb|postgres|mysql):\/\/[^\s'"]+/gi,           // DB URIs
+      /\bssh-rsa\s+[A-Za-z0-9+\/=]{50,}\b/g,                   // SSH pubkey
+      /(^|\/)\.env(\.local|\.prod|\.dev)?/gi,
+      /\b(?:access[_-]?token|refresh[_-]?token)['"\s:=]+([A-Za-z0-9\-_\.]{8,})/gi,
+      /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g    // Emails
+    ],
+    endpoints: [
+      /https?:\/\/[^\s"'<>]+/gi,
+      /(?:['"`])\/[A-Za-z0-9_\-\/\.]+(?:\?[^\s"'<>]*)?(?:['"`])/g,
+      /\b\/(?:api|v1|v2|graphql|graphiql|swagger|openapi|admin|internal|debug|beta)[^\s"'<>)]*/gi
+    ],
+    domSinks: [
+      /\b(?:innerHTML|outerHTML|insertAdjacentHTML|document\.write(?:ln)?|Range\.createContextualFragment)\b/gi,
+      /\b(?:eval|Function|setTimeout|setInterval)\s*\(\s*['"`]/gi,
+      /\b(?:location\.hash|location\.search|document\.URL|document\.documentURI|document\.referrer)\b/gi,
+      /\bpostMessage\s*\(\s*[^,]+,\s*['"]\*['"]\s*\)/gi
+    ],
+    insecure: [
+      /http:\/\/[^\s"'<>]+/gi,                                  // plain HTTP
+      /\bAccess-Control-Allow-Origin\s*:\s*\*\b/gi,
+      /\bX-Frame-Options\s*:\s*ALLOWALL\b/gi
+    ],
+    ips: [
+      /\b(?:10|127|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)\.(?:\d{1,3}\.){2}\d{1,3}\b/g,
+      /\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/g
+    ]
+  };
+
+  // gather HTML + JS sources
+  const results = { sensitive:new Set(), endpoints:new Set(), domSinks:new Set(), insecure:new Set(), ips:new Set(), errors:[] };
+
+  const scanText = (txt) => {
+    for (const [k, arr] of Object.entries(RX)) {
+      if (k === 'errors') continue;
+      for (const rx of arr) {
+        const m = txt.match(rx);
+        if (m) m.forEach(v => {
+          // clean quotes around endpoint matches
+          if (k === 'endpoints' && /^['"`].*['"`]$/.test(v)) v = v.slice(1, -1);
+          results[k].add(v);
+        });
+      }
+    }
+  };
+
+  // scan page HTML
+  scanText(document.documentElement.outerHTML);
+
+  // collect script URLs
+  const scripts = Array.from(document.scripts)
+    .map(s => s.src)
+    .filter(Boolean);
+
+  // fetch same-origin scripts (CORS may block cross-origin)
+  const sameOrigin = scripts.filter(src => {
+    try { const u = new URL(src, location.href); return u.origin === location.origin; } catch { return false; }
+  });
+
+  const fetches = sameOrigin.map(async (src) => {
+    try {
+      const r = await fetch(src, { credentials: 'include' });
+      const t = await r.text();
+      scanText(t);
+    } catch (e) {
+      results.errors.push(`Fetch failed: ${src} :: ${e}`);
+    }
+  });
+
+  // also try to fetch cross-origin but ignore failures
+  const crossOrigin = scripts.filter(src => !sameOrigin.includes(src));
+  const corsFetches = crossOrigin.map(async (src) => {
+    try {
+      const r = await fetch(src);
+      const t = await r.text();
+      scanText(t);
+    } catch (e) { /* often blocked by CORS */ }
+  });
+
+  await Promise.race([Promise.allSettled([...fetches, ...corsFetches]), sleep(3500)]);
+
+  // --- UI panel ---
+  const makeSection = (title, arr, color='#0f0') => {
+    const count = arr.length;
+    return `
+      <div style="margin:8px 0;">
+        <div style="color:${color};font-weight:bold;margin-bottom:4px;">${title} (${count})</div>
+        <div style="white-space:pre-wrap;line-height:1.4">${arr.map(x=>x.replace(/</g,'&lt;')).join('\n')}</div>
+      </div>`;
+  };
+
+  const panel = document.createElement('div');
+  panel.id = 'js-recon-panel';
+  panel.style = `
+    position:fixed; inset:auto 8px 8px 8px; max-height:50vh; z-index:999999;
+    background:#111; color:#ddd; font:12px/1.4 monospace; border:1px solid #0f0; border-radius:6px;
+    box-shadow:0 0 12px rgba(0,255,0,0.25); padding:10px; overflow:auto;`;
+  panel.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#111;padding-bottom:6px;">
+      <div><b>🔎 JS Recon (page + scripts)</b></div>
+      <div>
+        <button id="jsr-copy" style="margin-right:6px">Copy All</button>
+        <button id="jsr-close">Close</button>
+      </div>
+    </div>
+    ${makeSection('Sensitive', uniq([...results.sensitive]), '#ff7')}
+    ${makeSection('Endpoints', uniq([...results.endpoints]), '#7ff')}
+    ${makeSection('DOM Sinks/Sources', uniq([...results.domSinks]), '#f99')}
+    ${makeSection('Insecure/CORS/HTTP', uniq([...results.insecure]), '#f7a')}
+    ${makeSection('IPs (incl. internal)', uniq([...results.ips]), '#afa')}
+    ${results.errors.length ? makeSection('Errors', uniq(results.errors), '#faa') : ''}
+  `;
+  document.body.appendChild(panel);
+
+  // copy button
+  document.getElementById('jsr-copy').onclick = () => {
+    const text = panel.innerText.replace(/^🔎.*\n/,'');
+    navigator.clipboard.writeText(text).then(()=> {
+      alert('Results copied to clipboard');
+    }, ()=>{ alert('Copy failed – permissions?'); });
+  };
+  document.getElementById('jsr-close').onclick = () => panel.remove();
+})();
+
+```
+
+
+
+javascript recon using bookmark:
+```bash
+javascript:(async function(){const e=ms=>new Promise(r=>setTimeout(r,ms)),t=e=>Array.from(new Set(e)).sort(),n={sensitive:[/\bAKIA[0-9A-Z]{16}\b/g,/\b(?:ASIA|A3T[A-Z0-9])[A-Z0-9]{16}\b/g,/(?:aws)?_?secret(?:_?access)?_?key['"\s:=]+([A-Za-z0-9\/+=]{20,})/gi,/\bAIza[0-9A-Za-z\-_]{35}\b/g,/\bya29\.[0-9A-Za-z\-_\.]+/g,/\bEAACEdEose0cBA[0-9A-Za-z]+/g,/\b(?:xox[abpqr]-[0-9A-Za-z\-]{10,})\b/g,/\bghp_[0-9A-Za-z]{36}\b/g,/\bgho_[0-9A-Za-z]{36}\b/g,/\bghs_[0-9A-Za-z]{36}\b/g,/\bghu_[0-9A-Za-z]{36}\b/g,/\b(?:sk|rk)_(live|test)_[0-9a-zA-Z]{10,}\b/g,/\bsecret(?:_?key|Token|token)?['"\s:=]+([A-Za-z0-9\-_\.]{8,})/gi,/\b(BEARER|Bearer)\s+[A-Za-z0-9\-_\.=:+\/]{10,}\b/g,/\bBasic\s+[A-Za-z0-9+\/=]{8,}\b/g,/\beyJ[A-Za-z0-9_\-]+?\.[A-Za-z0-9_\-]+?\.[A-Za-z0-9_\-]+/g,/\bpassword\s*[:=]\s*['"][^'"]{4,}['"]/gi,/\bpass(?:wd|word)?\s*=\s*['"][^'"]+['"]/gi,/\bapi(?:_?key|_?token|_?secret)\s*[:=]\s*['"][A-Za-z0-9\-_\.]{8,}['"]/gi,/\bS3_BUCKET\b\s*[:=]\s*['"][^'"]+['"]/g,/\b(?:gcp|google)_project_id\s*[:=]\s*['"][^'"]+['"]/gi,/\bAAD_TENANT_ID\s*[:=]\s*['"][^'"]+['"]/g,/\b(?:mongodb|postgres|mysql):\/\/[^\s'"]+/gi,/\bssh-rsa\s+[A-Za-z0-9+\/=]{50,}\b/g,/(^|\/)\.env(\.local|\.prod|\.dev)?/gi,/\b(?:access[_-]?token|refresh[_-]?token)['"\s:=]+([A-Za-z0-9\-_\.]{8,})/gi,/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g],endpoints:[/https?:\/\/[^\s"'<>]+/gi,/(?:['"`])\/[A-Za-z0-9_\-\/\.]+(?:\?[^\s"'<>]*)?(?:['"`])/g,/\b\/(?:api|v1|v2|graphql|graphiql|swagger|openapi|admin|internal|debug|beta)[^\s"'<>)]*/gi],domSinks:[/\b(?:innerHTML|outerHTML|insertAdjacentHTML|document\.write(?:ln)?|Range\.createContextualFragment)\b/gi,/\b(?:eval|Function|setTimeout|setInterval)\s*\(\s*['"`]/gi,/\b(?:location\.hash|location\.search|document\.URL|document\.documentURI|document\.referrer)\b/gi,/\bpostMessage\s*\(\s*[^,]+,\s*['"]\*['"]\s*\)/gi],insecure:[/http:\/\/[^\s"'<>]+/gi,/\bAccess-Control-Allow-Origin\s*:\s*\*\b/gi,/\bX-Frame-Options\s*:\s*ALLOWALL\b/gi],ips:[/\b(?:10|127|172\.(?:1[6-9]|2[0-9]|3[0-1])|192\.168)\.(?:\d{1,3}\.){2}\d{1,3}\b/g,/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/g]},o={sensitive:new Set(),endpoints:new Set(),domSinks:new Set(),insecure:new Set(),ips:new Set(),errors:[]},r=t=>{for(const[e,s]of Object.entries(n))if("errors"!==e)for(const n of s){const s=t.match(n);s&&s.forEach(t=>{"endpoints"===e&&/^['"`].*['"`]$/.test(t)&&(t=t.slice(1,-1)),o[e].add(t)})}};r(document.documentElement.outerHTML);const s=Array.from(document.scripts).map(e=>e.src).filter(Boolean),i=s.filter(e=>{try{const t=new URL(e,location.href);return t.origin===location.origin}catch{return!1}}),a=i.map(async t=>{try{const e=await fetch(t,{credentials:"include"}),n=await e.text();r(n)}catch(e){o.errors.push(`Fetch failed: ${t} :: ${e}`)}}),c=s.filter(e=>!i.includes(e)),l=c.map(async e=>{try{const t=await fetch(e),n=await t.text();r(n)}catch(e){}});await Promise.race([Promise.allSettled([...a,...l]),e(3500)]);const d=(e,t,n="#0f0")=>{const%20o=t.length;return`<div%20style="margin:8px%200;"><div%20style="color:${n};font-weight:bold;margin-bottom:4px;">${e}%20(${o})</div><div%20style="white-space:pre-wrap;line-height:1.4">${t.map(e=>e.replace(/</g,"&lt;")).join("\n")}</div></div>`},u=document.createElement("div");u.id="js-recon-panel",u.style="position:fixed;%20inset:auto%208px%208px%208px;%20max-height:50vh;%20z-index:999999;%20background:#111;%20color:#ddd;%20font:12px/1.4%20monospace;%20border:1px%20solid%20#0f0;%20border-radius:6px;%20box-shadow:0%200%2012px%20rgba(0,255,0,0.25);%20padding:10px;%20overflow:auto;",u.innerHTML=`<div%20style="display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#111;padding-bottom:6px;"><div><b>%F0%9F%94%8E%20JS%20Recon%20(page%20+%20scripts)</b></div><div><button%20id="jsr-copy"%20style="margin-right:6px">Copy%20All</button><button%20id="jsr-close">Close</button></div></div>${d("Sensitive",t([...o.sensitive]),"#ff7")}${d("Endpoints",t([...o.endpoints]),"#7ff")}${d("DOM%20Sinks/Sources",t([...o.domSinks]),"#f99")}${d("Insecure/CORS/HTTP",t([...o.insecure]),"#f7a")}${d("IPs%20(incl.%20internal)",t([...o.ips]),"#afa")}${o.errors.length?d("Errors",t(o.errors),"#faa"):""}`,document.body.appendChild(u),document.getElementById("jsr-copy").onclick=()=>{const%20e=u.innerText.replace(/^%F0%9F%94%8E.*\n/,"");navigator.clipboard.writeText(e).then(()=>{alert("Results%20copied%20to%20clipboard")},()=>{alert("Copy%20failed%20%E2%80%93%20permissions?")})},document.getElementById("jsr-close").onclick=()=>u.remove();})();
+```
+
+
+
+
+
+
+
+
+
 ```bash
 import requests
 import re
