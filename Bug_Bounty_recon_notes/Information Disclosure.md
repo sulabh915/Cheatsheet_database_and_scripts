@@ -4,6 +4,8 @@ Collecting urls :
 cat subs.txt | gau --threads 50 > gau-raw.txt
 cat subs.txt | waybackurls > wayback-raw.txt
 cat gau-raw.txt wayback-raw.txt | anew all-urls.txt
+waybackurls target.com | grep "admin\|api\|config"  
+
 ```
 
 looking for vulnerable  files :
@@ -73,6 +75,9 @@ nuclei -u https://target.com -t exposures/ -v
 	nuclei -l live_subs.txt -t cves/ -o bugs_found.txt  
 
 nuclei -l resolved.txt -t ~/nuclei-templates/ -etags cloud,misconfig -severity critical,high -stats
+
+nuclei -l live.txt -t ~/nuclei-templates/ -es info -o bugs.txt
+
 
 ```
 

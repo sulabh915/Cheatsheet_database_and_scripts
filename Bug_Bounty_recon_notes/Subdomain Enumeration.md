@@ -67,6 +67,7 @@ subfinder -d target.com -recursive
 subfinder -d target.com -all -r resolvers.txt
 subfinder -dL domains.txt -all -recursive\
 subfinder -d example.com -all -recursive -o subfinder.txt
+subfinder -d target.com --all --recursive --silent | httpx -sc -td
 
 ```
 
@@ -212,6 +213,7 @@ generate api token from developer setting from github.
 using some public sources :
 ```bash
 curl -s https://crt.sh\?q\=\domain.com\&output\=json | jq -r '.[].name_value' | grep -Po '(\w+\.\w+\.\w+)$' >crtsh.txt
+curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq -r '.[].name_value' | anew subs.txt  
 curl -s "http://web.archive.org/cdx/search/cdx?url=*.hackerone.com/*&output=text&fl=original&collapse=urlkey" |sort| sed -e 's_https*://__' -e "s/\/.*//" -e 's/:.*//' -e 's/^www\.//' | sort -u > wayback.txt
 curl -s "https://www.virustotal.com/vtapi/v2/domain/report?apikey=[api-key]&domain=www.nasa.gov" | jq -r '.domain_siblings[]' | >virustotal.txt
 ```

@@ -129,6 +129,7 @@ extension:yaml "password"
 filename:.git-credentials  
 language:shell "export TOKEN="  
 
+
 ```
 
 Miscellaneous:
@@ -317,6 +318,8 @@ github-dork.py -u dev-nepal                                      # search all re
 GH_USER=techgaun GH_PWD=<mypass> github-dork.py -u dev-nepal     # search as authenticated user
 GH_TOKEN=<github_token> github-dork.py -u dev-nepal              # search using auth token
 GH_URL=https://github.example.com github-dork.py -u dev-nepal    # search a GitHub Enterprise instance
+
+
 ```
 
 Important keyword :
@@ -329,6 +332,13 @@ pwd
 |heroku| slack | firebase | swagger | aws_secret_key | aws key | password |ftp
 password|jdbc |db|sq1|secret jet| config|admin|pwd|json|gcp|htaccess|.env|ssh
 key| .git| access key| secret token| oauth_token| oauth_token_secret"
+```
+
+
+
+gh-dork :
+```bash
+gh-dork -q "target.com" -t "aws_key\|password\|internal"  
 ```
 
 | **Dorking Operator**                 | **Description**                                            |
