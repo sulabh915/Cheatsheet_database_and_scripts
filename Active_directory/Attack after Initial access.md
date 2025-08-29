@@ -2,10 +2,10 @@
 
 ### Kerberoasting :
 -  Kerberoasting targets on service account .
-- some service account runs on high privilege account
-- Any authenticted user can request service ticket of service account by TGS
-- Service ticket is encrypted with service account password hash
-- we request and crack those hash
+- some service account runs on high privilege account.
+- Any authenticted or unauthenticate we just want username we can easily request service ticket of service account by TGS.
+- Service ticket is encrypted with service account password hash.
+- we request and crack those hash.
 
 
 create service principle name :
