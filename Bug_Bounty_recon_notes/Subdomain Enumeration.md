@@ -351,8 +351,11 @@ https://www.zoomeye.ai/?q=aWNvbmhhc2g9IjE1OTNmMTQ2NTBlNGIzOTM0ZDJhNmI0NmQ4NDRlOT
 
 ```bash
 python3 favicon-hashtrick.py -u "https://www.example.com/../favicon.ico" -k <shodan api>
-```
 
+	```
+```bash
+http.favicon.hash:<hash>
+```
 
 using Findomaion:
 ```bash
