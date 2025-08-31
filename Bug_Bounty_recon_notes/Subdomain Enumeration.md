@@ -73,7 +73,7 @@ subfinder -d target.com --all --recursive --silent | httpx -sc -td
 
 > [!/usr/share/wordlists/seclists/Miscellaneous ] Wordlist for resolver
 > 
->/usr/share/wordlists/seclists/Miscellaneous/dns-resolvers.txt
+>	/usr/share/wordlists/seclists/Miscellaneous/dns-resolvers.txt
 
 Amass :
 ```
@@ -338,6 +338,10 @@ httpx -l subdomains.txt -favicon -o favicon_hashes.txt
 httpx -l subdomains.txt -hash -o response_hashes.txt
 httpx -l subdomains.txt -mc 200,403,500 -o filtered_hosts.txt
 httpx -l subdomains.txt -mr "admin" -o admin_panels.txt
+
+sed 's|https\?://||' live_hosts.txt > clean_hosts.txt
+
+
 cat recon/example/domains.txt | httprobe
 cat subexample.com.txt | httpx-toolkit -ports 80,443,8080,8000,8888 -threads 200 > subexample.coms_alive.txt
 cat subdomain.txt | httpx-toolkit -ports 80,443,8080,8000,8888 -threads 200 > subdomains_alive.txt
