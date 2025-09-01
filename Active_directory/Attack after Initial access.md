@@ -35,12 +35,20 @@ crack hash :
 hashcat -m 13100 GetUserSPNs1.out /usr/share/wordlists/rockyou.txt.gz 
 ```
 
+Mitigation :
+```bash
+- Limit user/group token creation permission
+- Account tiering
+- Local admin restriction
+```
+
+
 ### Token Impersonation :
 
 Temporary keys that allow you access to a system/network without having to provide credentials each time you access a file. Think cookies for computers.
 
 - Delegate - Created for logging into a machine or using Remote Desktop
--  Impersonate - "non-interactive" such as attaching a network drive or a domain logon script
+- Impersonate - "non-interactive" such as attaching a network drive or a domain logon script
 
 
 Compromise the machine in domain to see if Administrator logins to that machine if yes perform this attack :
