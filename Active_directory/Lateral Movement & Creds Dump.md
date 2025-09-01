@@ -228,7 +228,8 @@ sekurlsa::logonpasswords
 
 impacket-secretsdump -sam SAM -system SYSTEM local 
 
-
+##
+https://juggernaut-sec.com/dumping-credentials-sam-file-hashes/
 
 ```
 
