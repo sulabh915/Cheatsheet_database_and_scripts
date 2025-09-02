@@ -19,7 +19,7 @@ while read domain; do
     python3 paramspider.py --domain "$clean_domain" -l high -o "${clean_domain}_params.txt" -e js,png,jpg,gif,css
 done < live_domain.txt
 
-
+paramspider -l clean_hosts.txt -s
 
 ```
 

