@@ -132,6 +132,10 @@ assetfinder:
 ```bash
 assetfinder subs-only target.com
 assetfinder --subs-only example.com > assetfinder.txt
+
+subfinder -dL domains.txt -all -recursive -o subdomains.txt
+cat subdomains.txt | assetfinder -subs-only > asset.subs.txt
+cat asset.subs.txt subdomains.txt | sort -u > unique_subdomains.txt
 ```
 
 
