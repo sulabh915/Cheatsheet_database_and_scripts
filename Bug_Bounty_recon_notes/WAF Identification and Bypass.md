@@ -252,7 +252,7 @@ Appending null byte:
 https://target.com/admin%00
 
 URL encoding:
-https://target.com/%2e%2e/admin
+https://target.com/ 
 
 curl http://example.com/../secret/
 

