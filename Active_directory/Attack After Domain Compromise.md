@@ -87,3 +87,9 @@ kerberos::golden /User:Administrator /domain:marvel.local /sid:S-1-5-21-36140207
 
 
 ```
+
+#### Silver ticket attack :
+With golden ticket attack, we used the hash of a krbtgt account whereas in the case of the silver ticket attack we will use the password hash of a service account. The password hash of the service account can be extracted by various methods, Kerberoasting being one. Since no intermediary TGT is required for the silver ticket attack to work, silver tickets can be forged without any communication with a Domain Controller and hence is stealthier than golden ticket attack.
+```bash
+
+```

