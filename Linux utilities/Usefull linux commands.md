@@ -42,6 +42,8 @@ awk '{ print > "output.txt" }' file  # write output to file instead of screen
 
 find : mostly used command for find and operation
 ```bash
+find <location> <options>
+
 # Search everything under current directory
 find .
 
