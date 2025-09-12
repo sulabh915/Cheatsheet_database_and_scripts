@@ -39,6 +39,9 @@ filename:wp-config.php
 extension:sql mysql dump
 filename:credentials aws_access_key_id
 filename:id_rsa or filename:id_dsa
+
+
+filename:manifest.xml OR filename:travis.yml OR filename:vim_settings.xml OR filename:database OR filename:prod.exs -filename:prod.secret.exs OR filename:prod.secret.exs OR filename:.npmrc _auth OR filename:.dockercfg auth OR filename:WebServers.xml OR filename:.bash_history  OR filename:sftp-config.json OR (filename:sftp.json path:.vscode) OR (filename:secrets.yml password) OR (filename:.esmtprc password) OR (filename:passwd path:etc) OR filename:dbeaver-data-sources.xml OR (path:sites databases password) OR (filename:config.php dbpasswd) OR (filename:configuration.php JConfig password) OR filename:.sh_history OR (shodan_api_key language:python) OR (filename:shadow path:etc) OR JEKYLL_GITHUB_TOKEN OR filename:proftpdpasswd OR filename:.pgpass OR filename:idea14.key OR filename:hub oauth_token OR (HEROKU_API_KEY language:json) OR (HEROKU_API_KEY language:shell) OR SF_USERNAME salesforce OR (filename:.bash_profile aws) OR (extension:json api.forecast.io) OR (filename:.env MAIL_HOST=smtp.gmail.com) OR filename:wp-config.php OR (extension:sql mysql dump) OR (filename:credentials aws_access_key_id) OR (filename:id_rsa OR filename:id_dsa)
 ```
 
 GitHub Dorks for Finding Languages
