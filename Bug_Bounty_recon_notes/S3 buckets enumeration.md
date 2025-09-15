@@ -66,6 +66,8 @@ s3scanner -bucket-file file.txt -enumerate -threads 10 | grep -aE 'AllUsers: \[.
 
 ./cloud_enum.py -k somecompany -k somecompany.io -k blockchaindoohickey
  s3enum -wordlist examples/wordlist.txt -suffixlist examples/suffixlist.txt -threads 10 hackerone
+ 
+s3scanner scan -d example.com
 
 
 ```
