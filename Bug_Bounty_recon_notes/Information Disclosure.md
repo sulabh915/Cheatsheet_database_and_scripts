@@ -63,6 +63,12 @@ Using Trace :
 curl -X TRACE -i https://example.com
 ```
 
+```bash
+cat allurls.txt | grep -E "\.js$" | httpx-toolkit -mc 200 -content-type | grep -E "application/javascript|text/javascript" | cut -d' ' -f1 74| xargs -I% curl -s % | grep -E "(API_KEY|api_key|apikey|secret|token|password)";
+```
+
+
+
 Backupfinder :
 ```bash
 git clone https://github.com/anmolksachan/WayBackupFinder.git
