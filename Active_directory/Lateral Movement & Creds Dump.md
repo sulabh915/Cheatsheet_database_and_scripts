@@ -254,8 +254,6 @@ lsadump::cache
 
 john --format=mscash2 --wordlist=/usr/share/wordlists/rockyou.txt mhash
 
-
-
 ```
 
 
