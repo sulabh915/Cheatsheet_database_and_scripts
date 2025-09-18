@@ -47,7 +47,7 @@ Enumerate compromised user:
 impacket-lookupsid username:password@<DC IP>
 ```
 
-Enumerate kerberos:
+Enumerate kerberos (AS-REP roasting & Kerberosting):
 ```bash
 nmap -p 88 --script krb5-enum-users <target>
 
