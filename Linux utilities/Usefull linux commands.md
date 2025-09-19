@@ -1,4 +1,4 @@
-must used linux utilities for master grep,sed,tr,ed,awk , and vi.
+must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
 
 
 awk : mostly used tool for text processing
