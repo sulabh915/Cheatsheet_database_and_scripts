@@ -1,4 +1,4 @@
-
+	-u[8]
 #### Collect IP address block using asn:
 https://asnlookup.com/
 https://bgp.he.net/

