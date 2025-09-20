@@ -187,6 +187,13 @@ evil-winrm -i 192.168.1.19 -u administrator -p Ignite@987 -l
 #using docker.
 docker run --rm -ti --name evil-winrm  oscarakaelvis/evil-winrm -i 192.168.1.105 -u Administrator -p 'Ignite@987'
 
+
+#using powershell to connect to target 
+Enable-PSRemoting -force
+Test-NetConnection 192.168.154.134 -CommonTCPPort WINRM
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value * -Force
+Enter-PSSession 192.168.154.134 -Credential MARVEL.local\Administrator
+ 
 ```
 
 
