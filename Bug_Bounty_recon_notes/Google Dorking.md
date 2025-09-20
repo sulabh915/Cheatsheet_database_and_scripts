@@ -22,6 +22,10 @@ site:http://ideone.com | site:http://codebeautify.org | site:http://codeshare.io
 
 ```
 
+information discosure:
+```bash
+site:example[.]com ext:log | ext:txt | ext:conf | ext:cnf | ext:ini | ext:env | ext:sh | ext:bak | ext:backup | ext:swp | ext:old | ext:~ | ext:git | ext:svn | ext:htpasswd | ext:htaccess | ext:json
+```
 
 
 ```bash
