@@ -149,3 +149,34 @@ find . -name "*.txt" | wc -l
 find . -name "*.tmp" -print0 | xargs -0 rm -f
 
 ```
+
+
+
+Regular Expression :
+```bash
+^ - beginning of line
+$ - end of line
+
+example:
+cat names | grep ^R
+cat names | grep am$
+
+#using concatenation
+grep press regex.txt 
+
+#key characters in ERE:
+| → alternation (logical OR)
+( ) → grouping
+? + {} → quantifiers (optional, one-or-more, ranges)
+\ → escape (turns metacharacter into literal, or in BRE gives special meaning)
+
+#difference between bre(basic regular expression) and ere(extended regular expression)
+ 
+grep "n|p" regex.txt
+global|regular|expression|print
+
+egrep  "n|p" regex.txt
+global|regular|expression|print
+Global Regular Expression Print
+
+```
