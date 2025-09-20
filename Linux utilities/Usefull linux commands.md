@@ -170,7 +170,7 @@ grep press regex.txt
 ? + {} → quantifiers (optional, one-or-more, ranges)
 \ → escape (turns metacharacter into literal, or in BRE gives special meaning)
 
-#difference between bre(basic regular expression) and ere(extended regular expression)
+#Difference between bre(basic regular expression) and ere(extended regular expression)
  
 grep "n|p" regex.txt
 global|regular|expression|print
