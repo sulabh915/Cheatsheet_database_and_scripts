@@ -171,12 +171,25 @@ grep press regex.txt
 \ → escape (turns metacharacter into literal, or in BRE gives special meaning)
 
 #Difference between bre(basic regular expression) and ere(extended regular expression)
- 
+
+
 grep "n|p" regex.txt
 global|regular|expression|print
 
 egrep  "n|p" regex.txt
 global|regular|expression|print
 Global Regular Expression Print
+
+grep "n\|p" regex.txt (BRE with escaped \|)
+In BRE, escaping \| turns it into alternation. So n\|p means n or p.
+That matches both lines (same as grep -E "n|p").
+
+egrep "n\|p" regex.txt (ERE, escaped \|)
+In ERE the plain | is alternation. But you escaped it (\|), so the backslash neutralizes the special meaning and makes it a literal |
+
+#final note
+Use grep -E (or egrep) if you want readable regexes with |, +, ?, () etc.
+If you escape a metacharacter in ERE you generally make it literal, so be careful: \| means different things in BRE vs ERE.
+
 
 ```
