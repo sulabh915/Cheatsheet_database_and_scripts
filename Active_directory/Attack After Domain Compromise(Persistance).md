@@ -150,8 +150,16 @@ privilege::debug
 sekurlsa::pth /user:Administrator /domain:ignite.local /ntlm:32196B56FFE6F45E294117B91A83BF38
 
 
+
 #mitigation
 Check & monitor the DsrmAdminLogonBehaviour value is not set to 2 inside the Registry key.
 DSRM passwords are changed regularly at least once a month.
+
+ntdsutil
+set dsrm password
+reset password on server null
+# it will prompt for new password and confirmation
+q
+q
 ```
 
