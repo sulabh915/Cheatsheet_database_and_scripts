@@ -154,3 +154,4 @@ sekurlsa::pth /user:Administrator /domain:ignite.local /ntlm:32196B56FFE6F45E294
 Check & monitor the DsrmAdminLogonBehaviour value is not set to 2 inside the Registry key.
 DSRM passwords are changed regularly at least once a month.
 ```
+
