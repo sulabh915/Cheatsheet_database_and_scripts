@@ -151,6 +151,41 @@ find . -name "*.tmp" -print0 | xargs -0 rm -f
 ```
 
 
+grep command:
+```bash
+#search specific pattern
+grep "error" /var/log/syslog
+grep "error" /var/log/syslog /var/log/auth.log
+
+#search recursive .
+grep -r "search_string" /path/to/directory
+
+#ignore case-sensitivity
+grep -i "error" /var/log/syslog
+
+#Count Number of Occurrences
+grep -c "error" /var/log/syslog
+
+#using regular expression pattern
+grep "^error" /var/log/syslog
+grep "error$" /var/log/syslog
+
+#invert grep search
+grep -v "search_string" filename
+
+#search for multiple pattern.
+grep -E "pattern1|pattern2" filename
+
+#number the line that contain the search pattern
+grep -n "Linux" welcome.txt
+
+
+```
+
+
+
+
+
 
 Regular Expression :
 ```bash
