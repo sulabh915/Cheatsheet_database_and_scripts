@@ -187,6 +187,22 @@ ifconfig | grep -B 4 ether
 ```
 
 
+sort commands :
+```bash
+#acending sort
+sort -o sorted.txt default.txt
+sort default.txt > sorted.txt
+
+#reverse order sort decending sort
+sort -r default.txt
+
+#remove duplicates
+sort -u test.txt
+
+#randomly arrage data
+sort -R ordered.txt
+
+```
 
 
 
