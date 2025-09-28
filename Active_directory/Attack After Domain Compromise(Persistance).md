@@ -1,4 +1,4 @@
-
+	
 
 #### Pass the ticket :
 Using a stolen Kerberos ticket (TGT or service ticket) to authenticate to services without needing the user's password or hash.
@@ -93,7 +93,7 @@ With golden ticket attack, we used the hash of a krbtgt account whereas in the c
 
 ```bash
 #requirements 
-Service hash <perform kerberoasting>
+Service hash <perform kerberoasting or use >
 Service name <get from kerberoasting attack>
 Target FQDN 
 Domain SID  <whoami /user>
