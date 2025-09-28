@@ -179,6 +179,10 @@ grep -E "pattern1|pattern2" filename
 #number the line that contain the search pattern
 grep -n "Linux" welcome.txt
 
+#Displaying number of lines before or after a search pattern Using pipes
+ifconfig | grep -A 4 ens3
+ifconfig | grep -B 4 ether
+
 
 ```
 
