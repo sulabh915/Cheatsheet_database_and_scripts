@@ -55,7 +55,7 @@ A Golden Ticket attack is a powerful post-exploitation technique where an attack
 ```bash
 #requirements
 kbrtgt:hash
-SID of kbrtgt
+SID of kbrtgt (nxc ldap 192.168.154.134 -u fcastle -p Password@123 --get-sid)
 Domain name 
 impersonate-user
 

@@ -206,6 +206,41 @@ sort -R ordered.txt
 
 ```
 
+Metacharacters in linux:
+```bash
+Metacharacter	Meaning / Use Case	Example
+
+*	Wildcard: matches any string	ls *.txt → lists all .txt files
+?	Wildcard: matches any single character	ls file?.txt → matches file1.txt, fileA.txt
+[ ]	Character class for pattern matching	ls file[0-9].txt
+{}	Brace expansion	echo file{1..3} → file1 file2 file3
+~	Home directory shortcut	cd ~ → goes to /home/somx
+$	Variable expansion	echo $USER
+"	Double quotes: preserve spaces, allow expansion	echo "Hello $USER"
+'	Single quotes: literal string, no expansion	echo 'Hello $USER'
+\	Escape next character	echo \$USER → prints $USER
+>	Redirect stdout to file (overwrite)	echo "Hi" > file.txt
+>>	Redirect stdout to file (append)	echo "Hi" >> file.txt
+<	Redirect stdin from file	wc -l < file.txt
+`	`	Pipe: pass output to next command	`ls	grep txt`
+;	Command separator	echo hi; echo bye
+&&	Run next command only if previous succeeds	make && echo "Build OK"
+`		`	Run next command only if previous fails	`make		echo "Build failed"`
+()	Subshell grouping	(cd /tmp && ls)
+{}	Command grouping (no subshell)	{ echo hi; echo bye; }
+!	Negation or history expansion	!ls → runs last ls command
+#	Comment	# This is a comment
+:	Null command (no-op)	: > file.txt → truncates file
+=	Assignment	x=42
+&	Run in background	sleep 5 &
+() in $(...)	Command substitution	echo $(date)
+`...`	Legacy command substitution	echo `date`
+EOF	Here-document delimiter	cat <<EOF ... EOF
+^	Used in regex (not Bash itself)	grep '^start' file.txt
+-	Option prefix	ls -l
+%	Job control (e.g., %1)	fg %1
+: in paths	Used in $PATH separator	echo $PATH
+```
 
 
 
