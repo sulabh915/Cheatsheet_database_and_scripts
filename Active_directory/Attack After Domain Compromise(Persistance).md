@@ -163,3 +163,19 @@ q
 q
 ```
 
+
+### Diamond Ticket  Attack:
+**Diamond Attack**, the attacker leverages the **KRBTGT AES hash** to **decrypt a valid TGT (Ticket Granting Ticket)**. Then, they **modify the PAC (Privilege Attribute Certificate)** inside the TGT before **re-encrypting** the modified TGT with the **KRBTGT AES hash** again to make it appear **legitimate**.
+
+ This attack is essentially a **TGT modification attack**. The attacker doesn’t need to steal the original TGT or create a completely new one; instead, they simply manipulate the PAC within an existing TGT
+
+-
+
+```bash
+- KRBTGT Account Hash: Essential for decrypting and re-encrypting TGTs.
+- AES256 Key: Often required to modify PACs embedded within TGTs.
+- Administrative Access: Initial access to a high-privilege account to extract cryptographic material.
+  
+  
+
+```

