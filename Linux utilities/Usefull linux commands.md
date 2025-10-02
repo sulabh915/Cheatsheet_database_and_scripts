@@ -187,6 +187,8 @@ ifconfig | grep -B 4 ether
 ```
 
 
+
+
 sort commands :
 ```bash
 #acending sort
@@ -248,3 +250,5 @@ If you escape a metacharacter in ERE you generally make it literal, so be carefu
 
 
 ```
+
+
