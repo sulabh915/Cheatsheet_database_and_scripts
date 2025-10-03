@@ -1,0 +1,117 @@
+1. TruffleHog
+Use: Finds hidden API keys or secrets in websites.
+URL: https://addons.mozilla.org/en-US/firefox/addon/trufflehog/
+
+2. Wappalyzer
+Use: Detects website technologies (CMS, frameworks, analytics, etc.).
+URL: https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/
+
+3. Temp Mail
+Use: Quickly generate disposable email addresses for signups.
+URL: https://addons.mozilla.org/en-US/firefox/addon/temp-mail/
+
+4. Hunter.io
+Use: Finds email addresses related to the website (useful for
+reporting).
+URL: https://addons.mozilla.org/en-US/firefox/addon/hunterio/
+
+5. HackTools
+Use: Provides a collection of payloads and useful hacking tools
+directly in your browser.
+URL: https://addons.mozilla.org/en-US/firefox/addon/hacktools/
+
+6. Edit Cookie
+Use: Edit cookies and view security flags (HttpOnly, Secure, etc.).
+URL: https://addons.mozilla.org/en-US/firefox/addon/edit-cookie/
+
+7. Disable WebRTC
+Use: Prevents your real IP from being exposed via WebRTC leaks.
+URL: https://addons.mozilla.org/en-US/firefox/addon/happy-
+bonobo-disable-webrtc/
+
+8. Link Gopher
+Use: Extracts all links/domains from web pages and Google results.
+URL: https://addons.mozilla.org/en-US/firefox/addon/link-gopher/
+
+9. FindSomething
+Use: Finds hidden parameters or possible secret keys on a website.
+URL: https://addons.mozilla.org/en-
+US/firefox/addon/findsomething/
+
+10. DotGit
+Use: Detects exposed .git repositories (information disclosure).
+URL: https://addons.mozilla.org/en-US/firefox/addon/dotgit/
+
+11. Open Multiple URLs
+Use: Open a list of URLs simultaneously in multiple tabs.
+URL: https://addons.mozilla.org/en-US/firefox/addon/open-
+multiple-urls/
+
+12. uBlock Origin
+Use: Blocks ads, trackers, and malicious scripts.
+URL: https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/
+
+13. Dark Reader
+Use: Enables dark mode for websites to reduce eye strain during
+night-time testing.
+URL: https://addons.mozilla.org/en-US/firefox/addon/darkreader/
+
+14. User-Agent Switcher
+Use: Change your browser user-agent for testing or privacy.
+URL: https://addons.mozilla.org/en-US/firefox/addon/uaswitcher/
+
+15. Retire.js
+Use: Detects vulnerable JavaScript libraries used by websites.
+URL: https://addons.mozilla.org/en-US/firefox/addon/retire-js/
+
+16. WaybackURL
+Use: Fetches archived URLs from the Wayback Machine (like
+waybackurls tool).
+URL: https://addons.mozilla.org/en-US/firefox/addon/waybackurl/
+
+17. SponsorBlock
+Use: Skips sponsors, intros, and outros in YouTube videos
+automatically.
+URL: https://addons.mozilla.org/en-US/firefox/addon/sponsorblock/
+
+18. Shodan Addon
+Use: Shows IP info, open ports, and hosting details directly from
+Shodan.
+URL: https://addons.mozilla.org/es/firefox/addon/shodan-addon/
+
+19. Edit Hidden Fields
+Use: Allows you to view and edit hidden input fields in web forms.
+URL: https://chromewebstore.google.com/detail/edit-hidden-
+fields/jkgiedeofneodbglnndcejlabknincfp
+
+20. Hidden Eye
+Use: Helps identify hidden elements and vulnerabilities in webpages.
+URL: https://chromewebstore.google.com/detail/hidden-
+eye/gonabakinkhgeojpnkhhholbjpajbiec
+
+21. FindSomething (Chrome version)
+Use: Chrome equivalent for finding hidden parameters or keys.
+URL:
+https://chromewebstore.google.com/detail/findsomething/kfhnipo
+necokdefffkpagipffdefeldb
+
+22. OWASP Penetration Testing Kit
+Use: Browser-based OWASP testing toolkit for quick checks and
+scans.
+URL: https://chromewebstore.google.com/detail/owasp-
+penetration-testing/ojkchikaholjmcnefhjlbohackpeeknd
+
+23. Fake Filler
+Use: Auto-fills forms with fake data to save time during testing.
+URL: https://chromewebstore.google.com/detail/fake-
+filler/bnjjngeaknajbdcgpfkgnonkmififhfo
+
+24. FancyTracker
+Use: Analyzes and tracks web analytics tools and trackers on a site.
+
+25. JS Recon Buddy
+Use: Helps identify and analyze JavaScript files during recon.
+
+26. DOMLogger++
+Use: Logs DOM changes in real-time - useful for XSS or dynamicJS
+debugging.
