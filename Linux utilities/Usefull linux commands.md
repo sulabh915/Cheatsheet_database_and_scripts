@@ -313,3 +313,15 @@ sudo mount <ip address of server>:/export/backup /mnt/nfs/backup
 #unmount the directory
 sudo umount /mnt/nfs/backup
 ```
+
+
+Shell variable:
+```bash
+$0    The filename of the current script
+$n    n is positive decimal number($1 first arguemnt, $2 argument and so on)
+$*    all argument
+$@    all command line arugment
+$?    The exit status of the last command
+$$    The process number of current shell process Id
+$!    The process number of the last background command.
+```
