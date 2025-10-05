@@ -287,3 +287,16 @@ If you escape a metacharacter in ERE you generally make it literal, so be carefu
 ```
 
 
+NFS:
+```bash
+#nfs server
+sudo apt-get install nfs-kernel-server
+sudo systemctl status nfs-kernel-server
+
+#configuration file for nfs
+cat /etc/exports
+
+#client nfs
+sudo apt-get install nfs-common
+showmount --exports <nfs server ip address>
+```
