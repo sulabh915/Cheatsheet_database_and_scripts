@@ -295,8 +295,18 @@ sudo systemctl status nfs-kernel-server
 
 #configuration file for nfs
 cat /etc/exports
+/exports/backup 10.10.10.0/255.255.255.0(rw,no_subtree_check)
+/exports/documents 10.10.10.0/255.255.255.0(rw,no_subtree_check)
 
 #client nfs
 sudo apt-get install nfs-common
 showmount --exports <nfs server ip address>
+
+#make directory for nfs where you want to mount nfs dir
+sudo mkdir /mnt/nfs
+sudo mkdir /mnt/nfs/backup
+sudo mkdir /mnt/nfs/documents
+
+#mount the nfs to the client
+sudo mount <ip address of server>:/export/backup /mnt/nfs/backup
 ```
