@@ -325,3 +325,14 @@ $?    The exit status of the last command
 $$    The process number of current shell process Id
 $!    The process number of the last background command.
 ```
+
+
+Common exit code in linux :
+```bash
+0    successful  execution
+1    catch generic errors
+2    improper command usage unable to execute the command
+127  The issue in path resolution
+130  Fatal error
+255  Out of range
+```
