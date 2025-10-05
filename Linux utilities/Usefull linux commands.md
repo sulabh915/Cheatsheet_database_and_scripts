@@ -309,4 +309,7 @@ sudo mkdir /mnt/nfs/documents
 
 #mount the nfs to the client
 sudo mount <ip address of server>:/export/backup /mnt/nfs/backup
+
+#unmount the directory
+sudo umount /mnt/nfs/backup
 ```
