@@ -300,7 +300,7 @@ cat /etc/exports
 
 #check the syntax :
 sudo exportfs -ra
-
+	
 #client nfs
 sudo apt-get install nfs-common
 showmount --exports <nfs server ip address>
@@ -312,6 +312,7 @@ sudo mkdir /mnt/nfs/documents
 
 #mount the nfs to the client
 sudo mount <ip address of server>:/export/backup /mnt/nfs/backup
+sudo mount -o rw,vers=3 192.168.154.130:/exports/documents /mnt/nfs/documents
 
 #unmount the directory
 sudo umount /mnt/nfs/backup
