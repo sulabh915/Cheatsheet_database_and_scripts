@@ -237,3 +237,12 @@ reg delete "HKCU\Control Panel\Desktop" /v SCRNSAVE.EXE /f
 
 ### Modify shortcuts 
 ![[Pasted image 20251006001827.png]]
+
+### Using Task Schedular
+```bash
+#create task
+schtasks /create /tn "SystemCleanup" /tr "C:\users\fcastle\Downloads\reverse.exe" /sc daily /st 09:00 /ru System
+
+#delete task
+schtasks /delete /tn "SystemCleanup" /f
+```
