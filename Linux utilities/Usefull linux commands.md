@@ -319,7 +319,7 @@ sudo umount /mnt/nfs/backup
 ```
 
 
-Shell variable:
+Shell Script Variable:
 ```bash
 $0    The filename of the current script
 $n    n is positive decimal number($1 first arguemnt, $2 argument and so on)
