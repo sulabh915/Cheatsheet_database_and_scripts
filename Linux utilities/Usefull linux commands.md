@@ -329,6 +329,7 @@ $#    Calculate length of positional parameter.
 $?    The exit status of the last command
 $$    The process number of current shell process Id
 $!    The process number of the last background command.
+IFS   Internal Field Sperator , we can sperate with everything like space , .
 ```
 
 
