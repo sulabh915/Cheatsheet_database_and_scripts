@@ -1,6 +1,12 @@
 
 Username Generator :
 ```bash
+cat username
+Peter Griffin
+Chris Griffin
+Luis Griffin
+Leon Griffin
+
 python3 namemash.py usernames
 ```
 
