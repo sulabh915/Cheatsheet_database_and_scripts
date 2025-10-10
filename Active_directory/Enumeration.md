@@ -1,4 +1,10 @@
 
+Username Generator :
+```bash
+python3 namemash.py usernames
+```
+
+
 Using kerbrute bruteforce :
 ```bash
 kerbrute userenum --domain htb.local usernames --dc 10.10.10.4
