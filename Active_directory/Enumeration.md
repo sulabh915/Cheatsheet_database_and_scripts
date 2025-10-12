@@ -7,7 +7,7 @@ Chris Griffin
 Luis Griffin
 Leon Griffin
 
-python3 namemash.py usernames
+python3 namemash.py usernames >> new_usernames
 ```
 
 
