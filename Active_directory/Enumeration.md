@@ -188,6 +188,8 @@ impacket-wmiexec username@<ip address>
 impacket-smbclient -hashes:<NTLM hash> Administrator@<ip address>
 
 
+#use smbget to download all files from smb
+smbget -R smb://10.10.10.100/Replication
 
 
 #**Shows all shared resources (folders/printers) on a computer.**
