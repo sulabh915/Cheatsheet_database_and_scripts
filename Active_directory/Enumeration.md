@@ -421,6 +421,11 @@ sudo ldapdomaindump ldaps://192.168.178.136 -u "MARVEL\username" -p Password1 -o
 
 Enumeration using bloodhound:
 ```bash
+#use SharpHound.exe to collect data for bloodhound
+SharpHound.exe -c All
+
+
+
 sudo neo4j console
 Then open your browser and go to: http://localhost:7474
 Username: neo4j
