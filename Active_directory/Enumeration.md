@@ -421,7 +421,7 @@ sudo ldapdomaindump ldaps://192.168.178.136 -u "MARVEL\username" -p Password1 -o
 
 Enumeration using bloodhound:
 ```bash
-#use SharpHound.exe to collect data for bloodhound upload this file to target
+#use SharpHound.exe to collect data for bloodhound upload this file to target run download the zip file to attacker machine use bloodhound to enumerate.
 SharpHound.exe -c All
 
 
