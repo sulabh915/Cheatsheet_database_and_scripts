@@ -352,3 +352,11 @@ echo "My name is $name"
 echo "I am $age"
 echo "I am from $town" 
 ```
+
+select command:
+```bash
+select day in mon tue wed thu fri sat sun;
+do
+echo "the day of the week is $day"
+done
+```
