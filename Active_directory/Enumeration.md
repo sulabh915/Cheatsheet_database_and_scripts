@@ -425,7 +425,6 @@ Enumeration using bloodhound:
 SharpHound.exe -c All
 
 
-
 sudo neo4j console
 Then open your browser and go to: http://localhost:7474
 Username: neo4j
