@@ -373,5 +373,9 @@ else
 		echo test failed
 fi
 
+#using condition operators
+if [ $a = $b ] && [ $a = $c ]; then
+             //code
+             
 
 ```
