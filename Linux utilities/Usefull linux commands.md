@@ -400,3 +400,24 @@ case "$1" in
 esac        
 
 ```
+
+
+Looping statement :
+```bash
+while [ condition ];
+do
+    # statements
+    # commands
+done
+
+a=7
+while [ $a -gt 4 ];
+do
+    echo $a
+    ((a--))
+done
+echo "Out of the loop"  
+
+
+
+```
