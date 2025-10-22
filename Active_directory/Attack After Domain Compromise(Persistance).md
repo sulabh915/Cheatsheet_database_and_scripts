@@ -267,6 +267,15 @@ C:\Users\tcm\Downloads>reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\Cur
 reg delete "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /v "NotABackdoor" /f
 ```
 
+
+### Persistance Scripts:
+```bash
+exploit/windows/local/persistence
+exploit/windows/local/registry_persistence
+or more in metasploit...
+```
+
+
 ### Adding Ourselves to Administrator Group
 ```bash
 #not recommanded but provide persistance
