@@ -418,9 +418,13 @@ do
 done
 echo "Out of the loop"  
 
-
+#reading file using read-while loops
+while read line; do
+		echo "$line"
+done < "$1"
 
 ```
+
 
 getopts:
 ```bash
