@@ -421,6 +421,10 @@ echo "Out of the loop"
 #reading file using read-while loops
 while read line; do
 		echo "$line"
+done < /etc/passwd
+
+while read line; do
+		echo "$line"
 done < "$1"
 
 ```
