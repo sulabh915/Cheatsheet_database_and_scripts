@@ -421,3 +421,18 @@ echo "Out of the loop"
 
 
 ```
+
+getopts:
+```bash
+#!/bin/bash
+
+while getopts "u:p:" opt; do
+  case $opt in
+    u) echo "Username: $OPTARG" ;;
+    p) echo "Password: $OPTARG" ;;
+    \?) echo "Invalid option: -$OPTARG" ;;
+  esac
+done
+
+
+```
