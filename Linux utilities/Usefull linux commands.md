@@ -423,9 +423,18 @@ while read line; do
 		echo "$line"
 done < /etc/passwd
 
+
+#takeing userinput
 while read line; do
 		echo "$line"
 done < "$1"
+
+
+while IFS="," read id name age; do
+		echo "id is $id"
+		echo "name is $name"
+		echo "age is $age"
+done < test.csv
 
 ```
 
