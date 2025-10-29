@@ -453,3 +453,21 @@ done
 
 
 ```
+
+
+Arrays:
+```bash
+#access array
+numbers=(1 2 3 4)
+echo $numbers
+echo ${numbers[2]}
+echo ${numbers[@]}
+
+#slices array
+echo ${numbers[@]:1}
+echo ${numbers[@]:1:2}
+
+#add element from array
+numbers+=(5)
+echo ${numbers[@]}
+```

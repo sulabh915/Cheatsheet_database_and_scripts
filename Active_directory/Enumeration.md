@@ -43,7 +43,10 @@ using nmap:
 nmap -p 88 --script krb5-enum-users --script-args krb5-enum-users.realm='ignite.local',userdb=users.txt 192.168.1.48
 ```
 
-
+using nbtscan :
+```bash
+nbtscan -r 192.168.154.0/24
+```
 
 Uses port 135 RPC:
 ```bash
