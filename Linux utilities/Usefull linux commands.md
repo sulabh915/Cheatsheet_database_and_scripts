@@ -357,8 +357,8 @@ select command:
 ```bash
 select day in mon tue wed thu fri sat sun;
 do
-echo "the day of the week is $day"
-break
+	echo "the day of the week is $day"
+	break
 done
 ```
 
@@ -470,4 +470,16 @@ echo ${numbers[@]:1:2}
 #add element from array
 numbers+=(5)
 echo ${numbers[@]}
+
+#remove element
+unset numbers[2]
+
+#create array from file ,days.txt containing mon-sun words in line by line
+readarray days < days.txt
+readarray -t days < days.txt #remove characters
+echo ${days[@]}
+echo ${!days[@]} #index
+echo ${!days[@]@Q} #invisible character
+
+readarray files < <(ls ~/)
 ```
