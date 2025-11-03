@@ -483,3 +483,61 @@ echo ${!days[@]@Q} #invisible character
 
 readarray files < <(ls ~/)
 ```
+
+
+### Get information about pc :
+```bash
+#CPU :
+lscpu — Detailed CPU architecture and flags
+cat /proc/cpuinfo — Raw CPU info per core
+nproc — Number of processing units available
+
+
+#RAM:
+free -h — Human-readable memory usage
+vmstat -s — Memory statistics summary
+cat /proc/meminfo — Detailed memory breakdown
+  
+
+#DISK: 
+lsblk — Block devices and mount points
+df -h — Mounted filesystem usage
+du -sh /path/to/dir — Size of a specific directory
+fdisk -l — Partition table (needs sudo)
+ls -lh /dev/sd* — Disk device sizes
+mount | column -t — Mounted filesystems neatly
+cat /proc/partitions — Partition info
+
+#system overview:
+uname -a — Kernel and architecture
+hostnamectl — Hostname and OS details
+uptime — System uptime
+top or htop — Live system resource usage
+dmesg | less — Boot and kernel messages
+who -a — Logged-in users and boot time
+
+#hardware device:
+lshw — Full hardware profile (use sudo)
+lspci — PCI devices (network, graphics, etc.)
+lsusb — USB devices
+dmidecode — BIOS and motherboard info (needs sudo)
+inxi -Fxz — Summary of system info (install if missing)
+
+#network informmation:
+ip a or ifconfig — IP addresses and interfaces
+ip r or route -n — Routing table
+ss -tuln — Listening ports
+netstat -i — Interface stats
+nmcli device show — NetworkManager device details
+
+#Security & Kernel Modules
+lsmod — Loaded kernel modules
+getenforce — SELinux status (if applicable)
+auditctl -s — Audit daemon status
+
+#other userfull utilities
+neofetch — Stylish system summary
+glxinfo — GPU info (for X11 systems)
+smartctl -a /dev/sdX — Disk health (SMART)
+
+  
