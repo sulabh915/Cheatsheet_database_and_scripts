@@ -159,6 +159,7 @@ smbclient -L //<target> -N
 smbclient -L //<target> -U <user>%<pass>
 smbclient //<target>/<share> -N
 smbclient //<target>/<share> -U <user>
+smbclient -N -L \\\\10.129.42.253
 
 using rpcclient:
 rpcclient -U <user>%<pass> <target>
@@ -269,6 +270,13 @@ ldap_shell domain.local/user -hashes aad3b435b51404eeaad3b435b51404ee:aad3b435b5
 # Kerberos authentication using TGT
 export KRB5CCNAME=/home/user/ticket.ccache
 ldap_shell -k -no-pass domain.local/user
+```
+
+Port 161 enumeration :
+```bash
+snmpwalk -v 2c -c public 10.129.42.253 1.3.6.1.2.1.1.5.0
+snmpwalk -v 2c -c private  10.129.42.253 
+onesixtyone -c dict.txt 10.129.42.254
 ```
 
 Port RDP 3389 enumeration :
