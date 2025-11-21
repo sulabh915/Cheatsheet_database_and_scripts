@@ -272,7 +272,7 @@ gcc -shared -o /home/user/.config/libcalc.so -fPIC /home/user/.config/libcalc.c
 
 
 > [!INFO]
-> Now at last run linux automation scripts like linpeas or winpeas.
+> Now at last run linux automation scripts like linpeas, , or other automated scripts.
 
 
 
