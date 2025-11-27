@@ -56,8 +56,9 @@ cat /etc/passwd | cut -d : -f 1
 cat /etc/shadows
 cat /etc/groups
 groups #command
-history
-sudo su -
+history 
+sudo -u user /bin/echo Hello World!	Run a command with sudo
+sudo su -	Switch to root user (if we have access to sudo su)
 ```
 
 
@@ -377,7 +378,9 @@ This will give us two files: key (which we will use with ssh -i) and key.pub, wh
 
 user@remotehost$ echo "ssh-rsa AAAAB...SNIP...M= user@parrot" >> /root/.ssh/authorized_keys
 
-
+ssh-keygen -f key	Create a new SSH key
+echo "ssh-rsa AAAAB...SNIP...M= user@parrot" >> /root/.ssh/authorized_keys	Add the generated public key to the user
+ssh root@10.10.10.10 -i key	SSH to the server with the generated private key
 ```
 
 
