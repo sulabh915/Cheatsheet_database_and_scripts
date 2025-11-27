@@ -279,7 +279,9 @@ gcc -shared -o /home/user/.config/libcalc.so -fPIC /home/user/.config/libcalc.c
 
 
 > [!INFO]
-> Now at last run linux automation scripts like linpeas, , or other automated scripts.
+> Now at last run linux automation scripts like linpeas, , or other automated scripts. GTFOBins contains a list of commands and how they can be exploited through >sudo. We can search for the application we have sudo privilege over, and if it exists, it may tell us the exact command we should execute to gain root access >using the sudo privilege we have.
+
+>LOLBAS also contains a list of Windows applications which we may be able to leverage to perform certain functions, like downloading files or executing commands >in the context of a privileged user.
 
 
 
