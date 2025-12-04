@@ -145,9 +145,13 @@ nmap --spoof-mac 00:11:22:33:44:55 -p80 192.168.0.104
 
 #packet fragment
 nmap -sS -sV -F -f --send-eth -D RND:2 nmap.scanme.org
+sudo nmap 10.129.2.28 -n -Pn -p 445 -O -S 10.129.2.200 -e tun0
 
 #change the mtu size of packet
 nmap -sS -sV -F -mtu 16 --send-eth -D RND:2 nmap.scanme.org
+
+#Directly connected filter port.
+ncat -nv --source-port 53 10.129.2.28 50000
 ```
 
 
