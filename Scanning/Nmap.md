@@ -58,18 +58,26 @@ nmap -sS --top-ports 10 --open 172.20.1.0/24 -Pn -n
 
 ### Ports scan :
 ```bash
-nmap -sT -n -Pn <ip block> (port paramter) 
-nmap -n -Pn -sU <ip block> --top-ports 10 -sV --reason
+nmap -sT -n -Pn <ip block> (port paramter) #TCP scan
+nmap -n -Pn -sU <ip block> --top-ports 10 -sV --reason #UDP scan
 nmap -n -Pn -sS <ip block> --top-ports 10 -sV #version scan
 nmap -n -sS <ip block> --top-ports 100 -o --ossc  #OS detction 
 nmap -sV --script=banner -p21 10.10.10.0/24
-
+sudo nmap 10.129.2.28 -p- -sV --stats-every=5s
+sudo nmap 10.129.2.28 -p- -sV -Pn -n --disable-arp-ping --packet-trace
 ```
 
 
 ### Nmap input & Output Management:
 ```bash
 nmap -sn -n <ip block> | grep "Nmap scan" |cut -d" " -f5 > ipList.txt
+
+Normal output (-oN) with the .nmap file extension
+Grepable output (-oG) with the .gnmap file extension
+XML output (-oX) with the .xml file extension
+
+sudo nmap 10.129.2.28 -p- -oA target #save result in all format
+
 xsltproc target.xml -o target.html #convert .xml to .html
 ```
 
@@ -188,4 +196,90 @@ nmap -sT --max-rate 50 scanme.nmap.org
 -vv      very verbose
 -d       debugging
 -dd      more details for debugging
+```
+
+### Script Scanning:
+- Lua programming language
+- sC or --script , syntax :nmap -p21 --script scriptname1,sciptname2,expressionused ip-block
+- Nmap --script-updatedb
+- /usr/share/nmap/scripts
+- locate *.nse | grep ssh
+- Tasks you can do with NSE
+       Network discovery
+       Banner grabbing :
+  - More sophisticated version detection
+   - Vulnerability detection
+   - Backdoor detection
+   - Vulnerability exploitation
+   - nmap -sS -p23 ip_address —script telnet-brute
+   - nmap -sU -p53 ip_address —script “dns-*”
+
+```bash
+auth	    Determination of authentication credentials.
+broadcast	Scripts, which are used for host discovery by broadcasting and the discovered hosts, can be automatically added to the remaining scans.
+brute	    Executes scripts that try to log in to the respective service by brute-forcing with credentials.
+default	    Default scripts executed by using the -sC option.
+discovery	Evaluation of accessible services.
+dos	        These scripts are used to check services for denial of service vulnerabilities and are used less as it harms the services.
+exploit	    This category of scripts tries to exploit known vulnerabilities for the scanned port.
+external	Scripts that use external services for further processing.
+fuzzer	    This uses scripts to identify vulnerabilities and unexpected packet handling by sending different fields, which can take much time.
+intrusive	Intrusive scripts that could negatively affect the target system.
+malware	    Checks if some malware infects the target system.
+safe	    Defensive scripts that do not perform intrusive and destructive access.
+version	    Extension for service detection.
+vuln	    Identification of specific vulnerabilities.
+```
+
+```bash
+sudo nmap 10.129.2.28 -p 25 --script banner,smtp-commands
+```
+
+## Enumeration 
+
+### FTP Enumeration :
+```bash
+sudo nmap -p21 --script ftp-anon,ftp-syst,tftp-enum,ftp-vsftpd-backdoor 192.168.0.104
+
+#brute force
+nmap --script ftp-brute -p21 192.168.43.181 --script-args userdb=users.txt,passdb=passwords.txt
+```
+
+### DNS enumeration:
+```bash
+nmap --script dns-zone-transfer --script-args dns-zone-transfer.server=nsztml.digi.ninja,dns-zone-transfer.port=53,dns-zone-transfer.domain=zonetransfer.me
+```
+
+
+### HTTP enumeration , Detecting HTTP methods:
+```bash
+sudo nmap -sV -Pn -n -T4 --script http-methods scanme.nmap.org -p80
+
+nmap -p 80 --script=http-form-brute --script-args userdb=/usr/share/legion/wordlists/ssh-user.txt,passdb=/usr/share/legion/wordlists/ssh-password.txt,http-form-brute.path=/dvwa/login.php 192.168.178.136
+
+sudo nmap -sV -T4 -p80 scanme.nmap.org --script http-enum
+```
+
+
+### SMPT enumeration:
+```bash
+Nmap -p25 --script smtp-enum-users --script-args smtp-enum-users.methods={VRFY} <ipblock>
+```
+
+### SMB enumeration:
+```bash
+smb os dicovery
+Smb
+```
+
+### SSH Enumeration & brute forcing :
+```bash
+nmap --script ssh-brute -p22 192.168.178.136 --script-args userdb=/usr/share/legion/wordlists/ssh-user.txt,passdb=/usr/share/legion/wordlists/ssh-password.txt
+```
+
+
+### Vulnerability scanning
+```bash
+nmap -sV -p21-8080 --script vulners <ipblock>
+sudo nmap 10.129.2.28 -p 80 -sV --script vuln 
 ```
