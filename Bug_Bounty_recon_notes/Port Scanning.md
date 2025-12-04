@@ -1,4 +1,4 @@
-	-u[8]
+
 #### Collect IP address block using asn:
 https://asnlookup.com/
 https://bgp.he.net/
@@ -27,6 +27,10 @@ asnmap -a AS134027 -silent | sort -u | mapcidr -silent > all_ip.txt
 #Used angry ip scanner for check live hosts.
 
 nmap -iL all_ips.txt -sn -n -T4 -oG - | grep "Up" | cut -d " " -f2 > live_ips.txt
+
+
+for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f4 >> ip-addresses.txt;done
+for i in $(cat ip-addresses.txt);do shodan host $i;done
 
 ```
 
