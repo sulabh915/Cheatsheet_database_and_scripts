@@ -90,6 +90,8 @@ impacket-psexec username@<ip address>
 impacket-wmiexec username@<ip address>
 impacket-smbclient -hashes:<NTLM hash> Administrator@<ip address>
 
+#using samrdump
+samrdump.py 10.129.14.128
 
 #use smbget to download all files from smb recursively
 smbget -R smb://10.10.10.100/Replication
@@ -112,4 +114,86 @@ net use X: \\127.0.0.1\Exfil
 
 #Shows all mapped drives and active share connections.
 net use
+```
+
+
+### SMPT Server:
+```bash
+telnet 10.129.14.128 25
+vrfy raj@mail.lab.ignite
+vrfy admin@mail.ignite.lab
+
+
+AUTH PLAIN	AUTH is a service extension used to authenticate the client.
+HELO	    The client logs in with its computer name and thus starts the session.
+MAIL FROM	The client names the email sender.
+RCPT TO	    The client names the email recipient.
+DATA	    The client initiates the transmission of the email.
+RSET	    The client aborts the initiated transmission but keeps the connection between client and server.
+VRFY	    The client checks if a mailbox is available for message transfer.
+EXPN	    The client also checks if a mailbox is available for messaging with this command.
+NOOP	    The client requests a response from the server to prevent disconnection due to time-out.
+QUIT	    The client terminates the session.
+
+
+
+
+sudo nmap 10.129.14.128 -sC -sV -p25
+sudo nmap 10.129.14.128 -p25 --script smtp-open-relay -v
+
+
+#brute force smtp users
+smtp-user-enum -M VRFY -U /root/Desktop/user.txt -t 192.168.1.107
+ -M: mode Method to use for username guessing EXPN, VRFY or RCPT 
+
+ -U: file File of usernames to check via SMTP service
+ -t: host Server host running SMTP service
+msfconsole -x "search smtp_enum; use 0; show options; set RHOSTS <ip>; run"
+
+smtp-user-enum -M VRFY -U /home/somx/Footprinting-wordlist/footprinting-wordlist.txt -t 10.129.74.41
+
+smtp-user-enum -M VRFY -U /root/Desktop/user.txt -t 192.168.1.107
+ -M: mode Method to use for username guessing EXPN, VRFY or RCPT 
+
+ -U: file File of usernames to check via SMTP service
+ -t: host Server host running SMTP service
+
+msfconsole -x "use auxiliary/scanner/smtp/smtp_enum; set RHOSTS 192.168.1.107; set RPORT 25; set USER_FILE /root/Desktop/user.txt; exploit"
+
+ismtp -h 192.168.1.107:25 -e /root/Desktop/email.txt
+
+
+```
+
+### IMAP/POP3
+```bash
+sudo nmap 10.129.14.128 -sV -p110,143,993,995 -sC
+curl -k 'imaps://10.129.14.128' --user user:p4ssw0rd
+curl -k 'imaps://10.129.14.128' --user cry0l1t3:1234 -v
+
+openssl s_client -connect 10.129.14.128:pop3s #having various command
+USER username	Identifies the user.
+PASS password	Authentication of the user using its password.
+STAT	Requests the number of saved emails from the server.
+LIST	Requests from the server the number and size of all emails.
+RETR id	Requests the server to deliver the requested email by ID.
+DELE id	Requests the server to delete the requested email by ID.
+CAPA	Requests the server to display the server capabilities.
+RSET	Requests the server to reset the transmitted information.
+QUIT	Closes the connection with the POP3 server.
+
+
+
+openssl s_client -connect 10.129.14.128:imaps #having various command
+1 LOGIN username password	Users login.
+1 LIST "" *	Lists all directories.
+1 CREATE "INBOX"	Creates a mailbox with a specified name.
+1 DELETE "INBOX"	Deletes a mailbox.
+1 RENAME "ToRead" "Important"	Renames a mailbox.
+1 LSUB "" *	Returns a subset of names from the set of names that the User has declared as being active or subscribed.
+1 SELECT INBOX	Selects a mailbox so that messages in the mailbox can be accessed.
+1 UNSELECT INBOX	Exits the selected mailbox.
+1 FETCH <ID> all	Retrieves data associated with a message in the mailbox.
+1 CLOSE	Removes all messages with the Deleted flag set.
+1 LOGOUT	Closes the connection with the IMAP server.
 ```

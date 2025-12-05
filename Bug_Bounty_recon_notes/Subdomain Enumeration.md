@@ -10,7 +10,8 @@ dig TXT example.com +short
 dig CNAME example.com +short
 dig NS example.com +short
 dig SOA example.com +short
-
+dig CH TXT version.bind 10.129.120.85
+dig any inlanefreight.htb @10.129.14.128
 
 #!/bin/bash
 
@@ -42,11 +43,17 @@ nslookup
 > server ns1.example.com
 > ls -d example.com
 
+for sub in $(cat /opt/useful/seclists/Discovery/DNS/subdomains-top1million-110000.txt);do dig $sub.inlanefreight.htb @10.129.14.128 | grep -v ';\|SOA' | sed -r '/^\s*$/d' | grep $sub | tee -a subdomains.txt;done
+
+
+dnsenum --dnsserver 10.129.14.128 --enum -p 0 -s 0 -o subdomains.txt -f /opt/useful/seclists/Discovery/DNS/subdomains-top1million-110000.txt inlanefreight.htb
 
 
 #Used in CTF:
 #if box running dns server.
 dig axfr @<BOX IP ADDRSSS>  <Domain name of box like "matrix.htb">
+
+
 ```
 
 Sublist3r all possible combination :
