@@ -196,4 +196,62 @@ openssl s_client -connect 10.129.14.128:imaps #having various command
 1 FETCH <ID> all	Retrieves data associated with a message in the mailbox.
 1 CLOSE	Removes all messages with the Deleted flag set.
 1 LOGOUT	Closes the connection with the IMAP server.
+
+#Dangerous setting
+auth_debug	Enables all authentication debug logging.
+auth_debug_passwords	This setting adjusts log verbosity, the submitted passwords, and the scheme gets logged.
+auth_verbose	Logs unsuccessful authentication attempts and their reasons.
+auth_verbose_passwords	Passwords used for authentication are logged and can also be truncated.
+auth_anonymous_username	This specifies the username to be used when logging in with the ANONYMOUS SASL mechanism.
+```
+
+### SNMP :
+```bash
+#dangerous setting: 
+rwuser noauth	Provides access to the full OID tree without authentication.
+rwcommunity <community string> <IPv4 address>	Provides access to the full OID tree regardless of where the requests were sent from.
+rwcommunity6 <community string> <IPv6 address>	Same access as with rwcommunity with the difference of using IPv6.
+
+
+snmpwalk -v2c -c public 10.129.14.128
+
+sudo apt install onesixtyone
+onesixtyone -c /opt/useful/seclists/Discovery/SNMP/snmp.txt 10.129.14.128
+
+sudo apt install braa
+braa <community string>@<IP>:.1.3.6.*
+braa public@10.129.14.128:.1.3.6.*
+
+
+```
+
+### Mysql:
+```bash
+sudo nmap 10.129.231.137 -sV -sC -p3306 --script mysql*
+mysql -u root -h 10.129.14.132
+mysql -u root -pP4SSw0rd -h 10.129.14.128
+
+
+mysql -u <user> -p<password> -h <IP address>	Connect to the MySQL server. There should not be a space between the '-p' flag, and the password.
+show databases;	                         Show all databases.
+use <database>;	                         Select one of the existing databases.
+show tables;	                         Show all available tables in the selected database.
+show columns from <table>;	             Show all columns in the selected table.
+select * from <table>;	                 Show everything in the desired table.
+select * from <table> where <column> = "<string>";	Search for needed string in the desired table.
+```
+
+### MSSQL:
+```bash
+sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=sa,mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p 1433 10.129.201.248
+ 
+msf6 auxiliary(scanner/mssql/mssql_ping) > set rhosts 10.129.201.248
+
+python3 mssqlclient.py Administrator@10.129.201.248 -windows-auth 
+```
+
+
+### Oracle TNS :
+```bash
+./odat.py all -s <ip>
 ```
