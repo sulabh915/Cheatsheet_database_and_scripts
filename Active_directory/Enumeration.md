@@ -406,6 +406,7 @@ Get-NetProcess | select ProcessName, User
 #Get information about share
 Invoke-ShareFinder
 Invoke-FileFinder
+Invoke-ShareFinder -domain eagle.local -ExcludeStandard -CheckShareAccess
 
 #Get information about hostname,admin access,active session
 Get-NetComputer | select dnshostname
