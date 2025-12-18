@@ -10,7 +10,8 @@ dig TXT example.com +short
 dig CNAME example.com +short
 dig NS example.com +short
 dig SOA example.com +short
-
+dig CH TXT version.bind 10.129.120.85
+dig any inlanefreight.htb @10.129.14.128
 
 #!/bin/bash
 
@@ -42,11 +43,17 @@ nslookup
 > server ns1.example.com
 > ls -d example.com
 
+for sub in $(cat /opt/useful/seclists/Discovery/DNS/subdomains-top1million-110000.txt);do dig $sub.inlanefreight.htb @10.129.14.128 | grep -v ';\|SOA' | sed -r '/^\s*$/d' | grep $sub | tee -a subdomains.txt;done
+
+
+dnsenum --dnsserver 10.129.14.128 --enum -p 0 -s 0 -o subdomains.txt -f /opt/useful/seclists/Discovery/DNS/subdomains-top1million-110000.txt inlanefreight.htb
 
 
 #Used in CTF:
 #if box running dns server.
 dig axfr @<BOX IP ADDRSSS>  <Domain name of box like "matrix.htb">
+
+
 ```
 
 Sublist3r all possible combination :
@@ -220,6 +227,8 @@ curl -s https://crt.sh\?q\=\domain.com\&output\=json | jq -r '.[].name_value' | 
 curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq -r '.[].name_value' | anew subs.txt  
 curl -s "http://web.archive.org/cdx/search/cdx?url=*.hackerone.com/*&output=text&fl=original&collapse=urlkey" |sort| sed -e 's_https*://__' -e "s/\/.*//" -e 's/:.*//' -e 's/^www\.//' | sort -u > wayback.txt
 	curl -s "https://www.virustotal.com/vtapi/v2/domain/report?apikey=[api-key]&domain=www.nasa.gov" | jq -r '.domain_siblings[]' | >virustotal.txt
+
+curl -s https://crt.sh/\?q\=inlanefreight.com\&output\=json | jq . | grep name | cut -d":" -f2 | grep -v "CN=" | cut -d'"' -f2 | awk '{gsub(/\\n/,"\n");}1;' | sort -u
 ```
 
 
@@ -253,6 +262,9 @@ grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"
 shodan search Ssl.cert.subject.CN:"<DOMAIN>" 200 --fields ip_str | httpx-toolkit -sc -title -server -td
 
 curl -s "https://urlscan.io/api/v1/search/?q=domain:gov.au&size=10000" | jq -r '.results[]?.page?.ip // empty' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | dnsx -ptr -resp-only  | grep "gov.au" | tee urlscan.txt
+
+
+for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f1,4;done
 ```
 
 

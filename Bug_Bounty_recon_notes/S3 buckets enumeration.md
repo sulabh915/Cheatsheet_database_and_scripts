@@ -89,6 +89,7 @@ org:target "S3_BUCKET"
 use online tools :
 https://buckets.grayhatwarfare.com/
 https://osint.sh/buckets/
+Domain.Glass 
 
 chrome extension:
 https://chromewebstore.google.com/detail/s3bucketlist/anngjobjhcbancaaogmlcffohpmcniki?hl=en

@@ -288,6 +288,7 @@ If you escape a metacharacter in ERE you generally make it literal, so be carefu
 
 
 NFS:
+
 ```bash
 #nfs server
 sudo apt-get install nfs-kernel-server
@@ -313,10 +314,13 @@ sudo mkdir /mnt/nfs/documents
 #mount the nfs to the client
 sudo mount <ip address of server>:/export/backup /mnt/nfs/backup
 sudo mount -o rw,vers=3 192.168.154.130:/exports/documents /mnt/nfs/documents
+sudo mount -t nfs4 <server>:/exported/folder /mnt/target -o rw,hard,intr
+
 
 #unmount the directory
 sudo umount /mnt/nfs/backup
 ```
+
 
 
 Shell Script Variable:
