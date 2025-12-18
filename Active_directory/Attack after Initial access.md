@@ -143,3 +143,9 @@ Mitigation :
 - Account tiering
 - Local admin restriction
 ```
+
+GPP Passwords :
+```bash
+PS C:\Users\bob\Downloads> Import-Module .\Get-GPPPassword.ps1
+PS C:\Users\bob\Downloads> Get-GPPPassword
+```
