@@ -117,6 +117,64 @@ net use
 ```
 
 
+### DNS service:
+```bash
+dig soa www.inlanefreight.com
+dig axfr internal.inlanefreight.htb @10.129.14.128
+dig axfr inlanefreight.htb @10.129.14.128
+
+dig A example.com +short
+dig AAAA example.com +short
+dig MX example.com +short
+dig TXT example.com +short
+dig CNAME example.com +short
+dig NS example.com +short
+dig SOA example.com +short
+dig CH TXT version.bind 10.129.120.85
+dig any inlanefreight.htb @10.129.14.128
+
+#!/bin/bash
+
+# Check if domain is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <domain>"
+  exit 1
+fi
+
+DOMAIN=$1
+
+echo "🔍 Checking DNS records for: $DOMAIN"
+echo
+
+# List of record types
+for TYPE in A AAAA MX TXT CNAME NS SOA; do
+  echo "➡️ $TYPE Record:"
+  dig "$TYPE" "$DOMAIN" +short
+  echo
+done
+
+
+
+dig axfr @target.com
+dig AXFR example.com @ns1.example.com
+	host -l example.com ns1.example.com
+
+nslookup
+> server ns1.example.com
+> ls -d example.com
+
+for sub in $(cat /opt/useful/seclists/Discovery/DNS/subdomains-top1million-110000.txt);do dig $sub.inlanefreight.htb @10.129.14.128 | grep -v ';\|SOA' | sed -r '/^\s*$/d' | grep $sub | tee -a subdomains.txt;done
+
+
+dnsenum --dnsserver 10.129.14.128 --enum -p 0 -s 0 -o subdomains.txt -f /opt/useful/seclists/Discovery/DNS/subdomains-top1million-110000.txt inlanefreight.htb
+
+
+#Used in CTF:
+#if box running dns server.
+dig axfr @<BOX IP ADDRSSS>  <Domain name of box like "matrix.htb">
+```
+
+
 ### SMPT Server:
 ```bash
 telnet 10.129.14.128 25
@@ -164,6 +222,19 @@ ismtp -h 192.168.1.107:25 -e /root/Desktop/email.txt
 
 
 ```
+
+### Network File System (NFS):
+```bash
+sudo nmap 10.129.14.128 -p111,2049 -sV -sC
+sudo nmap --script nfs* 10.129.14.128 -sV -p111,2049
+
+showmount -e 10.129.14.128
+sudo mount -t nfs 10.129.14.128:/ ./target-NFS/ -o nolock
+ls -l mnt/nfs/
+sudo umount ./target-NFS
+```
+
+
 
 ### IMAP/POP3
 ```bash
