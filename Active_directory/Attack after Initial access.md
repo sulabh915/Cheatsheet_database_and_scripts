@@ -149,3 +149,23 @@ GPP Passwords :
 PS C:\Users\bob\Downloads> Import-Module .\Get-GPPPassword.ps1
 PS C:\Users\bob\Downloads> Get-GPPPassword
 ```
+
+Mitigation:
+```bash
+enable the auditing of the file
+any access to the file will generate an Event with the ID 4663
+also checkout
+4624 (successful logon), 4625 (failed logon), or 4768 (TGT requested)
+
+also used honeypot:
+
+The password is usually expected to be old, without recent or regular modifications.
+It is easy to ensure that the last password change is older than when the GPP XML file was last modified. If the user's password is changed after the file was modified, then no adversary will attempt to login with this account (the password is likely no longer valid).
+Schedule the user to perform any dummy task to ensure that there are recent logon attempts.
+
+after look for :
+4625
+4771
+4776
+
+```
