@@ -17,6 +17,7 @@ https://github.com/SecuraBV/CVE-2020-1472
 ```bash
 Get-ADComputer -Filter {TrustedForDelegation -eq $true} -Properties trustedfordelegation,serviceprincipalname,description
 
+Get-NetUser -TrustedToAuth
 
 Import-Module .\powerview.ps1
 Get-NetComputer -Unconstrained
