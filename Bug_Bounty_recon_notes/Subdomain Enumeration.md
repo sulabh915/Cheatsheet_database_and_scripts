@@ -164,6 +164,11 @@ cat raw.txt | cut -d ' ' -f1 | dnsx -silent -r resolvers.txt -o alive.txt
 ffuf -u "https://FUZZ.target.com" -w wordlist.txt -mc 200,301,302
 ```
 
+Dnsenum:
+```bash
+dnsenum --enum inlanefreight.com -f  /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt 
+```
+
 dnsshuffle:
 ```bash
 shuffledns --mode bruteforce -d example.com -w words.txt -r resolvers.txt` | Brute-force subdomains 
