@@ -74,6 +74,7 @@ Enter-PSSession dc1
 ```bash
 Get-ADComputer -Filter {TrustedForDelegation -eq $true} -Properties trustedfordelegation,serviceprincipalname,description
 
+Get-NetUser -TrustedToAuth
 
 Import-Module .\powerview.ps1
 Get-NetComputer -Unconstrained
