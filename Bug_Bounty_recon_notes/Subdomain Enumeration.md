@@ -243,6 +243,8 @@ vhost enumeration :
 ffuf -w wordlist.txt -u https://target.com -H "Host: FUZZ.target.com"
 cat subdomains.txt | httpx -title -web-server -ip -status-code -o vhosts.txt
 
+gobuster vhost -u http://<target_IP_address> -w <wordlist_file> --append-domain
+gobuster vhost -u http://inlanefreight.htb:81 -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt --append-domain
 
 https://www.ipneighbour.com/#/lookup/feedingindia.org
 https://www.yougetsignal.com/tools/web-sites-on-web-server/
