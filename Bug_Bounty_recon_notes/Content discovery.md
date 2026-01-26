@@ -98,12 +98,15 @@ ffuf -w seclists/Discovery/Web-Content/directory-list-2.3-big.txt -u https://ens
 
 
 Used burpsuite crawler 
+Used pip3 install scrapy
+python3 ReconSpider.py http://inlanefreight.com
 
 - Check robots.txt
 - Check meta tags informatino lekeage
 - Check sitemap.xml of website
 - Check security.txt  “wget --no-verbose https://www.linkedin.com/.well-known/security.txt && cat security.txt”
 - Check  Human.txt
+- .well-known, every service exposed config files in different random paths. example /.well-known/openid-configuration
 
 
 

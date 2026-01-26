@@ -234,6 +234,7 @@ curl -s "http://web.archive.org/cdx/search/cdx?url=*.hackerone.com/*&output=text
 	curl -s "https://www.virustotal.com/vtapi/v2/domain/report?apikey=[api-key]&domain=www.nasa.gov" | jq -r '.domain_siblings[]' | >virustotal.txt
 
 curl -s https://crt.sh/\?q\=inlanefreight.com\&output\=json | jq . | grep name | cut -d":" -f2 | grep -v "CN=" | cut -d'"' -f2 | awk '{gsub(/\\n/,"\n");}1;' | sort -u
+curl -s "https://crt.sh/?q=facebook.com&output=json" | jq -r '.[] | select(.name_value | contains("dev")) | .name_value' | sort -u
 ```
 
 
