@@ -1,4 +1,6 @@
 
+#### Configure switch
+
 Types of console :
 ```bash
 User EXEC        → Switch>
