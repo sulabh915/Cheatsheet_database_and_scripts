@@ -58,3 +58,10 @@ Router#show running-config (encrypted but insecure)
 Router(config)#enable secret Cisco
 Router(config)#do sh run (encrypted md5 hash)
 ```
+
+
+ - show mac address table or clear mac address-table dynamic
+```bash
+show mac address-table
+clear mac address-table dynamic
+```
