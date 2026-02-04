@@ -67,3 +67,49 @@ Router(config)#do sh run (encrypted md5 hash)
 show mac address-table
 clear mac address-table dynamic
 ```
+
+- show interface information in switch
+```bash
+en
+sh ip int br
+show interface status
+
+##configure speed and duplex
+SW#conf t
+SW1(config)#int f0/1
+SW1(config-if)#speed ?
+SW1(config-if)#duplex ?
+SW1(config-if)#duplex full
+SW1(config-if)#description ## to R1 ##
+
+##configure multiple interface range
+SW1(config)#interface range f0/5-12
+```
+
+
+
+#### Configure Router :
+
+```bash
+Router>
+Router>en
+Router(config)#hostanem R1
+Router(config)#show ip interface brief
+Router(config)#do show ip interface brief
+Router(config)#interface gigabitEthernet 0/0
+Router(config-if)#ip address 15.255.255.254 255.0.0.0
+Router(config-if)#description ## to sw1 ##
+Router(config-if)#no shutdown
+Router(config-if)#int g0/1
+Router(config-if)#ip add 182.98.255.254 255.255.0.0
+Router(config-if)#description ## to SW2 ##
+Router(config-if)#no shut
+Router(config-if)#int g0/2
+Router(config-if)#ip add 201.191.20.254. 255.255.255.0
+Router(config-if)#description ## to SW3 ##
+Router(config-if)#end
+Router#sh ip int br
+Router#sh run
+Router#copy running-config start
+Router#write mem
+```
