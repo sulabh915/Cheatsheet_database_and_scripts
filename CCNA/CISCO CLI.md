@@ -73,6 +73,7 @@ clear mac address-table dynamic
 en
 sh ip int br
 show interface status
+do sh int status
 
 ##configure speed and duplex
 SW#conf t
@@ -84,6 +85,14 @@ SW1(config-if)#description ## to R1 ##
 
 ##configure multiple interface range
 SW1(config)#interface range f0/5-12
+SW1(config-if-range)#description ## not in use ##
+SW1(config-if-range)#shutdown
+
+#by using this these interface are administrativily shutdown
+SW1(config)#int range f0/5-6, f0/9-12
+SW1(config-if-range)#no shut
+SW1(config-if-range)#do sh int status 
+
 ```
 
 
