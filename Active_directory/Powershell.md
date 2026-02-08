@@ -31,3 +31,13 @@ Symbol	Meaning
 { }	                       Allowed values
 [] after type	   Multiple values
 Multiple SYNTAX blocks	Different parameter sets
+
+using Get-Command:
+
+```bash
+Get-Command -Name Get-Command -Syntax
+help Get-Command -Full
+Get-Command -Name *service*
+Get-Command -Name *service* -CommandType Cmdlet, Function, Alias, Script
+Get-Command -Noun Process
+```
