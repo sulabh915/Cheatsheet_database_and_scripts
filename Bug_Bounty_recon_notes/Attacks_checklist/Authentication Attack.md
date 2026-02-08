@@ -212,3 +212,39 @@ X-Forwarded-Host: YOUR-EXPLOIT-SERVER-ID.exploit-server.net
     ```
     
 - Replace our token with carlos token in actual real password reset link vulnerability.
+
+
+
+### Prevention
+```bash
+1.Protect User Credentials
+Enforce HTTPS: Redirect all HTTP requests to HTTPS to prevent credentials from being transmitted over unencrypted connections.
+Audit Exposure: Regularly check your website for unintentional exposure of usernames or email addresses in public profiles or HTTP responses.
+
+2. Minimize Reliance on Users for Security
+Implement Password Checkers: Use tools like zxcvbn to encourage strong passwords with real-time feedback.
+Avoid Traditional Password Policies: Move away from rigid rules that result in predictable password patterns (e.g., Password123!).
+
+3. Prevent Username Enumeration
+Generic Error Messages: Return identical, non-specific error messages for invalid login attempts regardless of the scenario.
+Standardized Responses: Ensure HTTP status codes and response times are indistinguishable for both successful and unsuccessful login attempts.
+
+4. Implement Brute-Force Protection
+Rate Limiting: Limit login attempts by IP address and prevent attackers from spoofing their IPs.
+CAPTCHA Challenges: Introduce CAPTCHA tests after a threshold of failed login attempts to slow down attackers.
+Tedious Processes: Make brute-forcing difficult and time-consuming to discourage attackers.
+
+5. Verify Authentication Logic
+Thorough Audits: Review all authentication-related logic for flaws or bypasses.
+Robust Validation: Ensure that every check in the verification flow is secure and cannot be bypassed.
+
+6. Secure Supplementary Authentication Features
+Password Reset Security: Treat password reset and change functionalities with the same level of scrutiny as the main login mechanism.
+Test Account Scenarios: Check for vulnerabilities that attackers might exploit after registering their accounts.
+
+7. Implement Strong Multi-Factor Authentication (MFA)
+Avoid Weak MFA: Do not rely on email-based verification as true MFA; it’s an extension of single-factor authentication.
+Use Secure 2FA Tools: Opt for dedicated devices or apps (e.g., Google Authenticator) for generating one-time codes.
+Avoid SMS Where Possible: While SMS-based 2FA is better than nothing, it is vulnerable to attacks like SIM swapping.
+Validate 2FA Logic: Ensure the logic behind MFA checks is robust and cannot be bypassed.
+```
