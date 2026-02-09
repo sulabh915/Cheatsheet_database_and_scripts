@@ -41,3 +41,16 @@ Get-Command -Name *service*
 Get-Command -Name *service* -CommandType Cmdlet, Function, Alias, Script
 Get-Command -Noun Process
 ```
+
+Get-Member :
+Get-Member lets you look inside PowerShell objects so you know what data they contain and what actions you can perform on them.
+```bash
+Get-Service -Name w32time
+Get-Service-Name w32time | Get-Member
+(Get-Service -Name w32time).Status
+
+
+Get-Process | Get-Member
+Get-ChildItem | Get-Member
+Get-Service | Get-Member
+```

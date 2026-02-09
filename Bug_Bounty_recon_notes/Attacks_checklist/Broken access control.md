@@ -103,3 +103,116 @@ Preventation :
 
 > [!NOTE] Always check
 > Always check for roleid , userid or more interseting parameter when exploring the feature. like json request or other.
+
+
+##### Understanding X-Original-URL and X-Rewrite-URL HTTP Headers :
+A client sends a request:
+```bash
+GET /user HTTP/1.1
+Host: example.com
+```
+
+​
+The reverse proxy rewrites the URL to:
+```bash
+GET /backend/user HTTP/1.1
+Host: example.com
+X-Original-URL: /user
+```
+
+​
+The backend server can process the request and also access the original URL (/user) using the X-Original-URL header.
+
+Risk:
+If the backend server trusts the X-Original-URL header without validation, an attacker can send a custom header like:
+```bash
+GET / HTTP/1.1
+Host: example.com
+X-Original-URL: /admin/deleteUser
+```
+
+
+This bypasses access control rules based on URLs.
+
+##### X-Rewrite-URL Header:
+Purpose: Similar to X-Original-URL, this header is used in some setups to pass the rewritten URL from the reverse proxy or middleware to the backend server.
+
+A client requests an old page:
+```bash
+GET /old-page HTTP/1.1
+Host: example.co
+```
+
+The reverse proxy rewrites the URL:
+```bash
+GET /new-page HTTP/1.1
+Host: example.com
+X-Rewrite-URL: /new-page
+```
+
+The backend server uses the rewritten URL (/new-page) to process the request.
+Risk:
+If the application blindly trusts the X-Rewrite-URL header, an attacker could craft a malicious request:
+
+Let’s say the application normally blocks this request:
+```bash
+http
+Copy code
+POST /admin/deleteUser HTTP/1.1
+Host: example.com
+```
+
+But the attacker sends this instead:
+```bash
+http
+Copy code
+POST / HTTP/1.1
+Host: example.com
+X-Original-URL: /admin/deleteUser
+```
+
+##### HTTP Method-Based Access Control Bypass :
+An application allows only POST requests to delete a user, and managers are blocked from making POST requests to /admin/deleteUser.
+```bash
+POST /admin/deleteUser HTTP/1.1
+Host: example.com
+```
+
+```bash
+GET /admin/deleteUser?userId=123 HTTP/1.1
+Host: example.com
+```
+
+If the backend server improperly handles the GET request (e.g., it processes the deletion), the attacker can successfully delete the user despite the POST restriction.
+
+##### Horizontal Privilege Escalation
+Horizontal privilege escalation happens when a user can access another user's data or resources of the same type, even though they’re only supposed to access their own.
+
+##### What is an Insecure Direct Object Reference (IDOR)
+1. **Insecure**: Something is not secure or improperly protected.
+2. **Direct Object Reference**: Refers directly to an **object** (a resource like a file, account, or database record) using an **identifier** (e.g., a user ID, file name, or database key).
+
+An IDOR vulnerability happens when an application allows users to directly reference resources (like files or user data) using identifiers, but doesn’t check if the user is authorized to access those resources.
+
+```bash
+https://examplebank.com/transactions?account=123
+```
+123 is your account ID.
+
+
+If the application doesn’t check that you own account 123, you might be able to modify the URL like this:
+```bash
+https://examplebank.com/transactions?account=123
+https://examplebank.com/transactions?account=124
+```
+
+
+##### What’s Going On with Referer Header-Based Access Controls?
+Some websites try to control access to sensitive pages (like deleting a user) by checking the Referer header in the HTTP request. The Referer header is sent by the browser and tells the server which page the user came from.
+```bash
+
+POST /admin/deleteUser HTTP/1.1
+Referer: https://example.com/admin
+```
+
+The server sees the forged Referer and allows the request, even though the attacker never accessed /admin legitimately
