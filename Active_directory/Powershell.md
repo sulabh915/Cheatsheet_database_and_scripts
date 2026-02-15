@@ -40,6 +40,11 @@ help Get-Command -Full
 Get-Command -Name *service*
 Get-Command -Name *service* -CommandType Cmdlet, Function, Alias, Script
 Get-Command -Noun Process
+
+#use pipline with Get-Member command to it's cmdlet object for example
+Get-service | Get-member #it also display object along with property and methods
+
+Get-Command -ParameterType ServiceController
 ```
 
 Get-Member :
@@ -53,4 +58,19 @@ Get-Service-Name w32time | Get-Member
 Get-Process | Get-Member
 Get-ChildItem | Get-Member
 Get-Service | Get-Member
+
+
+Get-Service -Name w32time | Select-Object -Property *
+Get-Service -Name w32time |
+    Select-Object -Property Status, Name, DisplayName, ServiceType
+Get-Service -Name w32time |
+    Select-Object -Property Status, DisplayName, Can*
+    
+Get-Service -Name w32time | Get-Member -MemberType Method
+(Get-Service -Name w32time).Stop()
+
+Get-Service -Name w32time | Start-Service -PassThru
+
+
 ```
+
