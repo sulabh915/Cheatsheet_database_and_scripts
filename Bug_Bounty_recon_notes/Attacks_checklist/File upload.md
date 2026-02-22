@@ -88,6 +88,11 @@ Bypass Techniques
     - Result: The server executes the file as PHP.
 
 
+
+> [!NOTE] Imp file
+> Target phpinfo.ini file for information about which dangerous function are enable
+
+
 Flawed validation of the file's contents(magic bytes):
 ```bash
 file spider.png #check type of file 
