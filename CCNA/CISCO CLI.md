@@ -122,3 +122,32 @@ Router#sh run
 Router#copy running-config start
 Router#write mem
 ```
+
+
+#### Static Routing:
+```bash
+R2# conf t
+R2(config)# interface g0/0
+R2(config-if)# ip address 192.168.12.2 255.255.255.0
+R2(config-if)# no shutdown
+R2(config-if)# interfce g0/1
+R2(config-if)# ip address 192.168.24.2 255.255.255.0
+R2(config-if)# no shutdown
+
+## show current route
+R2# show ip route
+
+## Adding routes
+###syntax ip route ip-address netmask next-hop
+R1(config)#ip route 192.168.4.0 255.255.255.0 192.168.13.3
+R1(config)#do show ip route 
+
+
+##using with exit-interface of next hope
+R2(config)#ip route 192.168.1.0 255.255.255.0 g0/0
+R2(config)#ip route 192.168.4.0 255.255.255.0 g0/1 192.168.24.4
+
+##adding default routes to the internet
+R1(config)#ip route 0.0.0.0 0.0.0.0 203.0.113.2
+R1(config)#do show ip route
+```
