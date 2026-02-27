@@ -143,3 +143,7 @@ typeset -g POWERLEVEL9K_HOST_BACKGROUND=0    # black/transparent
 source ~/.zshrc
 ```
 
+
+
+> [!NOTE] Title
+> Use btop for advance process management
