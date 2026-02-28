@@ -150,4 +150,6 @@ R2(config)#ip route 192.168.4.0 255.255.255.0 g0/1 192.168.24.4
 ##adding default routes to the internet
 R1(config)#ip route 0.0.0.0 0.0.0.0 203.0.113.2
 R1(config)#do show ip route
+
+R1(config)#do show ip int br
 ```

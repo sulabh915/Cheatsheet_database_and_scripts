@@ -133,3 +133,209 @@ If the origin server is RESTful (like many APIs and web apps today), it **does n
 
 … and the server returns **private profile data** but the cache stores it like it’s a public file…
 …then the attacker can just visit the same URL and get **cached private data** — without authentication.
+
+
+> [!NOTE] Title
+> - Always test for WCD in **RESTful APIs** and modern SPAs (Single Page Apps).
+> -  For traditional apps, test **only if** there's evidence of dynamic path resolution.
+
+#### Delimiter
+- `?` → separates **URL path** from **query string**
+- `;` → used in Java Spring for **matrix parameters**
+- `.` → used in Ruby on Rails to specify **response format**
+- `%00` → null byte, used by some servers to **truncate** URLs
+
+- The **Java Spring** server sees:
+    
+    > /profile + matrix param foo.css → returns profile info
+    > 
+- But the **cache** (like Akamai or Cloudflare) sees:
+    
+    > a static .css file → “Cool! Let’s cache this.” ✅
+
+
+```bash
+/profile%00foo.js
+```
+
+- **OpenLiteSpeed** sees `%00` (null byte) as: “stop reading here” → `/profile`
+- **Cache** (Akamai or Fastly) sees the whole thing: `/profile%00foo.js`
+    - Ends in `.js` → ✅ might cache it
+
+```bash
+/settings/users/list;aaa
+```
+
+- If the server still gives the same response → `;` is a **delimiter** (like in Java Spring)
+- If it gives an error → `;` is **not** a delimiter
+
+	Origin Server	/settings/users/list → returns dynamic profile HTML
+	Cache	/settings/users/list;aaa.js → looks like a .js file → stored ✅
+
+
+
+> [!NOTE] Using tools
+
+> - **Burp Suite Intruder**: Automate testing different delimiters and extensions.
+    - Use payloads like: `;`, `.`, `%00`, `/`, `=`, , `_`
+- **Disable automatic encoding** in Burp when testing characters like `%00` — or it may change your input.
+- **Monitor headers**:
+    - `X-Cache: HIT` → confirms response is cached.
+    - `Cache-Control: public` + `max-age` → confirms cacheability.
+
+| Character        | Encoded form |
+| ---------------- | ------------ |
+| `?`              | `%3F`        |
+| `#`              | `%23`        |
+| `;`              | `%3B`        |
+| `\0` (null byte) | `%00`        |
+| Line feed        | `%0A`        |
+| Tab              | `%09`        |
+- The **cache** looks at the **raw, encoded URL**.
+- The **origin server** decodes the URL **before** routing it.
+- **Cache sees**: `profile%23wcd.css` → ends in `.css` → ✅ cache
+- **Server sees**: `profile#wcd.css` → URL **truncates at `#`** → serves `/profile` (dynamic)
+
+Origin Server:
+
+- Decodes `%23` into `#`
+- Treats `#` as a **fragment delimiter**
+- Truncates to `/profile`
+- Returns **sensitive profile info**
+
+🔹 Cache Server:
+
+- Doesn’t decode `%23`
+- Sees `.css` at the end
+- Thinks it’s a **static file**
+- Stores the response for everyone
+
+➡️ Now anyone accessing `/profile%23wcd.css` gets the **cached private info**.
+
+
+List of payload to test for web cache deception :
+
+```bash
+!
+"
+#
+$
+%
+&
+'
+(
+)
+*
++
+,
+-
+.
+/
+:
+;
+<
+=
+>
+?
+@
+[
+\
+]
+^
+_
+`
+{
+|
+}
+~
+%21
+%22
+%23
+%24
+%25
+%26
+%27
+%28
+%29
+%2A
+%2B
+%2C
+%2D
+%2E
+%2F
+%3A
+%3B
+%3C
+%3D
+%3E
+%3F
+%40
+%5B
+%5C
+%5D
+%5E
+%5F
+%60
+%7B
+%7C
+%7D
+%7E
+```
+
+
+#### Exploiting static directory cache rules :
+
+```bash
+/assets/..%2fprofile
+```
+
+Origin Server:
+
+- Decodes `%2f` into `/`
+- Resolves `..` to go **up one directory**
+- Final path = `/profile`
+- Returns **sensitive profile data**
+
+❌ Cache:
+
+- Doesn’t decode `%2f`
+- Doesn’t resolve `..`
+- Sees this as just another **file under `/assets`**
+- Sees `.html` or `.css` in the response (maybe)
+- **Caches the dynamic response** at:
+
+/assets/..%2fprofile
+
+- Is used by the **origin server** to **truncate the path** (e.g., `;`)
+- ❌ Is ignored by the **cache** (so the cache processes the full normalized path)
+```bash
+/profile;%2f%2e%2e%2fstatic
+```
+
+| Component | Behavior |
+| --- | --- |
+| **Origin server** | Sees `;` → **truncates path at `/profile`** → returns **dynamic profile info** |
+| **Cache** | Sees full path → decodes `%2f%2e%2e%2f` into `/../` → resolves to `/static` → caches it |
+
+- The **origin server doesn’t decode** the traversal — it doesn’t see `/../`
+- But it **does** recognize the **delimiter** `;`, and cuts the URL short
+- The **cache** decodes `%2f%2e%2e%2f` into `/../`, resolves it, and thinks the request is for **`/static`**
+
+#### Exploiting file name cache rules
+| File name | Why it’s cached |
+| --- | --- |
+| `robots.txt` | Rarely changes, crawled by bots |
+| `favicon.ico` | Used by browsers, expected to be static |
+| `index.html` | Default landing page |
+Trick the cache into thinking you're accessing a safe, public file like /index.html, when you're actually getting private, dynamic content (like /profile) — and have it cached.\
+
+| System | What it does |
+| --- | --- |
+| **Cache** | Decodes and normalizes: `/index.html`  → ✅ **Cache rule matches**, response cached |
+| **Origin server** | Doesn’t decode `%2f`, keeps path literal → `/profile%2f%2e%2e%2findex.html` → interpreted as a request to `/profile%2f%2e%2e%2findex.html` → may return **profile page** or even 404 |
+
+| Step | What Happens |
+| --- | --- |
+| Cache | Decodes and normalizes `/profile%2f%2e%2e%2findex.html` to `/index.html` and applies cache rules ✅ |
+| Origin server | Doesn’t decode traversal — may treat as `/profile`, returns dynamic info ❌ |
+| Result | Dynamic content (e.g., profile) is cached as `/index.html`, and can be leaked to others |
