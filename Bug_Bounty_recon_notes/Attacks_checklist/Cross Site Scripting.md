@@ -795,3 +795,5 @@ echo "[*] XSS testing completed. Results saved to:"
 echo " - Report: $REPORT_FILE"
 echo " - Vulnerable URLs: $VULNERABLE_FILE"
 echo " - Non-Vulnerable URLs: $NON_VULNERABLE_FILE"
+
+
