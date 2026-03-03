@@ -18,6 +18,34 @@ sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace --disable-arp-ping #disabl
 
 nmap -sP -PR 192.168.1.1/24 # -sn = -sP enable arp ping scan
 nmap -PE -sn 192.168.178.0/24 #icmp echo request....
+
+nmap -sn 192.168.1.0/24 --packet-trace  #--packet-trace analyse the packet at terminal.
+
+# disabel arp by two option
+nmap -sn 192.168.1.0/24 --packet-trace  --send-ip
+nmap -sn -PR 192.168.1.0/24 --send-ip
+
+#syn scan discovery
+nmap -sn -PS 192.168.0.12 --disable-arp-pingz
+
+#ack scan discovery
+nmap -sn -PA 192.168.0.1 --disable-arp-ping
+
+#ICMP echo ping sweep
+nmap -sn -PE 192.168.178.100-200 --send-ip
+
+#ICMP ECHO Timestamp scan
+nmap -sn -PP 192.168.178.100-200 --send-ip
+
+#ip protocol scan
+nmap -sn -PO 192.168.178.136 --send-ip
+
+#no ping scan
+nmap -sn -PN 192.168.178.136 --send-ip
+
+
+#SCTP INIT Ping
+nmap -sn -PY 192.168.1.108 --disable-arp-ping
 ```
 
 
@@ -40,6 +68,17 @@ URG (Urgent): Indicates the presence of urgent data in the packet.
 ### Port states :
 
 ![[Pasted image 20251203002231.png]]
+
+1. **Open:** This state means that an application on the target machine is listening for connections/packets on that port.
+2. **Closed:** This state means ports have no application listening on them, though they could open up at any time.
+3. **Filtered:** This state means that a firewall, filter, or other network obstacle is blocking the port so that Nmap cannot tell whether it is open or closed.
+4. **Unfiltered:** ports are classified as unfiltered when they are responsive to Nmap’s probes, but Nmap cannot determine whether they are open or closed.
+5. **Open/Filtered:** This indicates that the port was filtered or open but Nmap couldn’t establish the state.
+6. **Closed/Filtered**: This indicates that the port was filtered or closed but Nmap couldn’t establish the state.
+
+
+
+
 
 ### Syn scan :
 ```bash
@@ -71,6 +110,14 @@ sudo nmap 10.129.2.28 -p- -sV -Pn -n --disable-arp-ping --packet-trace
 ### Nmap input & Output Management:
 ```bash
 nmap -sn -n <ip block> | grep "Nmap scan" |cut -d" " -f5 > ipList.txt
+nmap -sT -sV -F -O 192.168.178.136 -oG grepa.txt -oN normal_scan.txt -oX xml_scan.txt 
+nmap -vv -oN  scan.txt 192.168.1.108
+nmap -d2 -oN  scan.txt 192.168.1.108
+
+
+nmap -oX scan.xml --stylesheet=nmap.xsl 192.168.1.108
+xsltproc scan.xml -o scan.html
+firefox scan.html
 
 Normal output (-oN) with the .nmap file extension
 Grepable output (-oG) with the .gnmap file extension
@@ -79,6 +126,11 @@ XML output (-oX) with the .xml file extension
 sudo nmap 10.129.2.28 -p- -oA target #save result in all format
 
 xsltproc target.xml -o target.html #convert .xml to .html
+
+
+nmap -sV -O -oA scan scanme.nmap.org --stylesheet https://raw.githubusercontent.com/honze-net/nmap-bootstrap-xsl/master/nmap-bootstrap.xsl
+firefox scan.xml
+
 ```
 
 ### Nmap Aggressive Scan:
@@ -120,6 +172,12 @@ Unexpected SYN/Ack is responded with a RST
 Every IP packet has IP ID,which is simply incremented by many 1s.
 
 sudo nmap -sI 192.168.0.107 -Pn -n 192.168.0.104 --top-ports 3
+
+## SCTP INIT Scan:
+
+## SCTP COOKIE ECHO Scan:
+nmap -sv -il scan1.txt -- open | awk '/Nmap scan report for/{ip=$NF} /^[0-9]+\/tcp/{print ip " : " $0}' > scan3.txt
+
 
 ```
 
