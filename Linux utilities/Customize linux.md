@@ -61,6 +61,10 @@ alias catn='batcat --style=plain'   # no extra decorations
 alias catl='batcat --style=plain --paging=never'  # plain + no pager
 
 
+# Colorized Network 
+alias ping='grc ping'
+
+
 
 🖋️ Step 6: Enable Vi Mode
 Add:
