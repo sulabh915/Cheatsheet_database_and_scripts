@@ -151,4 +151,7 @@ source ~/.zshrc
 
 > [!NOTE] Title
 > Use btop for advance process management
-	
+
+
+for colorfull icon :
+https://www.youtube.com/watch?v=GQ3uVQd4bog
