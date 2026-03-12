@@ -74,3 +74,108 @@ Get-Service -Name w32time | Start-Service -PassThru
 
 ```
 
+
+```bash
+Get-Process |
+Sort-Object CPU -Descending|
+Select-Object -First5
+```
+
+
+```bash
+Get-Service | Where-Object {
+$_.Status -eq  "Stopped" -or $_.StartType -eq "Disabled"
+}
+```
+
+
+```bash
+Get-Process|
+Where-Object Working Set -gt 300MB |
+Sort-Object Working Set-Descending |
+Select-Object -First5 Name,
+@{Name="MemoryMB";Expression={[math]::Round($_.WorkingSet/1MB,2)}}
+```
+
+
+```bash
+Get-Service|Where-Object {
+$_.Status -eq "Stopped" -or $_.StartType -eq "Disabled"
+}
+```
+
+
+```bash
+Get-Service | Format-Table Name,Status -AutoSize
+
+
+Get-Process|
+Where-ObjectCPU -gt 1|
+Format-Table Name,CPU
+
+
+Get-Service | Format-Table Name,Status | Get-Member
+```
+
+
+
+```bash
+Get-PSProvider
+Get-PSDrive
+```
+
+
+#####Comparison Operators
+
+```bash
+"Hello" -eq "hello"
+10 -ge 10
+
+2 -lt 5
+
+5 -le 5
+
+"PowerShell" -like "Power*"
+
+"PowerShell"- not like "*cmd"
+```
+
+
+####Looping
+| Loop Type | Question It Asks |
+| --- | --- |
+| `for` | “Repeat this a specific number of times.” |
+| `foreach` | “Do this for each item in a collection.” |
+| `while` | “Keep going while this is true.” |
+| `do while` | “Run once, then keep going while true.” |
+| `do until` | “Run once, until this becomes true.” |
+
+
+
+```bash
+for ($i=1;$i-lt5;$i++) {
+Write-Output"Sleeping for$i seconds"
+Start-Sleep-Seconds$i
+}
+
+
+do {
+# code
+}
+until (condition)
+
+
+```
+| Loop | Keeps Running When |
+| --- | --- |
+| do until | Condition is FALSE |
+| do while | Condition is TRUE |
+
+
+```bash
+while ($date.DayOfWeek-ne'Thursday') {
+$date=$date.AddDays(1)
+}
+```
+
+
