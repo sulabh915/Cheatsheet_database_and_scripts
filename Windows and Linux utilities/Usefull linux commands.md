@@ -489,6 +489,16 @@ readarray files < <(ls ~/)
 ```
 
 
+### Sync your copy and paste :
+```bash
+rsync -av --progress /path/to/source/ /path/to/destination/
+rsync -av --progress /home/user/mybackup/ /mnt/backup/ #network path
+rsync -av --progress /home/user/mybackup/ user@192.168.1.100:/backup/ #using ssh
+```
+
+
+
+
 ### Get information about pc :
 ```bash
 #CPU :
@@ -544,4 +554,4 @@ neofetch — Stylish system summary
 glxinfo — GPU info (for X11 systems)
 smartctl -a /dev/sdX — Disk health (SMART)
 
-  
+
