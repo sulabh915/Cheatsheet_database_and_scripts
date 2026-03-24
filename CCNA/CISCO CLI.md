@@ -153,3 +153,89 @@ R1(config)#do show ip route
 
 R1(config)#do show ip int br
 ```
+
+
+#### VLAN Configuration :
+
+```bash
+
+#Configure router for different vlan port
+en
+conf t
+int g0/0
+ip address 10.0.0.62
+ip address 10.0.0.62 255.255.255.192
+no shutdown
+
+
+int g0/1
+ip address 10.0.0.126 255.255.255.192
+no shut
+
+int g0/2
+ip address 10.0.0.190 255.255.255.192
+no shut
+
+do sh ip int brief
+
+
+#create vlan in switch
+en
+conf t
+int range g0/1,f3/1,f4/1
+switchport mode access
+switchport mode access vlan 10
+
+int range g1/1,f5/1,f6/1
+sw mode ac
+sw ac vlan 20
+
+int range g2/1,f7/1,f8/1
+sw mode ac
+sw ac vlan 30
+
+do show vl br
+
+#change the name of vlans if created
+vlan 10
+name ENGINEERING
+vlan 20
+name HR
+vlan 30
+name SALES
+
+do sh vlan br
+```
+
+
+VLAN Trunk configuration:
+```bash
+SW1(config)#interface g0/0
+SW1(config-if)#switchport mode trunk
+SW1(config-if)#switchport trunk encapsulation ?
+SW1(config-if)#switchport trunk encapsulation dot1q
+SW1(config-if)#switchport mode trunk
+SW1(config-if)#show interfaces trunk
+SW1(config-if)#show vlan brief
+
+
+#allow , add and remove vlan in trunk port
+SW1(config-if)#show trunk allowed vlan 10,30
+SW1(config-if)#do show interfaces trunk
+SW1(config-if)#switchport trunk allowed vlan add 20
+SW1(config-if)#do show interfaces trunk
+SW1(config-if)#switchport trunk allowed vlan remove 20
+SW1(config-if)#do show interfaces trunk
+
+#all option
+SW1(config-if)#switchport trunk allowed vlan all
+SW1(config-if)#do show interfaces trunk
+
+#except option
+SW1(config-if)#switchport trunk allowed vlan except 1-5,10
+SW1(config-if)#do show interfaces trunk
+
+SW1(config-if)#switchport trunk allowed vlan none
+SW1(config-if)#do show interfaces trunk
+```
+
