@@ -237,5 +237,13 @@ SW1(config-if)#do show interfaces trunk
 
 SW1(config-if)#switchport trunk allowed vlan none
 SW1(config-if)#do show interfaces trunk
+
+
+#native vlan
+SW1(config-if)#switchport trunk native vlan 1001
+
+
+SW1#show vlan brief
+
 ```
 
