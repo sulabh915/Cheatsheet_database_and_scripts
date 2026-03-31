@@ -26,3 +26,14 @@ net use X: \\127.0.0.1\Exfil
 #Shows all mapped drives and active share connections.
 net use
 ```
+
+using DISM tool:
+```bash
+#backup driver 
+DISM /Online /Export-Driver /Destination:D:\DriverBackup
+
+#scan health 
+DISM /Online /Cleanup-Image /ScanHealth
+
+sfc /scannow
+```
