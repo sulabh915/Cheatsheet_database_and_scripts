@@ -246,8 +246,8 @@ SW1(config-if)#switchport trunk native vlan 1001
 SW1#show vlan brief 
 (The show vlan brief command shows the access ports assigned to each VLAN,NOT the trunk port that allow each VLAN use the "show interfaces trunk" command instead to confirm trunk ports).
 
-
-
+#return it to the default stat.
+SW1#switchport trunk allowed vlan all
 ```
 
 
