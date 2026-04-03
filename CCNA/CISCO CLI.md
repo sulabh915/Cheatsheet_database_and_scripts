@@ -254,6 +254,46 @@ SW1#show vlan brief
 
 Router on a Stick (ROAS)
 ```bash
+
+Switch(config)#vlan 10
+Switch(config-vlan)#name ENGINEERING
+
+Switch(config)#vlan 20
+Switch(config-vlan)#name HR
+
+Switch(config)#vlan 30
+Switch(config-vlan)#name SALES
+
+#port which is connected to router
+Switch(config)#interface g0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,30
+
+#port which is connected to switch 1
+Switch(config)#interface g0/0
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,30
+
+
+Switch(config)#interface g0/2
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 10
+
+
+Switch(config)#interface g1/0
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+
+
+Switch(config)#interface g0/3
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+
+Switch#show vlan brief
+Switch#show interfaces trunk
+Switch#show running-config
+
+
 R1(config)#interface g0/0
 R1(config-if)#no shutdown
 
@@ -268,4 +308,8 @@ R1(config-subif)#ip address 192.168.1.126 255.255.255.192
 R1(config-subif)#interface g0/0.30
 R1(config-subif)#encapsulation dot1q 30
 R1(config-subif)#ip address 192.168.1.190 255.255.255.192
+
+R1#show ip interface brief
+R1#show ip route
+ 
 ```
