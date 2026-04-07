@@ -303,3 +303,33 @@ Ensure:
 Frontend and backend agree on Host
 No ambiguity
 ```
+
+
+#### HTML Injection via Host Header
+
+```bash
+HTML Injection via Host Header
+
+Even if you can’t change the reset link, attacker may still inject HTML.
+
+Example
+
+Server sends email:
+
+<a href="https://HOST/reset">Reset</a>
+
+Attacker sends:
+
+Host: evil.com"><img src=x onerror=alert(1)>
+
+Email becomes:
+
+<a href="https://evil.com"><img src=x onerror=alert(1)>/reset">
+
+Impact
+Broken email UI
+Phishing tricks
+Data leakage (dangling markup attacks)
+
+👉 Note: JavaScript usually blocked in email, but HTML tricks still work
+```
