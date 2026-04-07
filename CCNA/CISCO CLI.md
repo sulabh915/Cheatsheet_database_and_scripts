@@ -184,7 +184,7 @@ en
 conf t
 int range g0/1,f3/1,f4/1
 switchport mode access
-switchport mode access vlan 10
+switchport access vlan 10
 
 int range g1/1,f5/1,f6/1
 sw mode ac
