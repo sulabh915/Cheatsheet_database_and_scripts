@@ -248,3 +248,185 @@ Use Secure 2FA Tools: Opt for dedicated devices or apps (e.g., Google Authentica
 Avoid SMS Where Possible: While SMS-based 2FA is better than nothing, it is vulnerable to attacks like SIM swapping.
 Validate 2FA Logic: Ensure the logic behind MFA checks is robust and cannot be bypassed.
 ```
+
+
+## Session management :
+### Old Session Does Not Expire After Password Change
+
+Steps to Reproduce:
+- Create an account on the target site.
+- Log in to the account on two different browsers (e.g., Chrome and Firefox/Incognito).
+- On Chrome, navigate to settings and change your password.
+- Once the password change is successful, go to the Firefox window (where the old session is active) and refresh the page or navigate to a new tab.
+
+If you remain logged in on Firefox, this is a bug.
+Impact: If an attacker has hijacked a user's session, they will retain access to the account even after the victim notices suspicious activity and changes their password to secure it.
+
+
+### Failure to Invalidate Session on Logout (Persistent Session)
+
+Steps to Reproduce:
+- Log in to your account.
+- Open a cookie editor extension (e.g., EditThisCookie) and copy all current session cookies to your clipboard.
+- Click the "Logout" button on the website.
+- Open the cookie editor again and paste the previously copied cookies back into the browser.
+- Refresh the page
+- If you are logged in again without entering credentials, the bug exists.
+
+Impact: If an attacker steals a victim's cookies (via XSS or network sniffing), they can use them to access the account indefinitely, even if the user frequently logs out.
+
+#### Browser Cache Weakness (Back Button Vulnerability)
+
+
+Steps to Reproduce:
+- Log in to the application.
+- Navigate to sensitive pages (Profile, Settings, Payments).
+- Log out of the account.
+- Press the browser's "Back" button (or Alt + Left Arrow).
+- If you can view the sensitive pages or the cached session appears active, report it.
+
+Impact: In public environments (libraries, internet cafes), a malicious user can view the previous user's private data simply by clicking the back button after the victim leaves.
+
+
+####  Email Verification Bypass (Logic Flaw)
+
+Steps to Reproduce:
+- Create an account and receive the initial email verification link. Do not click it yet.
+- Log in and change your email address to "Email B"
+- The system sends a new link to Email B. Verify that link.
+- Go back to settings and change your email back to the original "Email A".
+- If "Email A" is now marked as verified without you clicking its specific link, this is a bypass.
+
+Impact: An attacker can sign up with a fake or targeted email address (e.g., admin@company.com)
+and verify it without actually owning that email account, potentially bypassing domain-based restrictions.
+
+#### Email Verification Swap Attack
+
+Steps to Reproduce:
+- Create an account with "Email A" (Attacker's email).
+- Receive the verification link at "Email A" but do not click it
+- In the application settings, change your email to "Email B" (Victim's email)
+- Go to the inbox of "Email A" and click the verification link sent in Step 2.
+- If "Email B" (the victim's email) gets verified using the link meant for "Email A," this is a bug.
+
+Impact: Allows an attacker to confirm an email address they do not own, which can lead to "Pre-Account Takeover" or harassing victims with confirmed account notifications.
+
+
+#### 6. Password Reset Token Persistence
+
+Steps to Reproduce:
+- Create an account with a valid email.
+- Log out and request a "Forgot Password" link (Link 1).
+- Without using Link 1, request a second "Forgot Password" link (Link 2).
+- Use Link 1 to change the password.
+- If Link 1 still works → vulnerability confirmed.
+
+Impact:
+Old reset links remain valid
+Attacker can reuse previously generated links
+Leads to persistent account takeover
+
+
+#### 7. Password Reset Token Re-use
+
+Steps to Reproduce:
+- Request a password reset link.
+- Use it to change the password.
+- Try using the same link again.
+- If it works again → vulnerability exists.
+
+Impact:
+Token is not invalidated after use
+Attacker can reuse link anytime
+Leads to account takeover
+
+#### 8. Lack of Session Validation
+
+Steps to Reproduce:
+- Log in and go to Profile.
+- Edit a field but don’t save.
+- Capture request using Burp Suite
+- Log out from browser.
+- Replay request in Repeater.
+- If it still works → vulnerable.
+
+Impact:
+Actions possible after logout
+Unauthorized changes to user account
+Leads to full account takeover
+
+#### 9. Session Fixation
+Steps to Reproduce:
+- Visit login page and note session ID.
+- Log in with valid credentials.
+- Check if session ID changes.
+- If same → vulnerable.
+
+Impact:
+Attacker can pre-set session ID
+Gains access after victim logs in
+Leads to session hijacking
+
+#### 10. Concurrent Session Limit Bypass
+Steps to Reproduce:
+- Log in on Browser A.
+- Log in on Browser B.
+- Check if Browser A is logged out.
+- If not → test multiple logins via Intruder.
+
+Impact:
+Multiple active sessions allowed
+Hard to detect attacker presence
+Weakens fraud detection
+
+#### 11. Missing Session Rotation After Privilege Change
+Steps to Reproduce:
+- Log in as normal user
+- Note session ID
+- Perform privilege upgrade action
+- Check session ID again
+- If unchanged → vulnerable
+
+Impact:
+Attacker with old session gains elevated access
+No re-authentication required
+Leads to privilege escalation
+
+ 
+ ####  12. Unrestricted Session Duration
+Steps to Reproduce:
+- Log in
+- Capture session cookie
+- Wait hours/days
+- Reuse cookie
+- If still valid → vulnerable
+
+Impact:
+Sessions never expire
+Stolen cookies usable long-term
+Leads to persistent unauthorized access
+
+#### 13. Weak "Remember Me" Token
+Steps to Reproduce:
+- Log in with “Remember Me”
+- Capture cookie
+- Log out
+- Reuse cookie
+- If login works → vulnerable
+
+Impact:
+Token is static / reusable
+Works even after logout
+Leads to persistent account access
+
+#### 14. JWT Misconfiguration
+Steps to Reproduce:
+- Log in and capture JWT
+- Log out
+- Reuse JWT in request
+- If still valid → vulnerable
+
+Impact:
+Tokens not revoked
+Acts as permanent access key
+Leads to account takeover
