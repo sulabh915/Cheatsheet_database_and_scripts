@@ -110,7 +110,7 @@ Even if you visit:
 
 https://example.com
 
-An attacker can send:
+An attacker can send:\
 
 GET / HTTP/1.1
 Host: evil.com
