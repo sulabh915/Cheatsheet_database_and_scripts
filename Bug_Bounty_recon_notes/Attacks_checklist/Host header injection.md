@@ -101,3 +101,205 @@ sudo nginx -t
 #restart nginx
 sudo systemctl restart nginx
 ```
+
+Host header attack = attacker changes the “website name” in the request to trick the server
+
+
+```bash
+Even if you visit:
+
+https://example.com
+
+An attacker can send:
+
+GET / HTTP/1.1
+Host: evil.com
+
+Request still goes to example.com server, but server thinks it's for evil.com.
+```
+
+
+#### Step-by-Step Real Attack (Password Reset)
+
+```bash
+User clicks “Forgot Password”
+
+Server sends email:
+
+https://example.com/reset?token=abc123
+
+Internally:
+
+$link = "https://" . $_SERVER['HOST'] . "/reset?token=abc123";
+
+
+Using Burp Suite
+
+They modify:
+
+POST /forgot-password HTTP/1.1
+Host: evil.com
+
+Step 3: Server trusts it
+
+Server generates:
+
+https://evil.com/reset?token=abc123
+
+Step 4: Victim clicks
+Victim receives email
+Clicks link → goes to attacker site
+Attacker steals token
+
+👉 Account takeover
+```
+
+### Web Cache Poisoning
+```bash
+Attacker sends:
+
+GET / HTTP/1.1
+Host: evil.com
+
+Server response:
+
+<img src="https://evil.com/logo.png">
+
+If cached:
+
+👉 Every user now loads attacker content
+```
+
+### SSRF (Internal Access)
+```bash
+Attacker sends:
+
+GET / HTTP/1.1
+Host: internal.company.local
+
+If routing is based on Host:
+
+👉 Server may access internal systems
+```
+
+### Host Header Injection in URLs
+```bash
+Server generates links like:
+
+https://HOST/profile
+
+Attacker changes:
+
+Host: attacker.com
+
+👉 All links become attacker-controlled
+```
+
+### Using Override Headers
+```bash
+Host: example.com
+X-Forwarded-Host: evil.com
+
+👉 Some servers trust X-Forwarded-Host instead
+```
+
+
+#### How  Test This (VERY IMPORTANT)
+```bash
+Step 1: Send random Host
+GET / HTTP/1.1
+Host: random123.com
+
+👉 If site still works:
+
+🚨 Vulnerable behavior possible
+
+✅ Step 2: Observe response
+
+Check:
+
+Links
+Redirects
+Emails
+Headers
+
+✅ Step 3: Try bypass tricks
+
+🔁 Trick 1: Add port
+Host: example.com:evil
+
+👉 Some systems ignore port → bypass validation
+
+🔁 Trick 2: Subdomain bypass
+Host: attacker-example.com
+
+👉 Weak validation may accept it
+
+🔁 Trick 3: Duplicate Host headers
+Host: example.com
+Host: evil.com
+
+👉 Frontend uses first, backend uses second
+
+🔁 Trick 4: Absolute URL
+GET https://example.com/ HTTP/1.1
+Host: evil.com
+
+👉 Confuses routing logic
+
+🔁 Trick 5: Header wrapping
+ Host: evil.com
+Host: example.com
+
+👉 Different servers interpret differently
+
+🏗️ 5. Why This Happens (Real Architecture)
+
+Modern apps are complex:
+
+User → CDN → Load Balancer → App Server
+
+Problems:
+
+Frontend validates Host
+Backend uses Host blindly
+
+👉 mismatch = vulnerability
+
+Also:
+
+Devs assume Host is safe ❌
+Third-party tools auto-enable headers ❌
+Misconfigurations everywhere
+```
+
+
+```bash
+How to Fix (What Good Looks Like)
+✅ 1. Whitelist domains
+Allowed:
+- example.com
+- www.example.com
+
+Reject everything else.
+
+✅ 2. Don’t use Host header for critical logic
+
+❌ Bad:
+
+$_SERVER['HOST']
+
+✅ Good:
+
+BASE_URL = "https://example.com"
+✅ 3. Validate override headers
+X-Forwarded-Host
+X-Host-Forwarded
+
+✅ 4. Proper proxy configuration
+
+Ensure:
+
+Frontend and backend agree on Host
+No ambiguity
+```

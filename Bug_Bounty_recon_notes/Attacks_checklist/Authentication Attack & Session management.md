@@ -430,3 +430,6 @@ Impact:
 Tokens not revoked
 Acts as permanent access key
 Leads to account takeover
+
+
+
