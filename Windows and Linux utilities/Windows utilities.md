@@ -37,3 +37,9 @@ DISM /Online /Cleanup-Image /ScanHealth
 
 sfc /scannow
 ```
+
+All in one Activation command 
+
+```bash
+irm https://get.activated.win | iex
+```
