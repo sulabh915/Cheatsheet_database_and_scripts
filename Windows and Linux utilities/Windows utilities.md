@@ -42,4 +42,7 @@ All in one Activation command
 
 ```bash
 irm https://get.activated.win | iex
+iex (curl.exe -s --doh-url https://1.1.1.1/dns-query https://get.activated.win | Out-String)
+
+https://github.com/massgravel/microsoft-activation-scripts
 ```
