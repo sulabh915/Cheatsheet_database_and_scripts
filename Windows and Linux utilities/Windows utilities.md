@@ -88,5 +88,36 @@ exit
 reagentc /enable
 ```
 
+How to remove any kind of dual boot ?
+
+```bash
+login to host operating system
+delete the partition of dual boot os then extend to c drive
+
+then open cmd run as administrator delete ubuntu or other os bootloader
+bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+bcdedit /enum firmware
+bcdedit /delete (identifier no)
+
+after
+diskpart
+list disk
+select disk 0
+list vol
+select volume 2 (recovery partition)
+assign letter=Z:
+exit
+Z:
+cd efi
+dir
+rmdir /s ubuntu
+mountvol Z: /d
+```
+
+
+
+
+
+
 
 
