@@ -1,0 +1,30 @@
+delete java and emgsinger previous
+https://www.filepuma.com/download/java_runtime_environment_32bit_8.0.1620.12-17918/download/ download java
+https://www.filepuma.com/download/java_runtime_environment_64bit_8.0.3810.9-35828/ for gst
+download emgsinger from site and install it
+disable your windows firewall or antivirus firewall
+
+java configuration for traces emsigner
+configure java
+add exception list
+http://127.0.0.1:1565
+https://downloads.tdscpc.gov.in
+https://tdscpc.gov.in
+
+
+google chrome configuration
+go to the site setting
+javascrit
+add a site javascript  add these
+https://120.0.0.1:1565
+http://120.0.0.1:1565
+https://127.0.0.1:1565
+http://127.0.0.1:1565
+https://127.0.0.1
+
+restart the system
+
+run emsigner
+
+open https://127.0.0.1:1565 in chrome browser
+checkout after 15 seconds
