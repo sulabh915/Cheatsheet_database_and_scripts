@@ -114,6 +114,78 @@ rmdir /s ubuntu
 mountvol Z: /d
 ```
 
+How to remove Bitlocker :
+
+```bash
+Lauch cmd and type notepad  open file explorer look for recovery key file
+
+https://aka.ms./myrecoverykey
+
+manage-bde -status
+Disable-BitLocker -MountPoint "F:"
+manage-bde -off F:
+```
+
+
+How to solve c drive issue:
+
+```bash
+c drive full
+
+Filter 
+size:gigantic
+size:huge
+
+
+Delete window.old folder in c drive 
+C:/windows/softwaredistribution
+
+In run type %appdata% go the local delete removed software folder
+
+Diskcleanup
+
+Use storage sense
+
+Go to chrome the userdata folder and look for ai model something folder
+
+
+
+
+
+Use automation
+  Common
+  Delete user from pc
+  Run cleanup 
+Run tree icon
+Adjust settings for performance check
+
+
+Service should disable:
+Connected user experience and telemetry
+Windows error reporting service
+Diagnostic policy service
+Progeam compatibility assistance service
+Windows biometric service
+Windows search
+Bitlocker encryption drive
+Bluethooth support service
+Remote desktop support
+SysMain
+Printspoller
+
+System configuration -》services -》 hide microsoft services -》 disable such service
+
+Disable start up application 
+Go to the power option disable hibranate
+In powershell
+  powercfg /hibernate off
+ powercfg /availablesleepstates
+```
+
+
+
+
+
 
 
 
