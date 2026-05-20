@@ -184,6 +184,21 @@ In powershell
 
 
 
+use full software and script :
+```bash
+Everything
+Windows apps must
+Widget store
+Remove windows 11 ai
+Tokri
+Wintoy
+Revo uninstallaion
+Windhawk
+Bilp for data transfer
+Powertoys
+```
+
+
 
 
 
