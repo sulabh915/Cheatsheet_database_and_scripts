@@ -1,7 +1,19 @@
 
 
 ##### Licensing
-![[WhatsApp Image 2026-06-03 at 12.44.20 PM.jpeg]]
+|Feature|Microsoft 365 Personal|Microsoft 365 Family|Microsoft 365 Business|Office Home 2024 (Home & Student)|Office Home & Business 2024|Office Professional 2024|
+|---|---|---|---|---|---|---|
+|Word, Excel, PowerPoint|✅|✅|✅|✅|✅|✅|
+|Outlook|✅|✅|✅|❌|✅|✅|
+|OneNote|✅|✅|✅|✅|✅|✅|
+|Publisher & Access|❌|❌|Some business plans only|❌|❌|✅|
+|OneDrive Cloud Storage|1 TB|Up to 6 TB (1 TB/user)|1 TB/user|❌|❌|❌|
+|Exchange Email|❌|❌|✅|❌|❌|❌|
+|SharePoint|❌|❌|✅|❌|❌|❌|
+|Microsoft Teams|❌|❌|✅ (plan dependent)|❌|❌|❌|
+|License Type|Subscription|Subscription|Subscription|One-time purchase|One-time purchase|One-time purchase|
+|Users|1|Up to 6|1 per license|1 PC|1 PC|1 PC|
+|Approx. Price (India)|₹6,899/year|₹8,199/year|₹145–₹1,880/user/month*|₹10,999 one-time|~₹27,999 one-time|~₹47,999 one-time|
 
 
 ##### Migration from Google workspace to MSO :
