@@ -101,9 +101,173 @@ and you should see the option to create a PST Import Job.
 
 
 ##### Increase the storage of one drive :
+
 - login to microsoft 365 admin 
 - go to the sharepoint -> settings
 - click on onedrive (storage limit) increase to 1024 tp
 - now go the active user in admin center
 - now click on that particular user go the tap called onedrive
 - then increase the storage limit.
+
+#### Enable archive 
+##### Step 1: Verify License
+
+The user must have a license that supports Online Archiving, such as:
+
+- Exchange Online Plan 2
+- Microsoft 365 E3/E5
+- Microsoft 365 Business Premium (with archiving support)
+- Exchange Online Archiving add-on
+
+---
+
+###### Step 2: Enable Archive Mailbox in Exchange Admin Center
+
+1. Open:
+    - [Exchange Admin Center](https://admin.exchange.microsoft.com?utm_source=chatgpt.com)
+2. Go to:
+
+```
+Recipients → Mailboxes
+```
+
+3. Select the user.
+4. Open:
+
+```
+Others
+```
+
+5. Click:
+
+```
+Manage mailbox archive
+```
+
+6. Turn:
+
+```
+Mailbox archive = Enabled
+```
+
+7. Click **Save**.
+
+---
+
+###### Step 3: Wait for Provisioning
+
+It can take a few minutes to several hours for the archive mailbox to appear.
+
+After activation, Outlook and Outlook Web will show:
+
+```
+Online Archive - User Name
+```
+
+below the primary mailbox.
+
+---
+
+##### PowerShell Method
+
+If you prefer PowerShell:
+
+```
+Connect-ExchangeOnlineEnable-Mailbox -Identity user@domain.com -Archive
+```
+
+Check status:
+
+```
+Get-Mailbox user@domain.com | Select ArchiveStatus
+```
+
+If it returns:
+
+```
+Active
+```
+
+the archive mailbox is enabled.
+
+
+### Creating retensional policy to move emails
+##### 1. Enable Online Archive
+
+First verify that the archive mailbox is enabled for the user.
+
+Exchange Admin Center:
+
+```
+Recipients → Mailboxes → Select User → Others → Manage mailbox archive
+```
+
+Status should be **Enabled**.
+
+---
+
+### 2. Create a Retention Policy
+
+Go to:
+
+- [Microsoft Purview Portal](https://compliance.microsoft.com?utm_source=chatgpt.com)
+
+Then:
+
+```
+Data lifecycle management→ Exchange (legacy)→ MRM Retention Tags
+```
+
+Create a tag such as:
+
+```
+Move to Archive after 365 days
+```
+
+or
+
+```
+Move to Archive after 730 days
+```
+
+Action:
+
+```
+Move item to archive
+```
+
+---
+
+### 3. Create / Modify Retention Policy
+
+Create a retention policy and add the archive tag.
+
+Example:
+
+```
+Archive after 2 years
+```
+
+---
+
+### 4. Assign Policy to User
+
+Exchange Admin Center:
+
+```
+Recipients→ Mailboxes→ Select User→ Mailbox→ Retention Policy
+```
+
+Select the policy you created.
+
+---
+
+### 5. Run Managed Folder Assistant (Optional)
+
+To speed up processing:
+
+```
+Connect-ExchangeOnlineStart-ManagedFolderAssistant -Identity user@domain.com
+```
+
+This can start moving emails sooner instead of waiting for Microsoft's background processing.
