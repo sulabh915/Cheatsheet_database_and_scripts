@@ -98,3 +98,12 @@ Then return to:
 - Microsoft Purview Import
 
 and you should see the option to create a PST Import Job.
+
+
+##### Increase the storage of one drive :
+- login to microsoft 365 admin 
+- go to the sharepoint -> settings
+- click on onedrive (storage limit) increase to 1024 tp
+- now go the active user in admin center
+- now click on that particular user go the tap called onedrive
+- then increase the storage limit.
