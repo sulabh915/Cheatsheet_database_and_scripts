@@ -1,4 +1,9 @@
 
+
+##### Licensing
+![[WhatsApp Image 2026-06-03 at 12.44.20 PM.jpeg]]
+
+
 ##### Migration from Google workspace to MSO :
 
 - Add domain name (create subdomain for mail routing with parent domain)
@@ -27,7 +32,7 @@ PSA: Google blocks service account key creation by default to enable it if you'r
 ```
 
 
-##### Import pst and merge ot other account:
+##### Import pst and merge to other account:
 
 ```
 To create import jobs, you must be assigned the Mailbox Import Export role in Exchange Online.
