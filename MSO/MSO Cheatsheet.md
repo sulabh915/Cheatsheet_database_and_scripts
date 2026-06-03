@@ -25,3 +25,59 @@ PSA: Google blocks service account key creation by default to enable it if you'r
 2. Navigate to Organization Policies and search for "Disable service account key creation" 
 2.1 Click edit policy it won't be grayed out now. 2.2 Click the drop down "Not enforced" 2.3 Click "Off" 2.4 Click "Set POLICY"
 ```
+
+
+##### Import pst and merge ot other account:
+
+```
+To create import jobs, you must be assigned the Mailbox Import Export role in Exchange Online.
+```
+###### Fix
+
+Login to:
+
+- [Exchange Admin Center](https://admin.exchange.microsoft.com?utm_source=chatgpt.com)
+
+Then:
+
+1. Go to:
+    ```
+    Roles → Admin roles
+    ```
+2. Open:
+    ```
+    Organization Management
+    ```
+3. Click:
+    ```
+    Permissions
+    ```
+
+4. Add:
+    ```
+    Mailbox Import Export
+    ```
+5. Save.
+
+Alternatively create a new Role Group and assign:
+
+```
+Mailbox Import Export
+```
+
+to your admin account.
+### Important
+
+After assigning the role, Microsoft states it can take:
+
+```
+Up to 24 hours
+```
+
+for the permission to become active.
+
+Then return to:
+
+- Microsoft Purview Import
+
+and you should see the option to create a PST Import Job.
