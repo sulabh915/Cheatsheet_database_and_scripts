@@ -16,7 +16,7 @@
 |Approx. Price (India)|₹6,899/year|₹8,199/year|₹145–₹1,880/user/month*|₹10,999 one-time|~₹27,999 one-time|~₹47,999 one-time|
 
 
-##### Migration from Google workspace to MSO :
+## Migration from Google workspace to MSO :
 
 - Add domain name (create subdomain for mail routing with parent domain)
 - select user alias domain
