@@ -109,7 +109,7 @@ and you should see the option to create a PST Import Job.
 - now click on that particular user go the tap called onedrive
 - then increase the storage limit.
 
-#### Enable archive 
+## Enable archive 
 ##### Step 1: Verify License
 
 The user must have a license that supports Online Archiving, such as:
