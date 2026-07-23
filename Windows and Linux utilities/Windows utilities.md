@@ -1,4 +1,4 @@
-
+ 
 
 Sync your copy and paste :
 ```bash
@@ -200,6 +200,27 @@ Powertoys
 
 
 
+17 RUN Tools Windows Commands:
+```bash
+resmon       : Resource monitor
+explorer     : Open file explorer
+cleanmgr     : disk clean up
+winver       : windows version os
+msconfig     : system configration
+msinfo32     : System information
+main.cpl     : mouse properties
+mstsc        : open remote desktop connection
+taskmgr      : open task manager
+rstrui.exer  : system restore option
+gpedit.msc   : open local group policy manager
+regedit      : registry editor
+magnify      : open magnify
+powercfg.cpl : open poweroption
+ncpa.cpl     : open networking setting
+mrt          : malicious software removal
+appwiz.cpl   : program and feature
+
+```
 
 
 
