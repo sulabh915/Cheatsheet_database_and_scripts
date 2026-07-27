@@ -35,6 +35,34 @@
 - add target delivery email 
 - add licenses to user accounts and add mx record for domain
 
+### Migration 
+
+- Properly add domain and verify to microsoft admin 365 login
+
+##### Steps in google worksplace.
+- Go to the cloud.google.com -> console -> Create (New project) -> give project name and other details as it is .
+- Search for service account then go to service account -> create service account -> role=owner -> role=Service Account Admin -> select role = create service account
+- when service account created click on action below three dots -> manage keys -> create json key
+- Solving AN organization policy thats blocks service account key creation has been enforced on your organization .
+			- Go to IAM->Organization policies.-> add filter called "disable service account creation" -> click on disable service account key creation 
+				- Fixing "You don't have permission to change the settings"
+						- go the project left side of search above then select primary domain 
+						- Add principals -> role = Owner -> search organization admin -> billing account creator , assign project creator -> Create service Accounts.
+				- Go to Organization policies -> search disable service account key creation -> manage policy -> Enforcement (Off )
+- search for service accout action below three dots -> manage keys -> create json key (wait  some times if it is still blocks try again after some times)\
+- search for api library -> search for gmail -> gmail api enable  -> enable calender api  -> enable google people api.
+
+##### Steps in Microsoft worksplace.
+- Go to exchange -> Migration -> add migration batch 
+- give migration batch name , migration path (Migration to exchange online)
+- Migration type (google workspace (Gmail)migration)
+- Prerequisites for google workspace migration -> automate the configuration of your google workspace for migration -> select automate -> copy and paste the clientid and scope to google workspace
+- set migration endpoint -> new migration endpoint 
+- Add admin email id import json key
+- Add csv file of emails to be migrated
+- 
+
+
 
 ```bash
 PSA: Google blocks service account key creation by default to enable it if you're a new google workspace admin do this: 
@@ -271,3 +299,5 @@ Connect-ExchangeOnlineStart-ManagedFolderAssistant -Identity user@domain.com
 ```
 
 This can start moving emails sooner instead of waiting for Microsoft's background processing.
+
+
