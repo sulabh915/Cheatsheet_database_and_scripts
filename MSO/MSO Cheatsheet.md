@@ -39,28 +39,84 @@
 
 - Properly add domain and verify to microsoft admin 365 login
 
-##### Steps in google worksplace.
-- Go to the cloud.google.com -> console -> Create (New project) -> give project name and other details as it is .
-- Search for service account then go to service account -> create service account -> role=owner -> role=Service Account Admin -> select role = create service account
-- when service account created click on action below three dots -> manage keys -> create json key
-- Solving AN organization policy thats blocks service account key creation has been enforced on your organization .
-			- Go to IAM->Organization policies.-> add filter called "disable service account creation" -> click on disable service account key creation 
-				- Fixing "You don't have permission to change the settings"
-						- go the project left side of search above then select primary domain 
-						- Add principals -> role = Owner -> search organization admin -> billing account creator , assign project creator -> Create service Accounts.
-				- Go to Organization policies -> search disable service account key creation -> manage policy -> Enforcement (Off )
-- search for service accout action below three dots -> manage keys -> create json key (wait  some times if it is still blocks try again after some times)\
-- search for api library -> search for gmail -> gmail api enable  -> enable calender api  -> enable google people api.
+# Google Workspace to Microsoft 365 Migration Guide
 
-##### Steps in Microsoft worksplace.
-- Go to exchange -> Migration -> add migration batch 
-- give migration batch name , migration path (Migration to exchange online)
-- Migration type (google workspace (Gmail)migration)
-- Prerequisites for google workspace migration -> automate the configuration of your google workspace for migration -> select automate -> copy and paste the clientid and scope to google workspace
-- set migration endpoint -> new migration endpoint 
-- Add admin email id import json key
-- Add csv file of emails to be migrated
-- 
+A step-by-step technical cheat sheet for migrating users, emails, calendars, and contacts from Google Workspace to Microsoft 365 Exchange Online using automated service accounts.
+
+---
+
+## 🛠️ Phase 1: Google Cloud Console Configuration
+
+### 1. Project and Service Account Setup
+1. Log in to the [Google Cloud Console](https://google.com).
+2. Click the project dropdown (top left) and select **New Project**.
+3. Enter your **Project Name** and click **Create**.
+4. In the top search bar, search for and select **Service Accounts**.
+5. Click **Create Service Account** and assign these roles:
+   * `Owner`
+   * `Service Account Admin`
+6. Click **Done** to finalize the creation.
+
+### 2. Bypass Organization Policy Blocks (If Keys Are Restricted)
+If you see the error: *"An organization policy that blocks service account key creation has been enforced..."*
+
+#### Fix 1: Missing Permissions ("You don't have permission to change the settings")
+1. Click the project dropdown at the top left and select your **Primary Domain/Organization** level (instead of the project level).
+2. Go to **IAM & Admin** > **IAM**.
+3. Click Grant access -> **Add Principals** and add your admin email.
+4. Assign the following roles to yourself:
+   * `Organization Policy Administrator` (Crucial for editing policies)
+   * `Owner`
+   * `Billing Account Creator`
+   * `Project Creator`
+
+#### Fix 2: Disable the Key Restrictions
+1. Switch back to your migration project or organization view.
+2. Go to **IAM & Admin** > **Organization Policies**.
+3. Search for the filter/policy: **"Disable service account key creation"**.
+4. Click on the policy and select **Manage Policy** or **Edit Policy**.
+5. Under **Enforcement**, select **Off** (or set to **Not Enforced**).
+6. Click **Set Policy** / **Save**.
+
+### 3. Generate the JSON Credentials Key
+1. Go back to **Service Accounts** within your project.
+2. Locate your newly created service account.
+3. Under the **Actions** column (three vertical dots), click **Manage Keys**.
+4. Click **Add Key** > **Create New Key**.
+5. Select **JSON** format and click **Create**. 
+6. *Note: The JSON file will download automatically. Keep this file secure; you will need it for Microsoft 365.*
+7. *Tip: If it still blocks you, wait 2–5 minutes for the organization policy change to propagate globally, then retry.*
+
+### 4. Enable Required Google APIs
+Search for each of the following APIs in the top Cloud Console search bar, open them, and click **Enable**:
+* 📧 **Gmail API**
+* 📅 **Google Calendar API**
+* 👥 **Google People API** (for Contacts)
+
+---
+
+## Ⓜ️ Phase 2: Microsoft 365 Admin Center Configuration
+
+### 1. Step up the Automated Migration Batch
+1. Log in to the [Exchange Admin Center (EAC)](https://microsoft.com).
+2. In the left navigation menu, go to **Migration** > **Add migration batch**.
+3. Enter a unique **Migration Batch Name** and choose **Migration to Exchange Online** as the path.
+4. Select **Google Workspace (Gmail) migration** as the migration type.
+
+### 2. Automate Prerequisites and Link Tenant
+1. Under **Prerequisites for Google Workspace migration**, choose **Automate the configuration of your Google Workspace for migration**.
+2. Click **Automate**.
+3. The wizard will output a unique **ClientId** and a list of API **Scopes**. 
+4. Copy these values. Go to your Google Workspace Admin Console (`admin.google.com`) > **Security** > **Access and data control** > **API controls** > **Manage Domain Wide Delegation**.
+5. Add a new client, paste the **ClientId**(service account you just created), and paste the **Scopes** to authorize Microsoft 365 to access your Google data.
+
+### 3. Endpoint and User Import
+1. Return to the Microsoft 365 migration wizard and select **New Migration Endpoint**.
+2. Provide your primary **Google Workspace Admin Email ID**.
+3. Upload the **JSON key file** you downloaded from Google Cloud in Phase 1.
+4. Upload your prepared **CSV file** containing the list of target email addresses mapping the Google source mailboxes to the Microsoft destination mailboxes.
+5. Choose your target delivery options, save, and **Start** the migration batch.
+
 
 
 
