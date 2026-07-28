@@ -128,6 +128,36 @@ PSA: Google blocks service account key creation by default to enable it if you'r
 ```
 
 
+#### MSO To Google Workspace Migration
+
+Phase 1: Office 365 / Exchange Prep
+
+- **Admin Account**: Ensure you have a global admin account for your Microsoft tenant.
+- **Impersonation Rights**: Assign the `ApplicationImpersonation` role to your Microsoft admin account via the Exchange Admin Center.
+- **User List**: Create a CSV file mapping old emails to new emails (Format: `SourceEmail,TargetEmail`). 
+
+Phase 2: Google Workspace Prep
+
+- **Admin Access**: Log into your Google Admin Console.
+- **Create Users**: Ensure all target user accounts are active and have Google Workspace licenses assigned.
+- **Enable Migration**: Search for **Data Migration** in the Admin Console search bar. 
+
+Phase 3: Configure the Bulk Connection
+
+1. **Select Source**: Click **Set Up Data Migration** and choose **Microsoft Office 365** (or Exchange Server) as your migration source.
+2. **Choose Connection**: Select **Auto-select (Recommended)** for the connection protocol.
+3. **Authorize**: Click **Authorize** and sign into your Microsoft Global Admin account to link the systems.
+4. **Set Filters**: Choose your date range limits and specify whether to import deleted/junk folders. 
+
+Phase 4: Upload and Execute Bulk Migration
+
+- **Bulk Upload**: Click **Add Users**, then select **Upload CSV file**.
+- **Select File**: Attach the CSV mapping file you created in Phase 1.
+- **Validate**: Review the uploaded list to ensure all source and target emails match perfectly.
+- **Start Migration**: Click **Start** to begin migrating all accounts simultaneously.
+- **Monitor Live**: Watch the progress bar, item count, and error logs directly from the Google Admin dashboard
+
+
 ##### Import pst and merge to other account:
 
 ```
