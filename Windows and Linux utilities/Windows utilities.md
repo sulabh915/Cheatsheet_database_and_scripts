@@ -237,7 +237,43 @@ Solving all WIFI related problems:
 8.after restart the windows
 9.go to system configuration -> services -> disable all third party services(restart the system).
 10.go to device driver -> view -> show hidden devices -> Network adaptor -> Right click on any device driver and click on hardware changes.
-11. 
+
+#wifi can't connect
+11.go network connection -> go to wifi properties -> go to configure -> Advance -> check roaming Aggressiveness to medium-low or other.
+12
+
+
+Can see Wi-Fi?
+        │
+        ├── No → Check AP Power → Cable → PoE → SSID
+        │
+        ▼
+Can Connect?
+        │
+        ├── No → Verify Password → Forget Network → Retry
+        │
+        ▼
+Got IP Address?
+        │
+        ├── No → DHCP → Sophos → VLAN
+        │
+        ▼
+Can Ping Gateway (192.168.8.1)?
+        │
+        ├── No → AP/Switch/WLAN Problem
+        │
+        ▼
+Can Ping 8.8.8.8?
+        │
+        ├── No → Internet/WAN/Sophos Problem
+        │
+        ▼
+Can Open google.com?
+        │
+        ├── No → DNS Problem
+        │
+        ▼
+Internet Working ✅
 ```
 
 
