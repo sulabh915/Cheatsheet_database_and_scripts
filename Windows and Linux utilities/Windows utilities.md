@@ -223,7 +223,22 @@ appwiz.cpl   : program and feature
 ```
 
 
+Solving all WIFI related problems:
+```bash
 
+#check if the wifi adaptor hardware issue is there, if this fail to ping then there is wifi issue
+1.ping 127.1.1.1
+2.check the wifi key or wifi key in keyboard.
+3.update the windows(check optional update)
+4.Wlan AutoConfig service check and restart
+5.try this windows command "netsh winsock reset"
+6.try this windows command "netsh int ip reset log.txt"
+7.try this windows command "ipconfig /flushdns"
+8.after restart the windows
+9.go to system configuration -> services -> disable all third party services(restart the system).
+10.go to device driver -> view -> show hidden devices -> Network adaptor -> Right click on any device driver and click on hardware changes.
+11. 
+```
 
 
 
