@@ -199,7 +199,25 @@ Powertoys
 ```
 
 
+Disk and network troubleshooting commands:
+```bash
+#software upgrade
+winget upgrade
+winget upgrade -all
 
+#network troubleshooting commands
+netsh winsock reset
+netsh int ip reset
+netsh int tcp reset
+ipconfig /flushdns
+
+#disk related or other
+chkdsk /r
+DISM /Online /Cleanup-Image /RestoreHealth
+winsat disk -drive c
+defrag /O C:
+
+```
 
 
 
