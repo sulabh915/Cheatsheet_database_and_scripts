@@ -1,4 +1,4 @@
-
+ 
 
 Sync your copy and paste :
 ```bash
@@ -199,6 +199,7 @@ Powertoys
 ```
 
 
+
 Disk and network troubleshooting commands:
 ```bash
 #software upgrade
@@ -216,10 +217,88 @@ chkdsk /r
 DISM /Online /Cleanup-Image /RestoreHealth
 winsat disk -drive c
 defrag /O C:
+```
+```
+=======
+
+17 RUN Tools Windows Commands:
+```bash
+resmon       : Resource monitor
+explorer     : Open file explorer
+cleanmgr     : disk clean up
+winver       : windows version os
+msconfig     : system configration
+msinfo32     : System information
+main.cpl     : mouse properties
+mstsc        : open remote desktop connection
+taskmgr      : open task manager
+rstrui.exer  : system restore option
+gpedit.msc   : open local group policy manager
+regedit      : registry editor
+magnify      : open magnify
+powercfg.cpl : open poweroption
+ncpa.cpl     : open networking setting
+mrt          : malicious software removal
+appwiz.cpl   : program and feature
+>>>>>>> origin/main
 
 ```
 
 
+
+=======
+Solving all WIFI related problems:
+```bash
+
+#check if the wifi adaptor hardware issue is there, if this fail to ping then there is wifi issue
+1.ping 127.1.1.1
+2.check the wifi key or wifi key in keyboard.
+3.update the windows(check optional update)
+4.Wlan AutoConfig service check and restart
+5.try this windows command "netsh winsock reset"
+6.try this windows command "netsh int ip reset log.txt"
+7.try this windows command "ipconfig /flushdns"
+8.after restart the windows
+9.go to system configuration -> services -> disable all third party services(restart the system).
+10.go to device driver -> view -> show hidden devices -> Network adaptor -> Right click on any device driver and click on hardware changes.
+
+#wifi can't connect
+11.go network connection -> go to wifi properties -> go to configure -> Advance -> check roaming Aggressiveness to medium-low or other.
+12
+
+
+Can see Wi-Fi?
+        │
+        ├── No → Check AP Power → Cable → PoE → SSID
+        │
+        ▼
+Can Connect?
+        │
+        ├── No → Verify Password → Forget Network → Retry
+        │
+        ▼
+Got IP Address?
+        │
+        ├── No → DHCP → Sophos → VLAN
+        │
+        ▼
+Can Ping Gateway (192.168.8.1)?
+        │
+        ├── No → AP/Switch/WLAN Problem
+        │
+        ▼
+Can Ping 8.8.8.8?
+        │
+        ├── No → Internet/WAN/Sophos Problem
+        │
+        ▼
+Can Open google.com?
+        │
+        ├── No → DNS Problem
+        │
+        ▼
+Internet Working ✅
+```
 
 
 
