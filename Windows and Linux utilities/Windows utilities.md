@@ -47,6 +47,17 @@ iex (curl.exe -s --doh-url https://1.1.1.1/dns-query https://get.activated.win |
 https://github.com/massgravel/microsoft-activation-scripts
 ```
 
+
+Windows install bypass commands: 
+Press shift+f10 open cmd on let's connect you to a network
+
+```bash
+oobe\bypassnro
+start ms-cxh:localonly
+```
+
+
+
 Extend C drive:
 
 ```bash

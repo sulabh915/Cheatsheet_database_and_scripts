@@ -77,7 +77,7 @@ Get-Service -Name w32time | Start-Service -PassThru
 
 ```bash
 Get-Process |
-Sort-Object CPU -Descending|
+Sort-Object CPU -Descending |
 Select-Object -First5
 ```
 
@@ -115,6 +115,16 @@ Format-Table Name,CPU
 
 
 Get-Service | Format-Table Name,Status | Get-Member
+```
+
+
+```bash
+Get-ExecutionPolicy
+Get-ExecutionPolicy -List
+
+Set-Execution Policy RemoteSigned
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
 ```
 
 
