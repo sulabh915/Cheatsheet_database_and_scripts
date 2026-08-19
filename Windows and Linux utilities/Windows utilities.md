@@ -52,6 +52,7 @@ Windows install bypass commands:
 Press shift+f10 open cmd on let's connect you to a network page 
 
 ```bash
+#use second one for fast.
 oobe\bypassnro
 start ms-cxh:localonly
 ```
