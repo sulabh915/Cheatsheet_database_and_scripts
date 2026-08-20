@@ -197,6 +197,11 @@ Go to the power option disable hibranate
 In powershell
   powercfg /hibernate off
  powercfg /availablesleepstates
+ 
+#shadowstorage copy 
+vssadmin list shadowstorage
+vssadmin resize shadowstorage /for=C: /on=C: /maxsize=2GB
+
 ```
 
 
