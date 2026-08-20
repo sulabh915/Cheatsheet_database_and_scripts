@@ -129,6 +129,8 @@ mountvol Z: /d
 How to remove Bitlocker :
 
 ```bash
+recovery mode
+
 Lauch cmd and type notepad  open file explorer look for recovery key file
 
 https://aka.ms./myrecoverykey
@@ -136,6 +138,9 @@ https://aka.ms./myrecoverykey
 manage-bde -status
 Disable-BitLocker -MountPoint "F:"
 manage-bde -off F:
+
+
+use easeus bootable pendrive
 ```
 
 
