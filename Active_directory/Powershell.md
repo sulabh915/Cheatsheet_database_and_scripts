@@ -119,6 +119,10 @@ Get-Service | Format-Table Name,Status | Get-Member
 
 
 ```bash
+Get-Service| Where-ObjectStatus-eq"Running"| Select-ObjectName,Status
+```
+
+```bash
 Get-ExecutionPolicy
 Get-ExecutionPolicy -List
 
