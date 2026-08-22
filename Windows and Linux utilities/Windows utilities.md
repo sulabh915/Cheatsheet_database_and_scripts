@@ -47,6 +47,25 @@ iex (curl.exe -s --doh-url https://1.1.1.1/dns-query https://get.activated.win |
 https://github.com/massgravel/microsoft-activation-scripts
 ```
 
+
+best utilities tools:
+```bash
+iwr -useb https://christitus.com/win | iex
+```
+
+
+
+Windows install bypass commands: 
+Press shift+f10 open cmd on let's connect you to a network page 
+
+```bash
+#use second one for fast.
+oobe\bypassnro
+start ms-cxh:localonly
+```
+
+
+
 Extend C drive:
 
 ```bash
@@ -117,6 +136,8 @@ mountvol Z: /d
 How to remove Bitlocker :
 
 ```bash
+recovery mode
+
 Lauch cmd and type notepad  open file explorer look for recovery key file
 
 https://aka.ms./myrecoverykey
@@ -124,6 +145,9 @@ https://aka.ms./myrecoverykey
 manage-bde -status
 Disable-BitLocker -MountPoint "F:"
 manage-bde -off F:
+
+
+use easeus bootable pendrive
 ```
 
 
@@ -180,6 +204,11 @@ Go to the power option disable hibranate
 In powershell
   powercfg /hibernate off
  powercfg /availablesleepstates
+ 
+#shadowstorage copy 
+vssadmin list shadowstorage
+vssadmin resize shadowstorage /for=C: /on=C: /maxsize=2GB
+
 ```
 
 
