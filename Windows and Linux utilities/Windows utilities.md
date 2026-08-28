@@ -248,7 +248,7 @@ winsat disk -drive c
 defrag /O C:
 ```
 ```
-=======
+
 
 17 RUN Tools Windows Commands:
 ```bash
