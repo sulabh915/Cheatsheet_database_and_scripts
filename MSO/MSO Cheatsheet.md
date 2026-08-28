@@ -387,3 +387,38 @@ Connect-ExchangeOnlineStart-ManagedFolderAssistant -Identity user@domain.com
 This can start moving emails sooner instead of waiting for Microsoft's background processing.
 
 
+
+### Disable MFA 
+
+**Step 1: Turn off Per-User MFA (Legacy Settings)**This step removes the old, traditional style of forcing MFA on a single user.
+
+1. **Log in**: Go to the Microsoft 365 Admin Center using your administrator credentials.
+2. **Navigate to Users**: Look at the left-hand navigation menu. Click on **Users**, then select **Active users**.
+3. **Open MFA Settings**: Look at the top horizontal menu bar. Click the **Multi-factor authentication** button. _(Note: If you do not see it, click the three dots `...` icon to find it hidden in the dropdown)._
+4. **Locate the User**: A new browser tab will open displaying the legacy MFA service page. Scroll or use the search bar to find your specific user. Check the box next to their name.
+5. **Disable MFA**: Look at the quick steps panel on the right side of the screen. Click **Disable**.
+6. **Confirm**: A confirmation pop-up will appear. Click **Yes** to save the changes
+
+**Step 2: Exclude the User from Conditional Access Policies**If your company uses Entra ID Premium licenses, MFA is managed via global IT rules called Conditional Access. You must create an exception for this specific user.
+
+1. **Log in**: Open the Microsoft Entra Admin Center.
+2. **Find Policies**: In the left sidebar, navigate to **Protection** > **Conditional Access** > **Policies**.
+3. **Identify MFA Rules**: Look at the list of active policies. Identify any policy that is marked as **On** and targets MFA (often named "Require MFA" or "Block Legacy Auth").
+4. **Edit the Policy**: Click directly on the name of that policy. Under the **Assignments** section, click on **Users**.
+5. **Add Exclusion**: You will see an "Include" tab and an "Exclude" tab. Switch to the **Exclude** tab. Check the box for **Users and groups**. Search for your specific user's name, select them, and click **Select**.
+6. **Save Changes**: Scroll to the very bottom of the screen and click **Save**
+
+**Step 3: Check "Security Defaults" (Crucial Overrule)**If Microsoft's baseline security setting called "Security Defaults" is turned on, it overrides everything else. **It forces MFA on everyone, and you cannot exempt a single person.**
+
+1. **Navigate to Properties**: In the Entra Admin Center, go to **Identity** > **Overview** > **Properties**.
+2. **Check Status**: Scroll to the bottom of the page and click **Manage security defaults**.
+3. **Evaluate Your Options**:  
+    ◦ **If it says "Enabled"**: You cannot disable MFA for just one person. To bypass MFA for this user, you would have to turn Security Defaults off for the _entire company_ (which makes your organization highly vulnerable to hacking).  
+    ◦ **The Solution**: If you must exempt this user, you should disable Security Defaults here, buy a premium license, and use **Step 2 (Conditional Access)** instead to safely manage exclusions.
+
+**Step 4: Clear Existing MFA Prompts (Reset the State)**If the user's phone or browser is stuck in an error loop asking for MFA codes, you must clear out their active login tokens.
+
+1. **Find the Profile**: In the Entra Admin Center, go to **Identity** > **Users** > **All Users**.
+2. **Select User**: Click on the specific user's name to open their profile details.
+3. **Go to Authentication**: On the left-side sub-menu, click on **Authentication methods**.
+4. **Revoke Sessions**: Look at the top action bar and click **Revoke sessions**. This instantly logs the user out of all devices (Outlook, Teams, phones). When they log back in, the system will check the new settings and let them in using only their password.
