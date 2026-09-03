@@ -332,5 +332,22 @@ Internet Working ✅
 
 
 
+#Fix automatic restart
+```bash
+Verify RAM & Disk Usage
+
+Turn off fast startup from power option
+
+Disable Automatic restart by going in system properties
+
+run cmd : DISM command
+run cmd : sfc /scannow
+
+check windows update delete such windows update
+
+```
+
+
+
 
 
