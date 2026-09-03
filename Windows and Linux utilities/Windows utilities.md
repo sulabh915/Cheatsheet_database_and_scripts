@@ -332,7 +332,7 @@ Internet Working ✅
 
 
 
-#Fix automatic restart
+Fix automatic restart
 ```bash
 Verify RAM & Disk Usage
 
