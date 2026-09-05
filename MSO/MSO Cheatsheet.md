@@ -421,4 +421,4 @@ This can start moving emails sooner instead of waiting for Microsoft's backgroun
 1. **Find the Profile**: In the Entra Admin Center, go to **Identity** > **Users** > **All Users**.
 2. **Select User**: Click on the specific user's name to open their profile details.
 3. **Go to Authentication**: On the left-side sub-menu, click on **Authentication methods**.
-4. **Revoke Sessions**: Look at the top action bar and click **Revoke sessions**. This instantly logs the user out of all devices (Outlook, Teams, phones). When they log back in, the system will check the new settings and let them in using only their password.
+	1. **Revoke Sessions**: Look at the top action bar and click **Revoke sessions**. This instantly logs the user out of all devices (Outlook, Teams, phones). When they log back in, the system will check the new settings and let them in using only their password.
