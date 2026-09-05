@@ -399,7 +399,7 @@ This can start moving emails sooner instead of waiting for Microsoft's backgroun
 5. **Disable MFA**: Look at the quick steps panel on the right side of the screen. Click **Disable**.
 6. **Confirm**: A confirmation pop-up will appear. Click **Yes** to save the changes
 
-**Step 2: Exclude the User from Conditional Access Policies**If your company uses Entra ID Premium licenses, MFA is managed via global IT rules called Conditional Access. You must create an exception for this specific user.
+**Step 2: Exclude the User from Conditional Access Policies**  **disable the all policy** ,If your company uses Entra ID Premium licenses, MFA is managed via global IT rules called Conditional Access. You must create an exception for this specific user.
 
 1. **Log in**: Open the Microsoft Entra Admin Center.
 2. **Find Policies**: In the left sidebar, navigate to **Protection** > **Conditional Access** > **Policies**.
