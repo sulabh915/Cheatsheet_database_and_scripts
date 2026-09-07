@@ -428,3 +428,6 @@ Step 5:
 - Go to Registration campaign then snooz the authentication method if you want
 - Go to Authentication method section Add the user and remove authentication authenticator
 - Go back in Authentication method settings -> System preferred multifactor authentication -> State -> Disabled -> select the reason for disable
+
+
+If Everything is works properly when you login to you will see skip option in mfa registration page.
