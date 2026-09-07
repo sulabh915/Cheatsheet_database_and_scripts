@@ -422,3 +422,9 @@ This can start moving emails sooner instead of waiting for Microsoft's backgroun
 2. **Select User**: Click on the specific user's name to open their profile details.
 3. **Go to Authentication**: On the left-side sub-menu, click on **Authentication methods**.
 	1. **Revoke Sessions**: Look at the top action bar and click **Revoke sessions**. This instantly logs the user out of all devices (Outlook, Teams, phones). When they log back in, the system will check the new settings and let them in using only their password.
+
+Step 5: 
+- Go to Authentication method and Policies you can manage different authentication method
+- Go to Registration campaign then snooz the authentication method if you want
+- Go to Authentication method section Add the user and remove authentication authenticator
+- Go back in Authentication method settings -> System preferred multifactor authentication -> State -> Disabled -> select the reason for disable
