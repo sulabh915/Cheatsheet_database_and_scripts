@@ -1,4 +1,4 @@
-
+```bash
 ### Creating Site-to-Site VPN :
 
 
@@ -13,3 +13,4 @@
 - Gateway type : Respond only
 - Under Encryption : Profile -> DefaultHeadOffice -> Authentication type -> Preshared key (Enter your key , this same key should define in same branchoffice).
 - On same page Under Gateway settings : Local gateway -> Listening interface -> select WAN port IP ->  , Remote gateway -> Gateway address -> branchoffice static ip
+```
