@@ -13,4 +13,7 @@
 - Gateway type : Respond only
 - Under Encryption : Profile -> DefaultHeadOffice -> Authentication type -> Preshared key (Enter your key , this same key should define in same branchoffice).
 - On same page Under Gateway settings : Local gateway -> Listening interface -> select WAN port IP ->  , Remote gateway -> Gateway address -> branchoffice static ip
+- In local subnet -> Add new item -> Enter the details of (Headoffice subnet) type:network ip address details
+- In remote subnet -> Add new item -> enter the details of (Branchoffice subnet) type:network ip address details
+- 
 ```
