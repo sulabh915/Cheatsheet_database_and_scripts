@@ -433,7 +433,7 @@ Step 5:
 If Everything is works properly when you login to you will see skip option in mfa registration page.
 
 
-###MFA user creation 3 portal
+### MFA user creation 3 portal
 
 | Portal | Who Uses It | What They Manage |
 | :--- | :--- | :--- |
