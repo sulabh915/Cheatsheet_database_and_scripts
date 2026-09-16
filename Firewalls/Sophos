@@ -42,6 +42,33 @@
 - In local subnet -> Add new item -> Enter the details of (Branchoffice subnet) type:network ip address details
 - In remote subnet -> Add new item -> enter the details of (Headoffice subnet) type:network ip address details
 - Now Save
+- Now go to rules and policies -> Firewall rules -> Add firewall rule -> New firewall rule
+- give rule name "Lan-VPN" , Rule position : TOP , Action : Accept , Rule group : None , Tick : log firewall traffic
+- Under Source -> Source zones : tick LAN , Source network and devicess : Any , During scheduled time : All the time
+- Under Destination and services -> Destination zones : tick VPN , Destination networks : Any , Services : Any
+- save the rule
+- Create another firwall rule , Rule name : "VPN-LAN" , Rule position : TOP , Rule group : None
+- Under Source -> Source zones : tick VPN , Source network and devicess : Any , During scheduled time : All the time
+- Under Destination and services , Destination zones : LAN , Destination networks : ANy , Services : any
+- on same page click on "create linked NAT rule" create NAT rule
+- Translated source (SNAT) -> MASQ then save 
+- then save the rule
+- Now main sophos page go the Administration -> Device access -> On Wan section enable Ping/Ping6 check -> IPsec check (if no available not problem)
+- VPN section check the same as LAN section
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
