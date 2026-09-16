@@ -51,6 +51,9 @@ https://github.com/massgravel/microsoft-activation-scripts
 best utilities tools:
 ```bash
 iwr -useb https://christitus.com/win | iex
+
+#debloat windows
+& ([scriptblock]::Create((irm "https://debloat.raphi.re/")))
 ```
 
 
