@@ -26,4 +26,26 @@
 - Under Source , Sources zone -> Tick VPN , Source networks and devices  -> any , During Scheduled time : All the time
 - Under Destination and services , Destination zones : LAN , Destination networks : ANy , Services : any
 - on same page click on "create linked NAT rule" create NAT rule
+- Translated source (SNAT) -> MASQ then save 
+- then save the rule
+- Now main sophos page go the Administration -> Device access -> On Wan section enable Ping/Ping6 check -> IPsec check
+- VPN section check the same as LAN section
+
+
+### Configuration on Branch office subnet
+- Sophos login
+- Go to site to site VPN section
+- Name : HO , IP version select IPv4 , uncheck create firewall rule
+- Gateway type : Initiate the connection
+- Under Encryption : Profile -> DefaultBranchOffice -> Authentication type -> Preshared key (Enter your key , this same key should define in same headoffice).
+- On same page Under Gateway settings : Local gateway -> Listening interface -> select WAN port IP ->  , Remote gateway -> Gateway address -> headoffice static ip
+- In local subnet -> Add new item -> Enter the details of (Branchoffice subnet) type:network ip address details
+- In remote subnet -> Add new item -> enter the details of (Headoffice subnet) type:network ip address details
+- Now Save
+
+
+
+
+
+
 
