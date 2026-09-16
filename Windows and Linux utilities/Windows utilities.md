@@ -50,6 +50,8 @@ https://github.com/massgravel/microsoft-activation-scripts
 
 best utilities tools:
 ```bash
+#Execute this in admin powershell
+
 iwr -useb https://christitus.com/win | iex
 
 #debloat windows
