@@ -1,0 +1,83 @@
+### Creating Site-to-Site VPN :
+
+
+#### Configuration on Head office sophos :
+- Login sophos firewall
+- Go to site-to-site vpn
+- Under IPsec
+- Click on Add
+- Give Office name (for example : BranchOffice)
+- Uncheck Create firewall rule
+- Connection type : site-to-site
+- Gateway type : Respond only
+- Under Encryption : Profile -> DefaultHeadOffice -> Authentication type -> Preshared key (Enter your key , this same key should define in same branchoffice).
+- On same page Under Gateway settings : Local gateway -> Listening interface -> select WAN port IP ->  , Remote gateway -> Gateway address -> branchoffice static ip
+- In local subnet -> Add new item -> Enter the details of (Headoffice subnet) type:network ip address details
+- In remote subnet -> Add new item -> enter the details of (Branchoffice subnet) type:network ip address details
+- Now Save
+- Now we have to create the rule 1. LAN to VPN (local subnet of headoffice communicate with branchoffice subnet) 2. VPN to LAN (Branchoffice subnet communicate with headoffice subnet)
+- Now go to rules and policies -> Firewall rules -> Add firewall rule -> New firewall rule
+- give rule name "Lan-VPN" , Rule position : TOP , Action : Accept , Rule group : None , Tick : log firewall traffic
+- Under Source -> Source zones : tick LAN , Source network and devicess : Any , During scheduled time : All the time
+- Under Destination and services -> Destination zones : tick VPN , Destination networks : Any , Services : Any
+- Now Save
+- Now add firewall rule -> new firewall rule (for VPN-to-LAN)
+- Rule Name : VPN-to-LAN , Rule position : Top , Rule Group : None , Action : Accept , Tick : log firewal traffic
+- Under Source , Sources zone -> Tick VPN , Source networks and devices  -> any , During Scheduled time : All the time
+- Under Destination and services , Destination zones : LAN , Destination networks : ANy , Services : any
+- on same page click on "create linked NAT rule" create NAT rule
+- Translated source (SNAT) -> MASQ then save 
+- then save the rule
+- Now main sophos page go the Administration -> Device access -> On Wan section enable Ping/Ping6 check -> IPsec check
+- VPN section check the same as LAN section
+
+
+### Configuration on Branch office subnet
+- Sophos login
+- Go to site to site VPN section
+- Name : HO , IP version select IPv4 , uncheck create firewall rule
+- Gateway type : Initiate the connection
+- Under Encryption : Profile -> DefaultBranchOffice -> Authentication type -> Preshared key (Enter your key , this same key should define in same headoffice).
+- On same page Under Gateway settings : Local gateway -> Listening interface -> select WAN port IP ->  , Remote gateway -> Gateway address -> headoffice static ip
+- In local subnet -> Add new item -> Enter the details of (Branchoffice subnet) type:network ip address details
+- In remote subnet -> Add new item -> enter the details of (Headoffice subnet) type:network ip address details
+- Now Save
+- Now go to rules and policies -> Firewall rules -> Add firewall rule -> New firewall rule
+- give rule name "Lan-VPN" , Rule position : TOP , Action : Accept , Rule group : None , Tick : log firewall traffic
+- Under Source -> Source zones : tick LAN , Source network and devicess : Any , During scheduled time : All the time
+- Under Destination and services -> Destination zones : tick VPN , Destination networks : Any , Services : Any
+- save the rule
+- Create another firwall rule , Rule name : "VPN-LAN" , Rule position : TOP , Rule group : None
+- Under Source -> Source zones : tick VPN , Source network and devicess : Any , During scheduled time : All the time
+- Under Destination and services , Destination zones : LAN , Destination networks : ANy , Services : any
+- on same page click on "create linked NAT rule" create NAT rule
+- Translated source (SNAT) -> MASQ then save 
+- then save the rule
+- Now main sophos page go the Administration -> Device access -> On Wan section enable Ping/Ping6 check -> IPsec check (if no available not problem)
+- VPN section check the same as LAN section
+
+
+Now go to headoffice sophos:
+- Now site-to-site vpn press on red icon below active , activate the connection
+- Now same go to branch office sophos site-to-site vpn press on red icon below active , activate the connection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

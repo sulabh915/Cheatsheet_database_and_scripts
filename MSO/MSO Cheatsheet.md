@@ -431,3 +431,12 @@ Step 5:
 
 
 If Everything is works properly when you login to you will see skip option in mfa registration page.
+
+
+### MFA user creation 3 portal
+
+| Portal | Who Uses It | What They Manage |
+| :--- | :--- | :--- |
+| Entra | Identify Admins | Identify, MFA, CA, Groups, Roles |
+| M365 Admin Center | Microsoft 365 Admins | Mailbox, Teams, OneDrive, Licenses |
+| Intune | Device Admins | Devices, Apps, Compliance, MDM/MAM |
