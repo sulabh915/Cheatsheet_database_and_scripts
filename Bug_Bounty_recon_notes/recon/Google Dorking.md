@@ -128,7 +128,7 @@ intitle:"index of" "parent directory" inurl:ftp filetype:log
 
 
 
-
+https://github.com/chr3st5an/Google-Dorking#advanced-searching
 https://pentest-tools.com/information-gathering/google-hacking
 https://www.exploit-db.com/google-hacking-database
 https://taksec.github.io/google-dorks-bug-bounty/
