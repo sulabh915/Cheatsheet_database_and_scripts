@@ -385,6 +385,11 @@ python3 favicon-hashtrick.py -u "https://www.example.com/../favicon.ico" -k <sho
 http.favicon.hash:<hash>
 ```
 
+```bash
+wget https://example.com/favicon.ico -O favicon.ico python3 -c "import mmh3;import requests;print(mmh3.hash(requests.get('https://example.com/favicon.ico').content))" shodan search http.favicon.hash:123456789 censys search query="http.response.body_hash:123456789" builtwith https://subdomain.example.com
+```
+
+
 using Findomaion:
 ```bash
 findomain -t target.com | tee findomain.txt
