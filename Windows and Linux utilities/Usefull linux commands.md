@@ -1,5 +1,31 @@
-must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
 
+
+usefull website to follow :
+This website will explain about each commands parameters 
+https://explainshell.com/
+
+get clean help of each commands
+https://tldr.sh/
+
+
+basic linux command :
+```bash
+date
+time
+free
+cd folder-path (.,..,/path-name)
+pwd
+```
+
+cd shortcuts:
+```bash
+cd            Changes the working directory to your home directory .
+cd -          Changes the working directory to the previous working directory
+
+cd ~user_name Changes the working directory to the home directory of user_name . For example, cd ~bob will change the direc tory to the home directory of user bob
+```
+
+must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
 
 awk : mostly used tool for text processing
 ```bash
