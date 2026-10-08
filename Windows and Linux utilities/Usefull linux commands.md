@@ -22,8 +22,22 @@ cd shortcuts:
 cd            Changes the working directory to your home directory .
 cd -          Changes the working directory to the previous working directory
 
-cd ~user_name Changes the working directory to the home directory of user_name . For example, cd ~bob will change the direc tory to the home directory of user bob
+cd ~user_name Changes the working directory to the home directory of user_name . For example, cd ~ will change the directory to the home directory of user bob
 ```
+
+
+ls commands: options 
+```bash
+-a  --all 
+List all files, even those with names that begin with a period, which are normally not listed (that is, hidden)
+
+-A --almost-all
+Like the -a option except it does not list . (current directory) and .. (parent directory)
+```
+
+
+
+
 
 must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
 
