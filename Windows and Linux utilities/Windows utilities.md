@@ -350,6 +350,14 @@ run cmd : sfc /scannow
 
 check windows update delete such windows update
 
+Go to Advance setting (system recovery page):
+Open the cmd enter these commands:
+- bootrec /fixmbr
+- bootsect /nt60 SYS
+- bootrec /fixboot
+- bootrec /rebuildbcd
+- exit
+
 ```
 
 
