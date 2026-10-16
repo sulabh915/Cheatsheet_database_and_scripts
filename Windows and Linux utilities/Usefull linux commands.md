@@ -1,4 +1,4 @@
-
+	
 
 usefull website to follow :
 This website will explain about each commands parameters 
@@ -24,6 +24,35 @@ cd -          Changes the working directory to the previous working directory
 
 cd ~user_name Changes the working directory to the home directory of user_name . For example, cd ~ will change the directory to the home directory of user bob
 ```
+
+
+> [!Remember] 
+> If the last character of the prompt is a hash mark (#) rather than a dollar sign, the terminal session has superuser privileges. This means either we are logged in as the root user or we selected a terminal emulator that provides superuser (administrative) privileges.
+
+
+
+
+> [!NOTE] Linux shortcuts
+> - **`Ctrl + C`**: **Kill / Stop** the currently running command or process immediately.
+> - **`Ctrl + Z`**: **Suspend / Pause** a process and push it to the background. _(Type `fg` to bring it back)_.
+> - **`Ctrl + D`**: **Log out** of the current terminal session or send an EOF (End of File) signal.
+> - **`Ctrl + L`**: **Clear the screen** completely (equivalent to typing the `clear` command).
+> - **`Ctrl + S`**: **Stop output** to the screen (freezes the visual display without stopping the background command).
+> - **`Ctrl + Q`**: **Resume output** after it was frozen by `Ctrl + S`
+> - **`Tab`**: **Auto-complete** command names, file paths, or directories.
+> - se **`Ctrl + A`** / **`Ctrl + E`** to move to the beginning or end of a line, **`Alt + B`** / **`Alt + F`** to move by a word, and **`Ctrl + U`**, **`Ctrl + K`**, or **`Ctrl + W`** to cut or delete text, which can then be pasted using **`Ctrl + Y`**
+> - Use **`Ctrl + R`** to open reverse history search and **`Ctrl + G`** to exit it. You can also repeat the last command using `!!` or reuse the last argument with `!$`
+> - **Quick Actions**: Access tools like the terminal via **`Ctrl + Alt + T`**, open the application menu with the **`Super`** key, lock the screen with **`Ctrl + Alt + L`**, or open the run console using **`Alt + F2`**
+
+
+
+
+
+
+
+
+
+
 
 
 ls commands: options 
