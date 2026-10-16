@@ -43,6 +43,7 @@ cd ~user_name Changes the working directory to the home directory of user_name .
 > - se **`Ctrl + A`** / **`Ctrl + E`** to move to the beginning or end of a line, **`Alt + B`** / **`Alt + F`** to move by a word, and **`Ctrl + U`**, **`Ctrl + K`**, or **`Ctrl + W`** to cut or delete text, which can then be pasted using **`Ctrl + Y`**
 > - Use **`Ctrl + R`** to open reverse history search and **`Ctrl + G`** to exit it. You can also repeat the last command using `!!` or reuse the last argument with `!$`
 > - **Quick Actions**: Access tools like the terminal via **`Ctrl + Alt + T`**, open the application menu with the **`Super`** key, lock the screen with **`Ctrl + Alt + L`**, or open the run console using **`Alt + F2`**
+> - Remember the copy-and-paste trick! If you are using a mouse, you can double-click a filename to copy it and middle-click to paste it into commands.
 
 
 
