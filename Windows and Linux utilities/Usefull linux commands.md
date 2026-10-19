@@ -48,14 +48,6 @@ cd ~user_name Changes the working directory to the home directory of user_name .
 
 
 
-
-
-
-
-
-
-
-
 ls commands: options 
 ```bash
 -a  --all 
@@ -81,6 +73,31 @@ file command: check the type
 ```bash
 file picture.jpg
 ```
+
+
+viewing files :
+```bash
+more /etc/passwd
+less /etc/passwd
+```
+
+
+> [less] shortcuts
+> 
+> page up or b                      Scroll back one page
+> page down or space          Scroll forward one page
+> Up arrow                            Scroll up one line
+> Down arrow                        Scroll down one line
+> G                                          Move to the end of the text file
+> 1G or g                               Move to the beginning of the text file
+> /characters                         Search forward to the next occurrence of characters
+> n                                         Search for the next occurrence of the previous search
+> h                                         Display help screen
+> q                                          Quit less
+
+
+
+
 
 
 
