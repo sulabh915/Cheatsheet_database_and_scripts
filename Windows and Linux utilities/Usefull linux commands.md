@@ -129,6 +129,18 @@ Directories on Linux Systems
 | `~/.config` and `~/.local` | These two directories are located in the home directory of each desktop user. They are used to store user-specific configuration and program state data for desktop applications.                                                                                                                                                                                                                                                         |
 
 
+| Wildcard Syntax | Direct Meaning | Plain English Analogy | Example Command | What the Command Does | Example Matching Files |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `*` | **Zero or more** characters | *"Match anything here"* | `rm *.txt` | Deletes every file ending in `.txt` | `a.txt`, `log_2026.db`, `file` |
+| `?` | **Exactly one** character | *"Fill in this single blank"* | `ls file?.txt` | Lists files with exactly one character after "file" | `file1.txt`, `fileA.txt`, `file_.txt` |
+| `[abc]` | **One** character from the set | *"Pick either a, b, or c"* | `cp [ab]* /tmp/` | Copies files starting with `a` or `b` to the tmp directory | `a.txt`, `b.txt`, `c.txt` |
+| `[a-z]` | **One** character in the range | *"Pick any letter from a to z"* | `ls [a-c]*` | Lists files starting with the letters `a`, `b`, or `c` | `a.txt`, `b.txt`, `m.txt` |
+| `[!abc]` or `[^abc]` | **One** character **not** in the set | *"Pick anything EXCEPT a, b, or c"* | `ls [!a-z]*` | Lists files that do not start with a lowercase letter | `d.txt`, `1.txt`, `z.txt` |
+| `[[:upper:]]` | Any **uppercase letter** | POSIX class for caps | `mv [[:upper:]]* Caps/` | Moves files starting with a capital letter to the Caps folder | `A`, `B`, `Z` |
+| `[[:lower:]]` | Any **lowercase letter** | POSIX class for small letters | `ls [[:lower:]]*` | Lists files starting with a small letter | `a`, `g`, `x` |
+| `[[:digit:]]` or `[0-9]` | Any **single digit** | POSIX class for numbers | `rm log_[0-9].txt` | Deletes single-digit log files from `log_0.txt` to `log_9.txt` | `0`, `3`, `9` |
+| `[[:alnum:]]` | Any **alphanumeric character** | POSIX class for letters/numbers | `ls [[:alnum:]]*` | Lists files starting with any letter or number (ignores symbols) | `a`, `A`, `7` |
+
 
 
 
