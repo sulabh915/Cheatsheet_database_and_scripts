@@ -174,8 +174,33 @@ mv item... directory
 
 #### rm:
 
+| **Command** | **Description** | **Best Used For** |
+| :--- | :--- | :--- |
+| `rm file1` | Deletes `file1` **silently** without any prompts. | Quick removal of known files. |
+| `rm -i file1` | Prompts the user for **confirmation** before deleting the file. | Preventing accidental data loss. |
+| `rm -r file1 dir1` | **Recursively deletes** `dir1` (and its entire contents) along with `file1`. | Removing directories and folders. |
+| `rm -rf file1 dir1` | Forces recursive deletion. If `file1` or `dir1` do not exist, `rm` **continues silently** without errors. | Nuclear cleanup of paths (use with extreme caution). |
 
+#### Hard link and Soft link :
 
+| **Feature** | **Hard Link** | **Soft Link (Symlink)** |
+| :--- | :--- | :--- |
+| **Command** | `ln target link_name` | `ln -s target link_name` |
+| **Target Pointer** | Points directly to the **Inode** (same data block) | Points to the **Filename** (shortcut) |
+| **If original is deleted** | **Data is safe** (accessible via the hard link) | **Link breaks** (becomes a dead/dangling link) |
+| **Inode Number** | Shares the **same** inode as the original | Has a **different**, unique inode number |
+| **File Size** | Same size as the original file | Tiny size (just stores the path text) |
+| **Directory Support** | **No** (cannot link to folders) | **Yes** (can link to folders) |
+| **Cross-Drive Support**| **No** (must stay on the same file system) | **Yes** (can span across different drives) |
+
+```bash
+[me@linuxbox playground]$ ls -l 
+total 8
+drwxrwxr-x 2 me me 4096 2025-01-15 15:17 dir1 
+lrwxrwxrwx 1 me me 4 2025-01-16 14:45 dir1-sym -> dir1 
+drwxrwxr-x 2 me me 4096 2025-01-15 15:17 dir2 
+lrwxrwxrwx 1 me me 3 2025-01-15 15:15 fun-sym -> fun
+```
 
 
 must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
