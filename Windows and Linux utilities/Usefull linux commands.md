@@ -128,6 +128,7 @@ Directories on Linux Systems
 | `/var/log`                 | `/var/log` contains logfiles, records of various system activity. These are important and should be monitored from time to time. The most useful ones are `/var/log/messages` and/or `/var/log/syslog` though these are not available on all systems. Note that for security reasons, some systems only allow the superuser to view logfiles.                                                                                             |
 | `~/.config` and `~/.local` | These two directories are located in the home directory of each desktop user. They are used to store user-specific configuration and program state data for desktop applications.                                                                                                                                                                                                                                                         |
 
+### Wildcard :
 
 | Wildcard Syntax | Direct Meaning | Plain English Analogy | Example Command | What the Command Does | Example Matching Files |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -140,6 +141,39 @@ Directories on Linux Systems
 | `[[:lower:]]` | Any **lowercase letter** | POSIX class for small letters | `ls [[:lower:]]*` | Lists files starting with a small letter | `a`, `g`, `x` |
 | `[[:digit:]]` or `[0-9]` | Any **single digit** | POSIX class for numbers | `rm log_[0-9].txt` | Deletes single-digit log files from `log_0.txt` to `log_9.txt` | `0`, `3`, `9` |
 | `[[:alnum:]]` | Any **alphanumeric character** | POSIX class for letters/numbers | `ls [[:alnum:]]*` | Lists files starting with any letter or number (ignores symbols) | `a`, `A`, `7` |
+
+
+### Directory operation:
+
+#### make directory:
+```bash
+mkdir dir1
+mkdir dir1 dir2 dir3
+```
+
+
+#### cp :
+```bah
+cp item1 item2
+```
+
+| **Short Option** | **Long Option** | **Description** | **Best Used For** | **Command Example** |
+| :--- | :--- | :--- | :--- | :--- |
+| **`-a`** | `--archive` | Copies files and directories along with all of their **attributes** (ownership, permissions, timestamps). | Making exact backups. | `cp -a /src /dest` |
+| **`-i`** | `--interactive` | **Prompts for confirmation** before overwriting an existing file. | Preventing accidental data loss. | `cp -i file.txt /dest` |
+| **`-r`** | `--recursive` | **Recursively copies directories** and their entire contents. Mandatory for folders. | Copying folders and subfolders. | `cp -r /src_dir /dest` |
+| **`-u`** | `--update` | Only copies files that **don't exist** or are **newer** than destination files. | Speeding up large file transfers. | `cp -u *.txt /dest` |
+| **`-v`** | `--verbose` | Displays **informative progress messages** as the copy is being performed. | Tracking real-time actions. | `cp -v file.txt /dest` |
+
+#### mv:
+The mv command performs both file moving and file renaming, depend ing on how it is used
+```bash
+mv item1 item2
+mv item... directory
+```
+
+#### rm:
+
 
 
 
