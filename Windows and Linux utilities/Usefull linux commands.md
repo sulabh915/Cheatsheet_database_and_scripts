@@ -21,8 +21,9 @@ cd shortcuts:
 ```bash
 cd            Changes the working directory to your home directory .
 cd -          Changes the working directory to the previous working directory
+cd ~user_name Changes the working directory to the home directory of user_name . For example, 
+cd ~ will change the directory to the home directory of user bob
 
-cd ~user_name Changes the working directory to the home directory of user_name . For example, cd ~ will change the directory to the home directory of user bob
 ```
 
 
@@ -172,6 +173,17 @@ mv item1 item2
 mv item... directory
 ```
 
+
+
+| Command | Result |
+| :--- | :--- |
+| **`mv file1 file2`** | Move `file1` to `file2`. If `file2` exists, it is deleted and `file1` is renamed `file2`. If `file2` does not exist, `file1` is simply renamed `file2`. In either case, `file1` ceases to exist. |
+| **`mv -i file1 file2`** | Same as the previous command, except that if `file2` exists, the user is prompted before it is deleted. |
+| **`mv file1 file2 dir1`** | Move `file1` and `file2` into directory `dir1`. The directory `dir1` must already exist. |
+| **`mv dir1 dir2`** | If directory `dir2` does not exist, rename directory `dir1` to `dir2`. <br><br>If directory `dir2` does exist, move directory `dir1` (and its contents) into directory `dir2`. |
+
+
+
 #### rm:
 
 | **Command** | **Description** | **Best Used For** |
@@ -201,6 +213,116 @@ lrwxrwxrwx 1 me me 4 2025-01-16 14:45 dir1-sym -> dir1
 drwxrwxr-x 2 me me 4096 2025-01-15 15:17 dir2 
 lrwxrwxrwx 1 me me 3 2025-01-15 15:15 fun-sym -> fun
 ```
+
+
+
+### type command:
+
+**The `type` command shows you exactly what kind of command you are running.** It lets you know if a command is part of the shell itself, a separate program on your computer, a shortcut, or a script function.
+
+### Example
+If you want to know what the `ls` command actually points to on your system, you run:
+
+```bash
+type ls
+```
+
+**Output:**
+```text
+ls is aliased to `ls --color=auto'
+```
+*(This output shows that `ls` isn't running directly; it is currently running as a shortcut/alias with color settings turned on).*
+
+
+
+
+
+**The `which` command locates the path of an executable file in your system.** It searches your system's `PATH` environment variable and shows you the exact folder location of the program that runs when you type its name.
+
+### Example
+If you want to know the exact folder where the `python3` program is installed, you run:
+
+```bash
+which python3
+```
+
+**Output:**
+```text
+/usr/bin/python3
+```
+*(This output shows that when you type `python3`, your system goes into the `/usr/bin/` folder to launch the program).*
+
+Here are the short definitions and examples for the `man` and `help` commands, which are used to get documentation in Linux.
+
+---
+
+### `man` (Manual)
+**The `man` command displays the full, comprehensive user manual for any external system command.** It opens an interactive page where you can read about every option, argument, and feature a tool supports.
+
+#### Example
+To view the complete official manual for the `mkdir` (make directory) command:
+
+```bash
+man mkdir
+```
+
+**Output:**
+*(Opens a scrollable reader page in your terminal)*
+```text
+MKDIR(1)                         User Commands                        MKDIR(1)
+
+NAME
+       mkdir - make directories
+
+SYNOPSIS
+       mkdir [OPTION]... DIRECTORY...
+
+DESCRIPTION
+       Create the DIRECTORY(ies), if they do not already exist.
+...
+```
+*(Press `q` to exit the manual reader).*
+
+---
+
+### `help` (Shell Help)
+**The `help` command displays a quick summary and usage guide for shell built-in commands.** Because built-in commands (like `cd`, `exit`, or `alias`) belong directly to the shell and do not have external manual files, you use `help` instead of `man`.
+
+#### Example
+To get a quick overview of how to use the built-in `cd` (change directory) command:
+
+```bash
+help cd
+```
+
+**Output:**
+```text
+cd: cd [-L|[-P [-e]] [-@]] [dir]
+    Change the shell working directory.
+    
+    Change the current directory to DIR.  The default DIR is the value of the
+    HOME shell variable.
+...
+```
+
+---
+
+### Key Difference
+* Use **`man`** for external programs (e.g., `man ls`, `man grep`, `man git`).
+* Use **`help`** for commands built directly into the terminal shell (e.g., `help cd`, `help pwd`, `help fg`). 
+* *Tip:* For external commands, you can also often type the command followed by `--help` (e.g., `mkdir --help`) for a quick summary.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
