@@ -229,6 +229,31 @@ lrwxrwxrwx 1 me me 3 2025-01-15 15:15 fun-sym -> fun
 | **`whatis`**  | Displays a very brief, single-line text description from the command's man page.   | `whatis <command>`  | `whatis cp`           | `cp (1) - copy files and directories`                |
 
 
+#### Alias :
+```bash
+alias shortcut_name="actual_command"
+
+# Create 'll' to list files in long format with hidden files
+alias ll="ls -la" 
+
+# Create 'update' to refresh package lists and upgrade software
+alias update="sudo apt update && sudo apt upgrade -y
+
+- For **Bash**, use `~/.bashrc` (or `~/.bash_aliases` if your system supports it).
+- For **Zsh** (common on macOS and newer Linux setups), use `~/.zshrc
+
+nano ~/.bashrc
+alias gs="git status"
+alias c="clear"
+source ~/.bashrc
+
+
+unalias shortcut_name
+
+Bypass an alias:
+\ls
+
+```
 
 
 
