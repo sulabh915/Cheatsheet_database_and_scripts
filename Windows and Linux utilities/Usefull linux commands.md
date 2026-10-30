@@ -257,9 +257,39 @@ Bypass an alias:
 
 
 
+#### Redirection Operators
 
+Redirecting Output (`>` and `>>`)
+```bash
+echo "Hello World" > output.txt  #replacing its contents.
+echo "Another line" >> output.txt #adding it to the end.
+command1 > logfile.txt; command2 >> logfile.txt; command3 >> logfile.txt
+{ command1; command2; command3; } > logfile.txt
+```
 
+Redirecting Errors (`2>`)
+```bash
+ls /root 2> error.log
+grep "secret" /etc/* 2> /dev/null
 
+```
+
+Redirecting Input (`<`):
+```bash
+wc -l < output.txt
+
+```
+
+Redirecting Standard Output and Standard Error to One File
+
+```bash
+ls -l /bin/usr > ls-output.txt 2>&1
+```
+
+Disposing of Unwanted Output
+```bash
+ls -l /bin/usr 2> /dev/null
+```
 
 
 must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
