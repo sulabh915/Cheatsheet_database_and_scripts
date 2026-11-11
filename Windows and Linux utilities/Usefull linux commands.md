@@ -321,6 +321,18 @@ grep "ERROR" app.log | wc -l
 ```
 
 
+#### head and tail:
+```bash
+head -n 5 ls-output.txt
+tail -n 5 ls-output.txt
+```
+
+#### tee—Read from Stdin and Output to Stdout and Files:
+```bash
+ls /usr/bin | tee ls.txt | grep zip
+```
+
+
 
 
 must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
