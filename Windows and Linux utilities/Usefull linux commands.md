@@ -292,6 +292,37 @@ ls -l /bin/usr 2> /dev/null
 ```
 
 
+#### cat command:
+```bash
+cat ls-output.txt
+cat movie.mpeg.0* > movie.mpeg
+
+cat > lazy_dog.txt #goes in interactive mode
+The quick brown fox jumps over the lazy dog.
+
+
+cat < lazy_dog.txt 
+The quick brown fox jumps over the lazy dog
+```
+
+#### Pipelines:
+```bash
+ls -l /usr/bin | less
+ls /bin /usr/bin | sort | less
+ls /bin /usr/bin | sort | uniq | less
+ls /bin /usr/bin | sort | uniq -d | less
+```
+
+#### wc:
+```bash
+wc -l /var/log/syslog
+grep "ERROR" app.log | wc -l
+grep "ERROR" app.log | wc -l
+```
+
+
+
+
 must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
 
 awk : mostly used tool for text processing
