@@ -367,7 +367,25 @@ ls -l `which cp`
 
 echo ″$USER $((2+2)) $(df -h)″
 echo ″this is a test″
+
+
+#Escaping characters
+echo "The balance for user $USER is : \$5.00"
+mv bad\&filename good_filenam
 ```
+
+
+
+
+
+| Escape sequence | Meaning |
+| :--- | :--- |
+| `\a` | Bell (an alert that causes the computer to beep). |
+| `\b` | Backspace. |
+| `\n` | Newline. On Unix-like systems, this produces a linefeed. |
+| `\r` | Carriage return. |
+| `\t` | Tab. |
+
 
 
 must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
