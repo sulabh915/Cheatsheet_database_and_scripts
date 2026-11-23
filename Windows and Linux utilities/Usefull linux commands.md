@@ -332,7 +332,7 @@ tail -n 5 ls-output.txt
 ls /usr/bin | tee ls.txt | grep zip
 ```
 
-#### echo command :
+#### echo command or usefull shell tricks:
 ```bash
 echo this is a test
 
@@ -343,6 +343,30 @@ echo D*
 echo *s
 echo [[:upper:]]*
 echo /usr/*/share
+
+#arithmetic express
+echo $((2+2))
+echo $(($((5**2)) * 3
+
+#list ranges
+echo Front-{A,B,C}-Back
+echo Number_{1..5}
+echo {01..15}
+echo {Z..A}
+echo a{A{1,2},B{3,4}}b
+mkdir {2007..2009}-{01..12}
+
+# Command substitution
+echo $(ls)
+ls -l $(which cp)
+file $(ls -d /usr/bin/* | grep zip)
+
+# using sign below tildes this will execute the commands
+ls -l `which cp` 
+
+
+echo ″$USER $((2+2)) $(df -h)″
+echo ″this is a test″
 ```
 
 
