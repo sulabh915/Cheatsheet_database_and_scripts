@@ -332,7 +332,18 @@ tail -n 5 ls-output.txt
 ls /usr/bin | tee ls.txt | grep zip
 ```
 
+#### echo command :
+```bash
+echo this is a test
 
+echo *  #this will display current files
+Desktop Documents ls-output.txt Music Pictures Public Templates Video
+
+echo D*
+echo *s
+echo [[:upper:]]*
+echo /usr/*/share
+```
 
 
 must used linux utilities for master grep,sed,tr,ed,awk ,uniq,sort and vi.
