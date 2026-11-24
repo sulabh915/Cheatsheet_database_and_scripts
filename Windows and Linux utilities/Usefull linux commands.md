@@ -43,9 +43,51 @@ cd ~ will change the directory to the home directory of user bob
 > - **`Tab`**: **Auto-complete** command names, file paths, or directories.
 > - se **`Ctrl + A`** / **`Ctrl + E`** to move to the beginning or end of a line, **`Alt + B`** / **`Alt + F`** to move by a word, and **`Ctrl + U`**, **`Ctrl + K`**, or **`Ctrl + W`** to cut or delete text, which can then be pasted using **`Ctrl + Y`**
 > - Use **`Ctrl + R`** to open reverse history search and **`Ctrl + G`** to exit it. You can also repeat the last command using `!!` or reuse the last argument with `!$`
+> - **`Ctrl-F`**  Move cursor forward one character; same as the right arrow key
+> - **`ctrl-B`**  Move cursor backward one character; same as the left arrow key
+> - **`alt-F`**   Move cursor forward one word
+> - **`alt-B`** Move cursor backward one word
+> - **`ctrl-L`** Clear the screen and move the cursor to the top-left corner . The clear command does the same thing
 > - **Quick Actions**: Access tools like the terminal via **`Ctrl + Alt + T`**, open the application menu with the **`Super`** key, lock the screen with **`Ctrl + Alt + L`**, or open the run console using **`Alt + F2`**
 > - Remember the copy-and-paste trick! If you are using a mouse, you can double-click a filename to copy it and middle-click to paste it into commands.
+> - Another way that the shell can help us is through completion, which occurs when we press tab while typing a command
+> - Try typing the following, but don’t press enter:
+> - [me@linuxbox ~]$ ls l Now press tab: 
+> - [me@linuxbox ~]$ ls ls-output.txt
+### Table 8-2: Text Editing Commands
+Modifying Text
 
+| Key | Action |
+| :--- | :--- |
+| `ctrl-D` | Delete the character at the cursor location. |
+| `ctrl-T` | Transpose (exchange) the character at the cursor location with the one preceding it. |
+| `alt-T` | Transpose the word at the cursor location with the one preceding it. |
+| `alt-L` | Convert the characters from the cursor location to the end of the word to lowercase. |
+| `alt-U` | Convert the characters from the cursor location to the end of the word to uppercase. |
+
+Cutting and Pasting (Killing and Yanking) Text
+
+| Key | Action |
+| :--- | :--- |
+| `ctrl-K` | Kill text from the cursor location to the end of line. |
+| `ctrl-U` | Kill text from the cursor location to the beginning of the line. |
+| `alt-D` | Kill text from the cursor location to the end of the current word. |
+| `alt-backspace` | Kill text from the cursor location to the beginning of the current word. If the cursor is at the beginning of a word, kill the previous word. |
+| `ctrl-Y` | Yank text from the kill-ring and insert it at the cursor location. |
+
+
+### History Commands
+
+| Key | Action |
+| :--- | :--- |
+| `ctrl-P` | Move to the previous history entry. This is the same action as the up arrow. |
+| `ctrl-N` | Move to the next history entry. This is the same action as the down arrow. |
+| `alt-<` | Move to the beginning (top) of the history list. |
+| `alt->` | Move to the end (bottom) of the history list, i.e., the current command line. |
+| `ctrl-R` | Reverse incremental search. This searches incrementally from the current command line up the history list. |
+| `alt-P` | Reverse search, nonincremental. With this key, type in the search string and press enter before the search is performed. |
+| `alt-N` | Forward search, nonincremental. |
+| `ctrl-O` | Execute the current item in the history list and advance to the next one. This is handy if we are trying to re-execute a sequence of commands in the history list. |
 
 
 
