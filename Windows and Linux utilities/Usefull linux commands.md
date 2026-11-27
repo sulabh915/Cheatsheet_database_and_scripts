@@ -420,13 +420,76 @@ mv bad\&filename good_filenam
 
 
 
-| Escape sequence | Meaning |
+| Escape sequence | Meaning                                                  |
+| :-------------- | :------------------------------------------------------- |
+| `\a`            | Bell (an alert that causes the computer to beep).        |
+| `\b`            | Backspace.                                               |
+| `\n`            | Newline. On Unix-like systems, this produces a linefeed. |
+| `\r`            | Carriage return.                                         |
+| `\t`            | Tab.                                                     |
+
+
+### Keyboard shortcut :
+Cursor Movement
+
+| Shortcut | Action |
 | :--- | :--- |
-| `\a` | Bell (an alert that causes the computer to beep). |
-| `\b` | Backspace. |
-| `\n` | Newline. On Unix-like systems, this produces a linefeed. |
-| `\r` | Carriage return. |
-| `\t` | Tab. |
+| `Ctrl-A` | Move cursor to the beginning of the line. |
+| `Ctrl-E` | Move cursor to the end of the line. |
+| `Ctrl-F` | Move cursor forward one character (same as the right arrow key). |
+| `Ctrl-B` | Move cursor backward one character (same as the left arrow key). |
+| `Alt-F` | Move cursor forward one word. |
+| `Alt-B` | Move cursor backward one word. |
+| `Ctrl-L` | Clear the screen and move the cursor to the top-left corner (same as the `clear` command). |
+
+
+### Modifying Text
+Text Editing Command
+
+| Shortcut | Action |
+| :--- | :--- |
+| `Ctrl-D` | Delete the character at the cursor location. |
+| `Ctrl-T` | Transpose (exchange) the character at the cursor location with the one preceding it. |
+| `Alt-T` | Transpose the word at the cursor location with the one preceding it. |
+| `Alt-L` | Convert the characters from the cursor location to the end of the word to lowercase. |
+| `Alt-U` | Convert the characters from the cursor location to the end of the word to uppercase. |
+
+#### Cutting and Pasting (Killing and Yanking) Text
+
+| Shortcut | Action |
+| :--- | :--- |
+| `Ctrl-K` | Kill text from the cursor location to the end of line. |
+| `Ctrl-U` | Kill text from the cursor location to the beginning of the line. |
+| `Alt-D` | Kill text from the cursor location to the end of the current word. |
+| `Alt-Backspace` | Kill text from the cursor location to the beginning of the current word. If the cursor is at the beginning of a word, kill the previous word. |
+| `Ctrl-Y` | Yank text from the kill-ring and insert it at the cursor location. |
+
+#### Using History
+```bash
+history | less
+history | grep /usr/bin
+
+#in history there is number use the number to repeate the command
+!88
+
+```
+
+
+History shortcut.
+
+| Key | Action |
+| :--- | :--- |
+| `Ctrl-P` | Move to the previous history entry. This is the same action as the up arrow. |
+| `Ctrl-N` | Move to the next history entry. This is the same action as the down arrow. |
+| `Alt-<` | Move to the beginning (top) of the history list. |
+| `Alt->` | Move to the end (bottom) of the history list, i.e., the current command line. |
+| `Ctrl-R` | Reverse incremental search. This searches incrementally from the current command line up the history list. |
+| `Alt-P` | Reverse search, nonincremental. With this key, type in the search string and press enter before the search is performed. |
+| `Alt-N` | Forward search, nonincremental. |
+| `Ctrl-O` | Execute the current item in the history list and advance to the next one. This is handy if we are trying to re-execute a sequence of commands in the history list. |
+
+
+
 
 
 
