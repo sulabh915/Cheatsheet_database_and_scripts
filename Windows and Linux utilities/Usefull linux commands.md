@@ -475,7 +475,7 @@ history | grep /usr/bin
 ```
 
 
-History shortcut.
+#### History shortcut.
 
 | Key | Action |
 | :--- | :--- |
